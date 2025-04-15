@@ -246,7 +246,7 @@ Source
 ### Command Syntax
 
 ```bash
-./Build/alce generate object=<SceneName>@<ObjectName>
+./Build/alce generate object=<SceneName>@<ObjectName>@{AttributeName-DataType+...}
 ./Build/alce g o=<SceneName>@<ObjectName>
 ```
 

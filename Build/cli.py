@@ -228,13 +228,25 @@ def handleArguments(argument_stack):
 
                 # Generate new GameObject (Project)
                 elif v.split("=")[0] == "object" or v.split("=")[0] == "o":
-                    if len(v.split("=")[-1].split("@")) != 2:
+
+                    object_args = len(v.split("=")[-1].split("@"))
+
+                    if object_args < 2 or object_args > 3:
                         error("Invalid use of [object] argument.")
                         sys.exit(1)
 
                     scene = v.split("=")[-1].split("@")[0]
-                    object = v.split("=")[-1].split("@")[-1]
-                    tasks.append(f"generate object {scene}@{object}")
+
+                    object = "";
+
+                    if len(v.split("=")[-1].split("@")) == 3:
+                        object = v.split("=")[-1].split("@")[-2]
+                        atts = v.split("=")[-1].split("@")[-1]
+                        tasks.append(f"generate object {scene}@{object}@{atts}")
+                    else:
+                        object = v.split("=")[-1].split("@")[-1]
+                        tasks.append(f"generate object {scene}@{object}")
+
                     tasks.remove("generate 0")
 
                 # Generate method implementation
@@ -566,7 +578,7 @@ def generateScene(name):
     prints(f"Generated -> Source/Project/Scenes/{name}/{name}.hpp\n", "green")
     prints(f"Generated -> Source/Project/Scenes/{name}/{name}.cpp\n", "green")
 
-def generateObject(scene, name):
+def generateObject(scene, name, atts = None):
 
     if not isDir(f"./../Source/Project/Scenes/{scene}"):
         error(f"There is no scene named \"{scene}\" in the project.")
@@ -593,7 +605,18 @@ def generateObject(scene, name):
     hpp.write("\t\tvoid Update();\n\n")
     hpp.write("\t\tvoid SetterManager(String name, String value);\n\n")
     hpp.write("\t\tString GetterManager(String name);\n\n")
-    hpp.write("\t};\n")
+
+    if not (atts is None):
+        hpp.write("\tprivate:\n\n")
+        att_list = atts.split("+")
+
+        for att in att_list:
+            if not (isDataTypeValid(att.split("-")[-1])):
+                error(f"Invalid data type [{att.splut("-")[-1]}]")
+                continue
+            hpp.write(f"\t\t{att.split("-")[-1]} {att.split("-")[0]};\n\n")
+
+    hpp.write("\t};\n\n")
     hpp.write(f"\ttypedef std::shared_ptr<{name}> {name}Ptr;\n")
     hpp.write("}")
     hpp.close()
@@ -615,9 +638,49 @@ def generateObject(scene, name):
     cpp.write(f"void {scene}Scene::{name}::Update()\n")
     cpp.write("{\n\t\n}\n\n")
     cpp.write(f"void {scene}Scene::{name}::SetterManager(String name, String value)\n")
-    cpp.write("{\n\t\n}\n\n")
+    cpp.write("{\n")
+
+    if not (atts is None):
+        att_list = atts.split("+")
+
+        for att in att_list:
+            cpp.write(f"\tif(name == \"{att.split("-")[0]}\")\n")
+            cpp.write("\t{\n")
+
+            type = att.split("-")[-1]
+
+            if type == "String":
+                cpp.write(f"\t\t{att.split("-")[0]} = value;\n")
+            elif type == "int":
+                cpp.write(f"\t\t{att.split("-")[0]} = value.ParseInt();\n")
+            elif type == "float":
+                cpp.write(f"\t\t{att.split("-")[0]} = value.ParseFloat();\n")
+            elif type == "long":
+                cpp.write(f"\t\t{att.split("-")[0]} = value.ParseLong();\n")
+            elif type == "double":
+                cpp.write(f"\t\t{att.split("-")[0]} = value.ParseDouble();\n")
+            elif type == "bool":
+                cpp.write(f"\t\t{att.split("-")[0]} = value.ParseBoolean();\n")
+            else:
+                cpp.write("\t\t\n")
+            
+            cpp.write("\t}\n")
+    else:
+        cpp.write("\t\n")
+
+    cpp.write("\n}\n\n")
+
     cpp.write(f"String {scene}Scene::{name}::GetterManager(String name)\n")
-    cpp.write("{\n\t\n\treturn \"undefined\";\n}\n\n")
+    cpp.write("{\n")
+
+    if not (atts is None):
+        att_list = atts.split("+")
+
+        for att in att_list:
+            cpp.write(f"\tif(name == \"{att.split("-")[0]}\") ")
+            cpp.write(f"return {att.split("-")[0]};\n")
+
+    cpp.write("\n\treturn \"undefined\";\n}\n\n")
     cpp.write("#pragma endregion")
     cpp.close()
 
@@ -819,6 +882,16 @@ def isProjectNameValid(name):
         return True
     else:
         return False
+    
+def isDataTypeValid(dataType):
+    validTypes = {
+        "bool", "char", "wchar_t", "short", "int", "long", "float", "double",
+        "signed char", "unsigned char", "signed short", "unsigned short",
+        "signed int", "unsigned int", "signed long", "unsigned long",
+        "long long", "unsigned long long", "String"
+    }
+
+    return dataType in validTypes
 
 #endregion
 
@@ -1150,9 +1223,15 @@ if __name__ == '__main__':
                 generateScene(scene_name)
 
             elif generation_type == "object":
-                scene_name = task.split(" ")[-1].split("@")[0]
-                object_name = task.split(" ")[-1].split("@")[1]
-                generateObject(scene_name, object_name)
+                if len(task.split(" ")[-1].split("@")) == 3:
+                    scene_name = task.split(" ")[-1].split("@")[0]
+                    object_name = task.split(" ")[-1].split("@")[1]
+                    atts = task.split(" ")[-1].split("@")[2]
+                    generateObject(scene_name, object_name, atts)
+                else:
+                    scene_name = task.split(" ")[-1].split("@")[0]
+                    object_name = task.split(" ")[-1].split("@")[1]
+                    generateObject(scene_name, object_name)
 
             elif generation_type == "implementation":
                 target_type = task.split(" ")[-1].split("@")[0]
