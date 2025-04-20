@@ -76,6 +76,7 @@ namespace alce
         friend class CORE;
         friend class GameObject;
         friend class ARL_PROCESSOR;
+        friend class Rigidbody2D;
         
         B2WorldPtr world = nullptr;
 

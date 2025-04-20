@@ -234,7 +234,7 @@ void SampleScene::Player::Update()
 
     if(Input.IsKeyDown(Keyboard::F))
     {
-        Alce.GetCurrentScene()->Shell("exit;");
+        rigidbody2d->SetPosition(Vector2(0, 15));
     }
 
     // if(Input.IsKeyDown(Keyboard::T))

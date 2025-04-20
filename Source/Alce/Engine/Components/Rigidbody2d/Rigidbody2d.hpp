@@ -76,6 +76,12 @@ namespace alce
 
         ShapeType GetShapeType();
 
+        void SetPosition(Vector2 position, bool awake = true);
+
+        void SetPosition(float x, float y, bool awake = true);
+
+        void SetRotation(float rotation, bool awake = true);
+
         Vector2 GetPosition();
 
         void SetFixedRotation(bool flag = true);

@@ -122,6 +122,7 @@ List<ComponentPtr> GameObject::GetComponents()
     return components;
 }
 
+
 void GameObject::SetParent(GameObjectPtr gameObject)
 {
     parent = gameObject;

@@ -56,7 +56,7 @@ namespace alce
         }
 
         List<ComponentPtr> GetComponents();
-
+        
         void SetParent(GameObjectPtr gameObject);
 
         void SetParent(GameObject* gameObject);

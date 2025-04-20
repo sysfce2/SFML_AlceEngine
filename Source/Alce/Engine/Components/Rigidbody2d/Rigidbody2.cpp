@@ -513,6 +513,36 @@ Vector2 Rigidbody2D::GetPosition()
     return Vector2(body->GetPosition());
 }
 
+void Rigidbody2D::SetPosition(Vector2 position, bool awake)
+{
+    if(body) 
+    {
+        body->SetTransform(position.Tob2Vec2(), body->GetAngle());
+        transform->position = position;
+        body->SetAwake(awake);
+    }
+}
+
+void Rigidbody2D::SetPosition(float x, float y, bool awake)
+{
+    if(body) 
+    {
+        body->SetTransform(b2Vec2(x, y), body->GetAngle());
+        transform->position = Vector2(x, y);
+        body->SetAwake(awake);
+    }
+}
+
+void Rigidbody2D::SetRotation(float angle, bool awake)
+{
+    if(body) 
+    {
+        body->SetTransform(body->GetPosition(), angle);
+        transform->rotation = -1.0f * body->GetAngle() * DEG_PER_RAD;
+        body->SetAwake(awake);
+    }
+}
+
 void Rigidbody2D::SetFixedRotation(bool flag)
 {
     if(!enabled)
