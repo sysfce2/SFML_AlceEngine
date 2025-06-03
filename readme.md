@@ -26,12 +26,12 @@ Just write your prompts in the console while the game is running!
 # Features
 
 * Components:
-    * [Animation2d](Source/Alce/Engine/Components/Animation2d/)
-    * [Camera](Source/Alce/Engine/Components/Camera/)
-    * [ParticleSystem](Source/Alce/Engine/Components/ParticleSystem/)
-    * [Raycast2d](Source/Alce/Engine/Components/Raycast2d/)
-    * [Rigidbody2d](Source/Alce/Engine/Components/Rigidbody2d/)
-    * [SpriteRenderer](Source/Alce/Engine/Components/SpriteRenderer/)
+    * [Animation2d](Source/Alce/Engine/Components/Animation2d/): simple spritesheet based animations, allowing speed, direction and size management.
+    * [Camera](Source/Alce/Engine/Components/Camera/): view based camera system.
+    * [ParticleSystem](Source/Alce/Engine/Components/ParticleSystem/): 2D particle generator with box2d physics!
+    * [Raycast2d](Source/Alce/Engine/Components/Raycast2d/): ray-based collision system.
+    * [Rigidbody2d](Source/Alce/Engine/Components/Rigidbody2d/): physic 2D body, just like in other engines.
+    * [SpriteRenderer](Source/Alce/Engine/Components/SpriteRenderer/): simple sprite rendering component.
 
 * UIElements (User Interface):
     * [Button](Source/Alce/Engine/UI/Button/)
@@ -52,7 +52,9 @@ Just write your prompts in the console while the game is running!
     * [String](Source/Alce/Engine/Core/String/): sf::String Wrapper Class.
     * [Json](Source/Alce/Engine/Core/Json/): easy-to-use rapidjson's wrapper class.
     * [FileSystem](Source/Alce/Engine/Core/FileSystem/): file and folder management classes.
-* [Alce CLI](Documentation/CLI/cli.md)
+* [Alce CLI](Documentation/CLI/cli.md): a custom prompt program designed to compile, generate and run Alce projects. Perfect if you dont want to install a complete C++ environment like Visual Studio or Code::Blocks.
+
+* [ARL](Documentation/ARL/ARL.md): the in-game development prompt. Allows the developer to make a lot of repetitive debug stuff without the need of being compiling constantly.
 
 # Setup
 
