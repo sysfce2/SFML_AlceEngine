@@ -41,6 +41,9 @@ void SampleScene::Player::Init()
     canvas = std::make_shared<Canvas>();
     AddComponent(canvas);
 
+    // light = std::make_shared<Light2D>(Light2D::Type::Radial);
+    // AddComponent(light);
+
     animation->AddAnimation("player/walk-forward.png", "walk-forward", 1, 4, 54, 63);
     animation->AddAnimation("player/walk-backward.png", "walk-backward", 1, 4, 54, 63);
     animation->AddAnimation("player/idle-forward.png", "idle-forward", 1, 1, 54, 63);
@@ -54,7 +57,7 @@ void SampleScene::Player::Init()
         true,
         MaskType::mask_2
     );
-    rigidbody2d->SetFixedRotation();
+    rigidbody2d->SetFixedRotation(true);
     
     TextPtr text = std::make_shared<Text>();
     canvas->AddElement(text);
@@ -79,6 +82,18 @@ void SampleScene::Player::Init()
     walking = false;
     status = "idle-forward";
     velocity = 1.0f;
+
+    ButtonPtr button = std::make_shared<Button>(); 
+    canvas->AddElement(button);
+    button->zIndex = 5;
+    button->position = Vector2(40, 100);
+    button->borderRadius = 2;
+    button->borderWidth = 1;
+    button->text = "guardar";
+    button->borderColor = Colors::White;
+    button->onClick = [](){
+        
+    };
 }
 
 void SampleScene::Player::Start()
@@ -198,6 +213,16 @@ void SampleScene::Player::OnImpactEnd(GameObject* other)
 
 void SampleScene::Player::Update()
 {
+    if(Input.IsKeyPressed(Keyboard::W))
+    {
+        rigidbody2d->SetVerticalVelocity(velocity);
+    }
+
+    if(Input.IsKeyPressed(Keyboard::S))
+    {
+        rigidbody2d->SetVerticalVelocity(-velocity);
+    }
+
     if(Input.IsKeyPressed(Keyboard::A))
     {
         rigidbody2d->SetHorizontalVelocity(-velocity);
@@ -237,46 +262,6 @@ void SampleScene::Player::Update()
         rigidbody2d->SetPosition(Vector2(0, 15));
     }
 
-    // if(Input.IsKeyDown(Keyboard::T))
-    // {
-    //     Alce.GetCurrentScene()->Shell("disable component SpriteRenderer from t3;");
-    // }
-
-    // if(Input.IsKeyDown(Keyboard::Y))
-    // {
-    //     Alce.GetCurrentScene()->Shell("enable component SpriteRenderer from t3;");
-    // }
-    
-    // if(Input.IsKeyDown(Keyboard::U))
-    // {
-    //     Alce.GetCurrentScene()->Shell("delete object t3;");
-    // }
-
-    // if(Input.IsKeyDown(Keyboard::H))
-    // {
-    //     Alce.GetCurrentScene()->Shell("change to Test1");
-    // }
-
-    // if(Input.IsKeyDown(Keyboard::L))
-    // {
-    //     Alce.GetCurrentScene()->Shell("list");
-    // }
-
-    // if(Input.IsKeyDown(Keyboard::F))
-    // {
-    //     Alce.GetCurrentScene()->Shell("set player velocity as 2");
-    // }
-
-    // if(Input.IsKeyDown(Keyboard::P))
-    // {
-    //     Alce.GetCurrentScene()->Shell("grid 10");
-    // }
-
-    // // if(Input.IsKeyDown(Keyboard::G))
-    // // {
-    // //     Alce.GetCurrentScene()->Shell("set player velocity as 1");
-    // // }
-
     AnimationManager();
 }
 #pragma endregion
@@ -289,6 +274,9 @@ void SampleScene::Player::SetterManager(String name, String value)
 String SampleScene::Player::GetterManager(String name)
 {
     if(name == "velocity") return velocity;
+
+    if(name == "position") return transform.position.ToString();
+    // if(name == "_position") return light->transform->position.ToString();
 
     return "undefined";
 }

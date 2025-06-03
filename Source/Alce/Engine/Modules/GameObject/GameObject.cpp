@@ -2,6 +2,7 @@
 #include "../../Components/Camera/Camera.hpp"
 #include "../../Components/Rigidbody2d/Rigidbody2d.hpp"
 #include "../../Components/Raycast2d/Raycast2d.hpp"
+#include "../../Components/Light2D/Light2D.hpp"
 #include "../Scene/Scene.hpp"
 
 using namespace alce;
@@ -152,6 +153,8 @@ GameObjectPtr GameObject::GetParent()
 
 void GameObject::Render()
 {
+    List<ComponentPtr> renderLast;
+
     for(auto layer: layers)
     {
         auto layerComponents = components.Filter([&](ComponentPtr c) {
@@ -162,8 +165,18 @@ void GameObject::Render()
         {
             if(!comp->enabled) continue;
             if(comp->GetId() == "Canvas") continue;
+            if(comp->GetId() == "Light2D") 
+            {
+                renderLast.Add(comp);
+                continue;
+            }
             comp->Render();
         }
+    }
+
+    for(auto& c: renderLast)
+    {
+        c->Render();
     }
 }
 

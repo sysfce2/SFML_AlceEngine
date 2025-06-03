@@ -323,6 +323,7 @@ void Scene::Update()
 {
     if(paused) return;
 
+    if(world != nullptr) world->Step();
 
     for(auto& sortingLayer: sortingLayers)
     {
@@ -360,9 +361,6 @@ void Scene::Update()
             canvas->Update();
         }
     }
-
-    if(world != nullptr) world->Step();
-
 }
 
 void Scene::SetCardinals(GameObjectPtr gameObject, Dictionary<String, Vector2Ptr> cardinals)

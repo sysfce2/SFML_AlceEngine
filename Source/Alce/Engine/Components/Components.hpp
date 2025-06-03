@@ -6,3 +6,4 @@
 #include "Raycast2d/Raycast2d.hpp"
 #include "Rigidbody2d/Rigidbody2d.hpp"
 #include "SpriteRenderer/SpriteRenderer.hpp"
+#include "Light2D/Light2D.hpp"

@@ -471,7 +471,7 @@ def generateComponent(name):
     hpp = open(f"./../Source/Alce/Engine/Components/{name}/{name}.hpp", "w")
     
     hpp.write("#pragma once\n\n")
-    hpp.write("#include \"../../Core/Core.hpp\"\n\n")
+    hpp.write("#include \"../../Modules/Modules.hpp\"\n\n")
     hpp.write("namespace alce\n")
     hpp.write("{\n")
     hpp.write(f"\tclass {name} : public Component\n")

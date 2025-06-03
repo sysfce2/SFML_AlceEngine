@@ -21,6 +21,7 @@ namespace SampleScene
 	private:
 
 		SpriteRendererPtr spriteRenderer;
+		Light2DPtr light;
 
 	};
 	typedef std::shared_ptr<Tree> TreePtr;
