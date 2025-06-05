@@ -439,7 +439,7 @@ void ARL_PROCESSOR::Process(String command)
     {
         if(args.Length() < 3)
         {
-            Debug.ARLError("Syntax error, please check out 'help enable' for more info.");
+            Debug.ARLError("Syntax error, please check out 'help disable' for more info.");
             return;
         }
 

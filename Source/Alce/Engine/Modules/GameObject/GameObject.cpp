@@ -3,6 +3,7 @@
 #include "../../Components/Rigidbody2d/Rigidbody2d.hpp"
 #include "../../Components/Raycast2d/Raycast2d.hpp"
 #include "../../Components/Light2D/Light2D.hpp"
+#include "../../Components/LightMesh2D/LightMesh2D.hpp"
 #include "../Scene/Scene.hpp"
 
 using namespace alce;
@@ -81,6 +82,12 @@ void GameObject::AddComponent(ComponentPtr component)
 
         if(scene == nullptr) return;
 
+        Light2D* light = dynamic_cast<Light2D*>(component.get());
+        if(light) ((Scene*) scene)->ls.lights.Add(light->light);
+
+        LightMesh2D* lm = dynamic_cast<LightMesh2D*>(component.get());
+        if(lm) ((Scene*) scene)->ls.shapes.Add(lm->shape);
+
         Camera* camPtr = dynamic_cast<Camera*>(component.get());
         if(camPtr) ((Scene*) scene)->cameras.Add(camPtr);
         else
@@ -153,8 +160,6 @@ GameObjectPtr GameObject::GetParent()
 
 void GameObject::Render()
 {
-    List<ComponentPtr> renderLast;
-
     for(auto layer: layers)
     {
         auto layerComponents = components.Filter([&](ComponentPtr c) {
@@ -165,18 +170,8 @@ void GameObject::Render()
         {
             if(!comp->enabled) continue;
             if(comp->GetId() == "Canvas") continue;
-            if(comp->GetId() == "Light2D") 
-            {
-                renderLast.Add(comp);
-                continue;
-            }
             comp->Render();
         }
-    }
-
-    for(auto& c: renderLast)
-    {
-        c->Render();
     }
 }
 

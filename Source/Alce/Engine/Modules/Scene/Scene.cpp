@@ -354,6 +354,8 @@ void Scene::Update()
         }
     }
 
+    ls.Cast();
+
     for(auto& canvas: canvasList)
     {
         if(canvas->enabled)

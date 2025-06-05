@@ -14,11 +14,27 @@ namespace alce
 
 		void SetIntensity(float intensity);
 
+		float GetIntensity();
+
 		void SetColor(Color color);
+
+		Color GetColor();
 
 		void SetFade(bool fade = true);
 
+		bool IsFading();
+
 		void SetRange(float range);
+
+		float GetRange();
+
+		void SetBeamWidth(float width);
+
+		float GetBeamWidth();
+
+		void SetBeamAngle(float angle);
+
+		float GetBeamAngle();
 
 		void Init();
 
@@ -31,11 +47,14 @@ namespace alce
 	private: 
 		
 		friend class GameObject;
+		friend class LightingSystem;
 
 		Type lightType;
 		std::shared_ptr<candle::LightSource> light;
 
 		float range;
+		float beamWidth;
+		float beamAngle;
 
 	};
 

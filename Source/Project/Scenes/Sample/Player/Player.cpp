@@ -41,8 +41,10 @@ void SampleScene::Player::Init()
     canvas = std::make_shared<Canvas>();
     AddComponent(canvas);
 
-    // light = std::make_shared<Light2D>(Light2D::Type::Radial);
-    // AddComponent(light);
+    light = std::make_shared<Light2D>(Light2D::Type::Radial);
+    AddComponent(light);
+
+    light->SetRange(100);
 
     animation->AddAnimation("player/walk-forward.png", "walk-forward", 1, 4, 54, 63);
     animation->AddAnimation("player/walk-backward.png", "walk-backward", 1, 4, 54, 63);
@@ -274,9 +276,7 @@ void SampleScene::Player::SetterManager(String name, String value)
 String SampleScene::Player::GetterManager(String name)
 {
     if(name == "velocity") return velocity;
-
     if(name == "position") return transform.position.ToString();
-    // if(name == "_position") return light->transform->position.ToString();
 
     return "undefined";
 }

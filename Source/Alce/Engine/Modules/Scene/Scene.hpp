@@ -7,6 +7,7 @@
 #include "../Chrono/Chrono.hpp"
 #include "../B2World/B2World.hpp"
 #include "../Interface/Interface.hpp"
+#include "../Lighting/Lighting.hpp"
 
 namespace alce
 {
@@ -79,6 +80,8 @@ namespace alce
         friend class Rigidbody2D;
         
         B2WorldPtr world = nullptr;
+
+        LightingSystem ls;
 
         String name;
         Dictionary<int, GameObjectListPtr> sortingLayers;

@@ -210,6 +210,11 @@ namespace alce
 	{
 	public:
 
+	    virtual ~Shape() 
+		{
+			
+		}
+
 		Shape()
 		{
 
@@ -259,7 +264,11 @@ namespace alce
 
 		CircleShape();
 
+		CircleShape(Vector2 position);
+
 		CircleShape(float radius);
+
+		CircleShape(Vector2 position, float radius);
 
 		bool InArea(Vector2 point);
 		
