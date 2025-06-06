@@ -25,7 +25,7 @@ void SampleScene::Tree::Init()
     // light = std::make_shared<Light2D>(Light2D::Type::Radial);
     // AddComponent(light);
 
-    lightMesh = std::make_shared<LightMesh2D>(std::make_shared<RectShape>(50, 50));
+    lightMesh = std::make_shared<LightMesh2D>(std::make_shared<CircleShape>(50));
     AddComponent(lightMesh);
 
     spriteRenderer->AddTexture("tree/sprite.png", "sprite");
@@ -49,6 +49,12 @@ void SampleScene::Tree::SetterManager(String name, String value)
         transform.position.x = value.Split(",")[0].ParseFloat();
         transform.position.y = value.Split(",")[1].ParseFloat();
         Debug.Log(transform.position.ToString());
+    }
+
+    if(name == "offset")
+    {
+        lightMesh->offset.x = value.Split(",")[0].ParseFloat();
+        lightMesh->offset.y = value.Split(",")[1].ParseFloat();
     }
 }
 

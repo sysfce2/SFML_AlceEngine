@@ -91,6 +91,7 @@ int main()
 //     return edges;
 // }
 
+
 // int main()
 // {
 //     // create window
@@ -129,15 +130,9 @@ int main()
 //         edgePool.push_back(le);
 //     }
 
-//     sf::CircleShape circulo(100); 
+//     sf::CircleShape circulo(200); 
 //     circulo.setFillColor(sf::Color::Green);
 //     circulo.setPosition(0, 0); 
-
-//     candle::LightingArea fog(candle::LightingArea::FOG,
-//                             sf::Vector2f(0.f, 0.f),
-//                             sf::Vector2f(300.f, 379.f));
-//     fog.setAreaColor(sf::Color::Black);
-
 
 //     // main loop
 //     while(w.isOpen())
@@ -157,13 +152,9 @@ int main()
 //             }
 //         }
 
-//         fog.clear();
-//         fog.draw(*light.get());
-//         fog.display();
-        
 //         w.clear();
 //         w.draw(circulo);
-//         w.draw(fog);
+//         w.draw(*light.get());
 //         w.display();
 //     }
 //     return 0;

@@ -32,7 +32,7 @@ void SampleScene::Sample::Init()
 	SampleScene::TreePtr tree1 = std::make_shared<SampleScene::Tree>(Vector2(5, 3.5));
 	AddGameObject(tree1, "tree1");	
 	
-	SampleScene::TreePtr tree2 = std::make_shared<SampleScene::Tree>(Vector2(3, 3.5));
+	SampleScene::TreePtr tree2 = std::make_shared<SampleScene::Tree>(Vector2(-5.0f, 3.5));
 	AddGameObject(tree2, "tree2");	
 
 	Factory.RegisterCreator("Tree", []() {

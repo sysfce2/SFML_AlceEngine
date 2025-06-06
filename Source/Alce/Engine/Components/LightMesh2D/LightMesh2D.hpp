@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Modules/Core/Core.hpp"
+#include "../../Modules/Modules.hpp"
 
 namespace alce
 {
@@ -14,13 +14,11 @@ namespace alce
 
 		void SetShape(ShapePtr shape);
 
-		void Init();
-
-		void Start();
-
-		void Render();
+		void DebugRender();
 
 		void Update();
+
+		Vector2 offset = Vector2(0, 0);
 
 	private:
 

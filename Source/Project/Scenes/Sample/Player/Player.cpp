@@ -44,8 +44,6 @@ void SampleScene::Player::Init()
     light = std::make_shared<Light2D>(Light2D::Type::Radial);
     AddComponent(light);
 
-    light->SetRange(100);
-
     animation->AddAnimation("player/walk-forward.png", "walk-forward", 1, 4, 54, 63);
     animation->AddAnimation("player/walk-backward.png", "walk-backward", 1, 4, 54, 63);
     animation->AddAnimation("player/idle-forward.png", "idle-forward", 1, 1, 54, 63);

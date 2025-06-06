@@ -17,6 +17,7 @@ Light2D::Light2D(Type type) : Component("Light2D")
     }
 
     range = 100;   
+    beamWidth = 100;
     light->setColor(sf::Color::White);
     light->setIntensity(1.0f);
 }
