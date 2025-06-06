@@ -51,7 +51,7 @@ candle::EdgeVector LightingSystem::GenerateEdgesFromShape(ShapePtr shape)
         case ShapeType::circle:
         {
             auto circle = std::static_pointer_cast<CircleShape>(shape);
-            const int segments = 30;
+            const int segments = CIRCLE_QUALITY;
             float r = circle->radius;
 
             for (int i = 0; i < segments; ++i)

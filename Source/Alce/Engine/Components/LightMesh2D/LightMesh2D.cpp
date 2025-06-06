@@ -67,7 +67,7 @@ void LightMesh2D::DebugRender()
     {
         sf::Vector2f center(circle->position.x, circle->position.y);
         float radius = circle->radius;
-        int segments = 30;
+        int segments = CIRCLE_QUALITY;
 
         float angleStep = 2 * 3.14159265f / segments;
         for (int i = 0; i < segments; ++i)

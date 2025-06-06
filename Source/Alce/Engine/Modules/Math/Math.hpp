@@ -15,6 +15,8 @@
 #define PPM 30.0F
 #define DEG_PER_RAD 57.2957795F
 
+#define CIRCLE_QUALITY 30
+
 namespace alce
 {
 	class RANDOM
