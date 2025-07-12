@@ -22,22 +22,6 @@ void LightMesh2D::SetShape(ShapePtr shape)
     this->shape = shape;
 }
 
-void drawDottedLine(sf::RenderTarget& target, sf::Vector2f a, sf::Vector2f b, float dotLength = 5.f, float gap = 5.f)
-{
-    sf::Vector2f dir = b - a;
-    float len = std::sqrt(dir.x * dir.x + dir.y * dir.y);
-    sf::Vector2f unit = dir / len;
-
-    for (float i = 0; i < len; i += dotLength + gap)
-    {
-        sf::Vector2f start = a + unit * i;
-        sf::Vector2f end = a + unit * std::min(i + dotLength, len);
-        sf::Vertex line[] = { sf::Vertex(start, sf::Color::Red), sf::Vertex(end, sf::Color::Red) };
-        target.draw(line, 2, sf::Lines);
-    }
-}
-
-
 #pragma endregion
 
 //Inherited methods
@@ -45,7 +29,7 @@ void drawDottedLine(sf::RenderTarget& target, sf::Vector2f a, sf::Vector2f b, fl
 
 void LightMesh2D::DebugRender()
 {
-    if(!shape) return;
+    if(!enabled) return;
 
     if (auto rect = std::dynamic_pointer_cast<RectShape>(shape))
     {
@@ -58,10 +42,10 @@ void LightMesh2D::DebugRender()
         sf::Vector2f c = pos + sf::Vector2f(w, h);
         sf::Vector2f d = pos + sf::Vector2f(0, h);
 
-        drawDottedLine(Alce.GetWindow(), a, b);
-        drawDottedLine(Alce.GetWindow(), b, c);
-        drawDottedLine(Alce.GetWindow(), c, d);
-        drawDottedLine(Alce.GetWindow(), d, a);
+        DrawDottedLine(Alce.GetWindow(), a, b);
+        DrawDottedLine(Alce.GetWindow(), b, c);
+        DrawDottedLine(Alce.GetWindow(), c, d);
+        DrawDottedLine(Alce.GetWindow(), d, a);
     }
     else if (auto circle = std::dynamic_pointer_cast<CircleShape>(shape))
     {
@@ -78,7 +62,7 @@ void LightMesh2D::DebugRender()
             sf::Vector2f p1 = center + sf::Vector2f(std::cos(angle1), std::sin(angle1)) * radius;
             sf::Vector2f p2 = center + sf::Vector2f(std::cos(angle2), std::sin(angle2)) * radius;
 
-            drawDottedLine(Alce.GetWindow(), p1, p2);
+            DrawDottedLine(Alce.GetWindow(), p1, p2);
         }
     }
     else if (auto poly = std::dynamic_pointer_cast<PolygonShape>(shape))
@@ -89,7 +73,7 @@ void LightMesh2D::DebugRender()
         {
             sf::Vector2f a(verts[i].x, verts[i].y);
             sf::Vector2f b(verts[(i + 1) % count].x, verts[(i + 1) % count].y);
-            drawDottedLine(Alce.GetWindow(), a, b);
+            DrawDottedLine(Alce.GetWindow(), a, b);
         }
     }
 }
@@ -101,8 +85,6 @@ void LightMesh2D::Update()
     Vector2 position = transform->position + offset;
 
     shape->position = position.ToPixels();
-
-    // shape->position = transform->position.ToPixels();
 }
 
 

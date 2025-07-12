@@ -270,6 +270,10 @@ namespace alce
 
 		CircleShape(float radius);
 
+		CircleShape(float x, float y);
+
+		CircleShape(float x, float y, float radius);
+
 		CircleShape(Vector2 position, float radius);
 
 		bool InArea(Vector2 point);

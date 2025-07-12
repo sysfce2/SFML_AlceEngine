@@ -17,6 +17,7 @@
 
 #include "../FileSystem/FileSystem.hpp"
 #include "../String/String.hpp"
+#include "../Math/Math.hpp"
 
 namespace alce
 {
@@ -29,6 +30,10 @@ namespace alce
     String FormatString(String format, List<String> values);
 
     String ConcatString(List<String> strings, String join = "");
+
+    void DrawDottedLine(sf::RenderTarget& target, sf::Vector2f a, sf::Vector2f b, float dotLength = 5.f, float gap = 5.f);
+
+    std::vector<sf::Vector2f> ConvertShapeToPolygonPoints(ShapePtr shape);
 
     template<typename T>
     List<T> MergeLists(List<List<T>> lists)

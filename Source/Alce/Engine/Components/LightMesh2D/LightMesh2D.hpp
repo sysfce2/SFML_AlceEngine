@@ -25,7 +25,6 @@ namespace alce
 		friend class GameObject;
 
 		ShapePtr shape;
-
 	};
 
 	typedef std::shared_ptr<LightMesh2D> LightMesh2DPtr;

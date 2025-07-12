@@ -12,14 +12,6 @@ namespace alce
 
 		Light2D(Type type = Type::Radial);
 
-		void SetIntensity(float intensity);
-
-		float GetIntensity();
-
-		void SetColor(Color color);
-
-		Color GetColor();
-
 		void SetFade(bool fade = true);
 
 		bool IsFading();
@@ -43,6 +35,10 @@ namespace alce
 		void Render();
 
 		void Update();
+
+		Color color;
+
+		float intensity = 0.6;
 
 	private: 
 		

@@ -1,6 +1,8 @@
 #include "../include/Candle/LightingArea.hpp"
 #include "../include/Candle/graphics/VertexArray.hpp"
 
+#include <iostream>
+
 
 namespace candle {
 
@@ -62,7 +64,7 @@ void LightingArea::draw(sf::RenderTarget& t, sf::RenderStates s) const {
 }
 
 void LightingArea::clear() {
-    m_renderTexture.clear(sf::Color::Transparent);
+    m_renderTexture.clear(sf::Color(0, 0, 0, 0)); 
 
     if (m_baseTexture != nullptr) {
         sf::RenderStates rs;
@@ -102,6 +104,7 @@ void LightingArea::setAreaOpacity(float o) {
 float LightingArea::getAreaOpacity() const {
     return m_opacity;
 }
+
 
 void LightingArea::draw(const LightSource& light) {
     if (m_opacity > 0.f && m_mode == FOG) {

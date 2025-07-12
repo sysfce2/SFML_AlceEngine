@@ -262,7 +262,7 @@ void Scene::Render()
                     !camera->GetBounds().InArea(*gameObject->cardinals["bottom-left"].get()) &&
                     !camera->GetBounds().InArea(*gameObject->cardinals["bottom-right"].get()))
                     {
-                        continue;
+                        if(SmartRender) continue;
                     }
                 }
 

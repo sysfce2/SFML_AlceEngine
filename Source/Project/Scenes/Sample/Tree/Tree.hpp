@@ -27,7 +27,8 @@ namespace SampleScene
 		SpriteRendererPtr spriteRenderer;
 		// Light2DPtr light;
 
-		LightMesh2DPtr lightMesh;
+		// LightMesh2DPtr lightMesh;
+		LightingArea2DPtr lightingArea;
 
 	};
 	typedef std::shared_ptr<Tree> TreePtr;

@@ -13,7 +13,7 @@
 
 #include "geometry/Line.hpp"
 #include "LightSource.hpp"
-
+#include "../../../../Engine/Modules/Math/Math.hpp"
 
 namespace candle {
 
@@ -29,7 +29,7 @@ private:
     sf::IntRect m_baseTextureRect;
     sf::RenderTexture m_renderTexture;
 
-    sf::VertexArray m_shapeVertices;   // Polígono de la LightingArea
+    sf::VertexArray m_shapeVertices;   // Lighting area polygon
     sf::Color m_color;
     float m_opacity;
     Mode m_mode;
@@ -64,7 +64,7 @@ public:
     void draw(const LightSource& light);
     void display();
 
-    // Nuevo método para forma poligonal
+    // New Method
     void setPolygonShape(const std::vector<sf::Vector2f>& points);
 };
 }

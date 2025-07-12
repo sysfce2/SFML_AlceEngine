@@ -62,6 +62,8 @@ namespace alce
             
         }
 
+        bool SmartRender = true;
+
         unsigned int GridScale = 5;
 
         unsigned int GridTextSize = 9;
@@ -82,6 +84,8 @@ namespace alce
         B2WorldPtr world = nullptr;
 
         LightingSystem ls;
+
+        String cosa = "algo";
 
         String name;
         Dictionary<int, GameObjectListPtr> sortingLayers;

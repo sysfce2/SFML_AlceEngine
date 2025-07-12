@@ -76,3 +76,81 @@ alce::String alce::ConcatString(List<String> strings, String join)
 
 	return alce::String(str);
 }
+
+void alce::DrawDottedLine(sf::RenderTarget& target, sf::Vector2f a, sf::Vector2f b, float dotLength, float gap)
+{
+    sf::Vector2f dir = b - a;
+    float len = std::sqrt(dir.x * dir.x + dir.y * dir.y);
+    sf::Vector2f unit = dir / len;
+
+    for (float i = 0; i < len; i += dotLength + gap)
+    {
+        sf::Vector2f start = a + unit * i;
+        sf::Vector2f end = a + unit * std::min(i + dotLength, len);
+        sf::Vertex line[] = { sf::Vertex(start, sf::Color::Red), sf::Vertex(end, sf::Color::Red) };
+        target.draw(line, 2, sf::Lines);
+    }
+}
+
+std::vector<sf::Vector2f> alce::ConvertShapeToPolygonPoints(ShapePtr shape)
+{
+    std::vector<sf::Vector2f> points;
+
+    if (!shape) return points;
+
+    switch (shape->GetType()) 
+    {
+        case ShapeType::rect: 
+        {
+            auto rect = std::dynamic_pointer_cast<RectShape>(shape);
+            if (rect) 
+            {
+                sf::Vector2f pos(rect->position.x, rect->position.y);
+                float w = rect->width;
+                float h = rect->height;
+
+                points.push_back(pos);
+                points.push_back({pos.x + w, pos.y});
+                points.push_back({pos.x + w, pos.y + h});
+                points.push_back({pos.x, pos.y + h});
+            }
+            break;
+        }
+
+        case ShapeType::circle: 
+        {
+            auto circle = std::dynamic_pointer_cast<CircleShape>(shape);
+            if (circle) {
+                float radius = circle->radius;
+                sf::Vector2f center(circle->position.x, circle->position.y);
+                for (int i = 0; i < CIRCLE_QUALITY; ++i) 
+                {
+                    float angle = i * 2.f * Math.PI / CIRCLE_QUALITY;
+                    points.emplace_back(
+                        center.x + radius * std::cos(angle),
+                        center.y + radius * std::sin(angle)
+                    );
+                }
+            }
+            break;
+        }
+
+        case ShapeType::polygon: 
+        {
+            auto poly = std::dynamic_pointer_cast<PolygonShape>(shape);
+            if (poly) 
+            {
+                for (auto& v : poly->GetVertexList()) 
+                {
+                    points.emplace_back(v.x, v.y);
+                }
+            }
+            break;
+        }
+
+        default:
+            break;
+    }
+
+    return points;
+}

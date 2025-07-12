@@ -1,12 +1,16 @@
 #include "Lighting.hpp"
+#include "../../Components/LightingArea2D/LightingArea2D.hpp"
 
 using namespace alce;
 
 candle::EdgeVector LightingSystem::GenerateEdgesFromShape(ShapePtr shape)
 {
     candle::EdgeVector edges;
-    if (!shape)
+
+    if(!shape)
+    {
         return edges;
+    }
 
     sf::Vector2f pos(shape->position.x, shape->position.y);
 
@@ -74,22 +78,66 @@ candle::EdgeVector LightingSystem::GenerateEdgesFromShape(ShapePtr shape)
     return edges;
 }
 
+void LightingSystem::AddLightingArea(Component* la)
+{
+    if(la->GetId() != "LightingArea2D") return;
+
+    lightingAreas.Add(la);
+
+    ((LightingArea2D*) la)->lights = this->lights;
+}
+
+void LightingSystem::AddLight(std::shared_ptr<candle::LightSource> light)
+{
+    if(light == nullptr) return;
+
+    lights.Add(light);
+
+    for(auto& la: lightingAreas)
+    {
+        ((LightingArea2D*) la)->lights.Add(light);
+    }
+}
+
 void LightingSystem::Cast()
 {
-    edgePool.clear();
+    // edgePool.clear();
 
-    for(auto& shape: shapes)
-    {
-        auto edges = GenerateEdgesFromShape(shape);
+    // for(auto& shape: lightMeshes)
+    // {
+    //     if(!*shape.second) continue;
+
+    //     auto edges = GenerateEdgesFromShape(shape.first);
         
-        for(auto& edge: edges)
-        {
-            edgePool.push_back(edge);
-        }
-    }
+    //     for(auto& edge: edges)
+    //     {
+    //         edgePool.push_back(edge);
+    //     }
+    // }
 
-    for(auto& light: lights)
-    {
-        light->castLight(edgePool.begin(), edgePool.end());
-    }
+    // for(auto& light: lights)
+    // {
+    //     light->castLight(edgePool.begin(), edgePool.end());
+    // }
+
+    // for(auto& la: lightingAreas)
+    // {
+    //     if(!la->enabled) continue;
+
+    //     if(((LightingArea2D*) la)->cast || ((LightingArea2D*) la)->lightingArea == nullptr)
+    //     {
+    //         ((LightingArea2D*) la)->lightingArea = std::make_shared<candle::LightingArea>(candle::LightingArea::FOG, sf::Vector2f(0, 0), sf::Vector2f(300, 300));
+    //         ((LightingArea2D*) la)->lightingArea->setPolygonShape(ConvertShapeToPolygonPoints(((LightingArea2D*) la)->shape));
+    //         ((LightingArea2D*) la)->cast = false;
+    //     }
+
+    //     ((LightingArea2D*) la)->lightingArea->clear();
+
+    //     for(auto& light: lights)
+    //     {
+    //         ((LightingArea2D*) la)->lightingArea->draw(*light.get());
+    //     }
+
+    //     ((LightingArea2D*) la)->lightingArea->display();
+    // }
 }

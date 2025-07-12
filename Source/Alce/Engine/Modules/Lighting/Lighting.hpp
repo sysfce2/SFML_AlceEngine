@@ -4,6 +4,7 @@
 #include "../Collections/Collections.hpp"
 #include "../Math/Math.hpp"
 #include "../Debug/Debug.hpp"
+#include "../Component/Component.hpp"
 
 namespace alce
 {
@@ -16,10 +17,17 @@ namespace alce
 
         candle::EdgeVector GenerateEdgesFromShape(ShapePtr shape);
 
+        void AddLightingArea(Component* la);
+
+        void AddLight(std::shared_ptr<candle::LightSource> light);
+
         void Cast();
-        
+
         candle::EdgeVector edgePool;
+
         List<std::shared_ptr<candle::LightSource>> lights;
-        List<ShapePtr> shapes;
+        List<Pair<ShapePtr, bool*>> lightMeshes;
+
+        List<Component*> lightingAreas;
     };
 }

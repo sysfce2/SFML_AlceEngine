@@ -269,6 +269,8 @@ void SampleScene::Player::Update()
 void SampleScene::Player::SetterManager(String name, String value)
 {
     if(name == "velocity") velocity =  value.ParseFloat();
+    if(name == "intensity") light->intensity = value.ParseFloat();
+    if(name == "range") light->SetRange(value.ParseFloat());
 }
 
 String SampleScene::Player::GetterManager(String name)
