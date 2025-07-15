@@ -8,9 +8,21 @@ namespace alce
 	{
 	public:
 
-		LightingArea2D(ShapePtr shape);
+		LightingArea2D();
 
-		void SetShape(ShapePtr shape);
+		void SetSize(Vector2 size);
+
+		void SetSize(float width, float height);
+
+		void SetOffset(Vector2 offset);
+
+		void SetOffset(float x, float y);
+
+		Vector2 GetOffset();
+
+		void SetOpacity(float opacity);
+
+		float GetOpacity();
 
 		void Init();
 
@@ -22,28 +34,21 @@ namespace alce
 
 		void Update();
 
-		Vector2 offset = Vector2(0, 0);
-
 		Color color = Colors::Black;
 
-		void Compute()
-		{
-			this->compute = true;
-		}
 
 	private:
 
 		friend class GameObject;
 		friend class LightingSystem;
 
-		ShapePtr shape;
-
 		bool compute = false;
+		Vector2 size = Vector2(100, 100);
+		Vector2 offset = Vector2(0, 0);
 
 		float opacity = 1.0f;
 
 		std::shared_ptr<candle::LightingArea> lightingArea = nullptr;
-
 		List<std::shared_ptr<candle::LightSource>> lights;
 
 	};

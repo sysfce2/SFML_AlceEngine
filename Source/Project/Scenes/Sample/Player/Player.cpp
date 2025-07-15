@@ -30,6 +30,7 @@ void SampleScene::Player::Init()
     AddComponent(rigidbody2d);
 
     animation = std::make_shared<Animation2d>();
+    animation->sortingLayer = 1;
     AddComponent(animation);
 
     leftRaycast2d = std::make_shared<Raycast2D>();
@@ -41,7 +42,9 @@ void SampleScene::Player::Init()
     canvas = std::make_shared<Canvas>();
     AddComponent(canvas);
 
-    light = std::make_shared<Light2D>(Light2D::Type::Radial);
+    light = std::make_shared<Light2D>(Light2D::Type::Directed);
+    light->SetIntensity(0.4f);
+    light->sortingLayer = 2;
     AddComponent(light);
 
     animation->AddAnimation("player/walk-forward.png", "walk-forward", 1, 4, 54, 63);
@@ -269,8 +272,9 @@ void SampleScene::Player::Update()
 void SampleScene::Player::SetterManager(String name, String value)
 {
     if(name == "velocity") velocity =  value.ParseFloat();
-    if(name == "intensity") light->intensity = value.ParseFloat();
+    if(name == "intensity") light->SetIntensity(value.ParseFloat());
     if(name == "range") light->SetRange(value.ParseFloat());
+    if(name == "beam") light->SetBeamAngle(value.ParseFloat());
 }
 
 String SampleScene::Player::GetterManager(String name)

@@ -5,7 +5,7 @@ using namespace alce;
 SampleScene::Tree::Tree(Vector2 position)
 {
 	transform.position = position;
-    sortingLayer = 2;
+    // sortingLayer = 2;
 }
 
 //Custom methods implementation
@@ -19,6 +19,7 @@ SampleScene::Tree::Tree(Vector2 position)
 
 void SampleScene::Tree::Init()
 {    
+    this->sortingLayer = 2;
 	spriteRenderer = std::make_shared<SpriteRenderer>();
     AddComponent(spriteRenderer);
 
@@ -28,10 +29,11 @@ void SampleScene::Tree::Init()
     // lightMesh = std::make_shared<LightMesh2D>(std::make_shared<RectShape>(50, 50));
     // AddComponent(lightMesh);
 
-    lightingArea = std::make_shared<alce::LightingArea2D>(std::make_shared<RectShape>(300, 800));
+    lightingArea = std::make_shared<alce::LightingArea2D>();
+    lightingArea->SetSize(200, 200);
+    lightingArea->SetOffset(-3.5f, 3.5f);
     AddComponent(lightingArea);
     
-
     spriteRenderer->AddTexture("tree/sprite.png", "sprite");
     spriteRenderer->SetTexture("sprite");
 }
@@ -57,8 +59,12 @@ void SampleScene::Tree::SetterManager(String name, String value)
 
     if(name == "offset")
     {
-        lightingArea->offset.x = value.Split(",")[0].ParseFloat();
-        lightingArea->offset.y = value.Split(",")[1].ParseFloat();
+        lightingArea->SetOffset(value.Split(",")[0].ParseFloat(), value.Split(",")[1].ParseFloat());
+    }
+
+    if(name == "size")
+    {
+        lightingArea->SetSize(value.Split(",")[0].ParseFloat(), value.Split(",")[1].ParseFloat());
     }
 }
 

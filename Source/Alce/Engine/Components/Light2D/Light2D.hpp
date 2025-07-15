@@ -28,6 +28,10 @@ namespace alce
 
 		float GetBeamAngle();
 
+		void SetIntensity(float intensity);
+
+		float GetIntensity();
+
 		void Init();
 
 		void Start();
@@ -38,8 +42,6 @@ namespace alce
 
 		Color color;
 
-		float intensity = 0.6;
-
 	private: 
 		
 		friend class GameObject;
@@ -47,6 +49,8 @@ namespace alce
 
 		Type lightType;
 		std::shared_ptr<candle::LightSource> light;
+
+		float intensity = 0.5;
 
 		float range;
 		float beamWidth;

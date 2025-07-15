@@ -13,18 +13,19 @@ Light2D::Light2D(Type type) : Component("Light2D")
     else 
     {
         light = std::make_shared<candle::DirectedLight>();
-        std::static_pointer_cast<candle::DirectedLight>(light)->setBeamWidth(60.f);
+        std::dynamic_pointer_cast<candle::DirectedLight>(light)->setBeamWidth(100.f);
     }
 
     range = 100;   
     beamWidth = 100;
+    beamAngle = 90;
     light->setColor(sf::Color::White);
     light->setIntensity(1.0f);
 }
 
 void Light2D::SetFade(bool fade)
 {
-    if(light) light->setFade(fade);
+    if(light != nullptr) light->setFade(fade);
 }
 
 bool Light2D::IsFading()
@@ -62,6 +63,22 @@ float Light2D::GetBeamAngle()
     return beamAngle;
 }
 
+void Light2D::SetIntensity(float intensity)
+{
+    if(intensity > 1.0f || intensity < 0.0f) 
+    {
+        Debug.Warning("Light intensity should be between 0.0f and 1.0f");
+        return;
+    }
+
+    this->intensity = intensity;
+}
+
+float Light2D::GetIntensity()
+{
+    return intensity;
+}
+
 //Custom methods implementation
 #pragma region implementation
 
@@ -92,7 +109,6 @@ void Light2D::Render()
     if(transform == nullptr) return;
 
     Alce.GetWindow().draw(*light.get());
-
 }
 
 void Light2D::Update()
@@ -101,6 +117,9 @@ void Light2D::Update()
 
     light->setPosition(transform->position.ToPixels().ToVector2f());
     light->setRotation(transform->rotation);
+    light->setRange(range);
+    light->setIntensity(intensity);
+    light->setColor(color.ToSFMLColor());
 
     if(lightType == Type::Directed) 
     {
@@ -109,12 +128,8 @@ void Light2D::Update()
 
     if(lightType == Type::Radial)
     {
-        std::static_pointer_cast<candle::RadialLight>(light)->setBeamAngle(beamAngle);
+        std::dynamic_pointer_cast<candle::RadialLight>(light)->setBeamAngle(beamAngle);
     }
-
-    light->setRange(range);
-    light->setIntensity(intensity);
-    light->setColor(color.ToSFMLColor());
 }
 
 #pragma endregion

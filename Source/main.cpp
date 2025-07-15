@@ -100,7 +100,7 @@ int main()
 //     return points;
 // }
 
-// std::vector<sf::Vector2f> ConvertShapeToPolygonPoints(ShapePtr shape, int circleResolution = CIRCLE_QUALITY) {
+// std::vector<sf::Vector2f> _ConvertShapeToPolygonPoints(ShapePtr shape, int circleResolution = CIRCLE_QUALITY) {
 //     std::vector<sf::Vector2f> points;
 
 //     if (!shape) return points;
@@ -208,7 +208,7 @@ int main()
 //     };
 //     ShapePtr triangleLA = std::make_shared<PolygonShape>(trianglePoints);
     
-//     lighting.setPolygonShape(ConvertShapeToPolygonPoints(squareLA));
+//     lighting.setPolygonShape(_ConvertShapeToPolygonPoints(circleLA));
 //     lighting.setAreaColor(sf::Color::Black);
 
 

@@ -2,66 +2,57 @@
 
 using namespace alce;
 
-LightingArea2D::LightingArea2D(ShapePtr shape) : Component("LightingArea2D")
+LightingArea2D::LightingArea2D() : Component("LightingArea2D")
 {
-    lightingArea = std::make_shared<candle::LightingArea>(candle::LightingArea::FOG, Vector2(0, 0).ToPixels().ToVector2f(), sf::Vector2f(300, 300));
+    // lightingArea = std::make_shared<candle::LightingArea>(candle::LightingArea::FOG, Vector2(0, 0).ToPixels().ToVector2f(), size.ToVector2f());
 }
 
 //Custom methods implementation
 #pragma region implementation
 
-void LightingArea2D::SetShape(ShapePtr shape)
+
+void LightingArea2D::SetOpacity(float opacity)
 {
-	
+    if(opacity > 1.0f || opacity < 0)
+    {
+        Debug.Warning("LightingArea2D opacity should be between 0.0f and 1.0f");
+        return;
+    }
+    
+    this->opacity = opacity;
 }
 
-// std::vector<sf::Vector2f> _GenerateEdgesFromShape(ShapePtr shape)
-// {
-//     std::vector<sf::Vector2f> edges;
+float LightingArea2D::GetOpacity()
+{
+    return opacity;
+}
 
-//     if(!shape)
-//     {
-//         return edges;
-//     }
+void LightingArea2D::SetSize(Vector2 size)
+{
+    compute = true;
+    this->size = size;
+}
 
-//     switch (shape->GetType())
-//     {
-//         case ShapeType::rect:
-//         {
-//             auto rect = std::static_pointer_cast<RectShape>(shape);
+void LightingArea2D::SetSize(float width, float height)
+{
+    compute = true;
+    size = Vector2(width, height);
+}
 
-//             Vector2 p1 = shape->position;
-//             Vector2 p2 = shape->position + Vector2(rect->width, 0);
-//             Vector2 p3 = shape->position + Vector2(rect->width, rect->height);
-//             Vector2 p4 = shape->position + Vector2(0, rect->height);
+void LightingArea2D::SetOffset(Vector2 offset)
+{
+    this->offset = offset;
+}
 
-//             edges.emplace_back(p1.ToVector2f());
-//             edges.emplace_back(p2.ToVector2f());
-//             edges.emplace_back(p3.ToVector2f());
-//             edges.emplace_back(p4.ToVector2f());
+void LightingArea2D::SetOffset(float x, float y)
+{
+    offset = Vector2(x, y);
+}
 
-//             break;
-//         }
-
-//         case ShapeType::polygon:
-//         {
-            
-//             break;
-//         }
-
-//         case ShapeType::circle:
-//         {
-            
-//             break;
-//         }
-
-//         default:
-//             break;
-//     }
-
-//     return edges;
-// }
-
+Vector2 LightingArea2D::GetOffset()
+{
+    return offset;
+}
 
 #pragma endregion
 
@@ -98,59 +89,29 @@ void LightingArea2D::DebugRender()
 {
 	if(!enabled) return;
 
-    if (auto rect = std::dynamic_pointer_cast<RectShape>(shape))
-    {
-        Vector2 pos = rect->position.ToPixels();
-        pos = pos.ToPixels();
-        float w = rect->width;
-        float h = rect->height;
+    Vector2 pos = transform->position + offset;
+    pos = pos.ToPixels();
 
-        Vector2 a = pos;
-        Vector2 b = pos + Vector2(w, 0);
-        Vector2 c = pos + Vector2(w, h);
-        Vector2 d = pos + Vector2(0, h);
+    Vector2 a = pos;
+    Vector2 b = pos + Vector2(size.x, 0);
+    Vector2 c = pos + Vector2(size.x, size.y);
+    Vector2 d = pos + Vector2(0, size.y);
 
-        DrawDottedLine(Alce.GetWindow(), a.ToVector2f(), b.ToVector2f());
-        DrawDottedLine(Alce.GetWindow(), b.ToVector2f(), c.ToVector2f());
-        DrawDottedLine(Alce.GetWindow(), c.ToVector2f(), d.ToVector2f());
-        DrawDottedLine(Alce.GetWindow(), d.ToVector2f(), a.ToVector2f());
-    }
-    else if (auto circle = std::dynamic_pointer_cast<CircleShape>(shape))
-    {
-        sf::Vector2f center(circle->position.x, circle->position.y);
-        float radius = circle->radius;
-        int segments = CIRCLE_QUALITY;
-
-        float angleStep = 2 * 3.14159265f / segments;
-        
-        for(int i = 0; i < segments; i++)
-        {
-            float angle1 = i * angleStep;
-            float angle2 = (i + 1) * angleStep;
-
-            sf::Vector2f p1 = center + sf::Vector2f(std::cos(angle1), std::sin(angle1)) * radius;
-            sf::Vector2f p2 = center + sf::Vector2f(std::cos(angle2), std::sin(angle2)) * radius;
-
-            DrawDottedLine(Alce.GetWindow(), p1, p2);
-        }
-    }
-    else if (auto poly = std::dynamic_pointer_cast<PolygonShape>(shape))
-    {
-        auto verts = poly->GetVertexList();
-        int count = verts.Length();
-
-        for(int i = 0; i < count; i++)
-        {
-            sf::Vector2f a(verts[i].x, verts[i].y);
-            sf::Vector2f b(verts[(i + 1) % count].x, verts[(i + 1) % count].y);
-            DrawDottedLine(Alce.GetWindow(), a, b);
-        }
-    }
+    DrawDottedLine(Alce.GetWindow(), a.ToVector2f(), b.ToVector2f(), sf::Color::White);
+    DrawDottedLine(Alce.GetWindow(), b.ToVector2f(), c.ToVector2f(), sf::Color::White);
+    DrawDottedLine(Alce.GetWindow(), c.ToVector2f(), d.ToVector2f(), sf::Color::White);
+    DrawDottedLine(Alce.GetWindow(), d.ToVector2f(), a.ToVector2f(), sf::Color::White);
 }
 
 void LightingArea2D::Update()
 {
     Vector2 position = transform->position + offset;
+    
+    if(compute || lightingArea == nullptr)
+    {
+        compute = false;
+        lightingArea = std::make_shared<candle::LightingArea>(candle::LightingArea::FOG, position.ToPixels().ToVector2f(), size.ToVector2f());
+    }
 
     lightingArea->setPosition(position.ToPixels().ToVector2f());
     lightingArea->setAreaOpacity(opacity);

@@ -31,7 +31,7 @@ namespace alce
 
     String ConcatString(List<String> strings, String join = "");
 
-    void DrawDottedLine(sf::RenderTarget& target, sf::Vector2f a, sf::Vector2f b, float dotLength = 5.f, float gap = 5.f);
+    void DrawDottedLine(sf::RenderTarget& target, sf::Vector2f a, sf::Vector2f b, sf::Color color = sf::Color::Red, float dotLength = 5.f, float gap = 5.f);
 
     std::vector<sf::Vector2f> ConvertShapeToPolygonPoints(ShapePtr shape);
 

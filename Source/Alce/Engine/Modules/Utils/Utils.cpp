@@ -77,7 +77,7 @@ alce::String alce::ConcatString(List<String> strings, String join)
 	return alce::String(str);
 }
 
-void alce::DrawDottedLine(sf::RenderTarget& target, sf::Vector2f a, sf::Vector2f b, float dotLength, float gap)
+void alce::DrawDottedLine(sf::RenderTarget& target, sf::Vector2f a, sf::Vector2f b, sf::Color color, float dotLength, float gap)
 {
     sf::Vector2f dir = b - a;
     float len = std::sqrt(dir.x * dir.x + dir.y * dir.y);
@@ -87,7 +87,7 @@ void alce::DrawDottedLine(sf::RenderTarget& target, sf::Vector2f a, sf::Vector2f
     {
         sf::Vector2f start = a + unit * i;
         sf::Vector2f end = a + unit * std::min(i + dotLength, len);
-        sf::Vertex line[] = { sf::Vertex(start, sf::Color::Red), sf::Vertex(end, sf::Color::Red) };
+        sf::Vertex line[] = { sf::Vertex(start, color), sf::Vertex(end, color) };
         target.draw(line, 2, sf::Lines);
     }
 }
