@@ -10,16 +10,16 @@ Light2D::Light2D(Type type) : Component("Light2D")
     {
         light = std::make_shared<candle::RadialLight>();
     } 
-    else 
+    
+    if (type == Type::Directed)
     {
         light = std::make_shared<candle::DirectedLight>();
-        std::dynamic_pointer_cast<candle::DirectedLight>(light)->setBeamWidth(100.f);
     }
 
     range = 100;   
     beamWidth = 100;
-    beamAngle = 90;
-    light->setColor(sf::Color::White);
+    beamAngle = 360;
+    light->setColor(color.ToSFMLColor());
     light->setIntensity(1.0f);
 }
 

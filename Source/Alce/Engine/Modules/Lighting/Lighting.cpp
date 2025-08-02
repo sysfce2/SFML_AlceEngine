@@ -101,6 +101,11 @@ void LightingSystem::AddLight(std::shared_ptr<candle::LightSource> light)
 
 void LightingSystem::Cast()
 {
+    for(auto& light: lights)
+    {
+        light->castLight(edgePool.begin(), edgePool.end());
+    }
+
     // edgePool.clear();
 
     // for(auto& shape: lightMeshes)

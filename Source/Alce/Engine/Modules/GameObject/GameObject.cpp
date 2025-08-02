@@ -78,7 +78,7 @@ void GameObject::AddComponent(ComponentPtr component)
         }
 
         layers.Sort([](const unsigned int a, const unsigned int b) {
-            return a > b;
+            return a < b;
         });
 
         if(scene == nullptr) return;

@@ -30,7 +30,7 @@ void SampleScene::Player::Init()
     AddComponent(rigidbody2d);
 
     animation = std::make_shared<Animation2d>();
-    animation->sortingLayer = 1;
+    animation->sortingLayer = 2;
     AddComponent(animation);
 
     leftRaycast2d = std::make_shared<Raycast2D>();
@@ -43,8 +43,8 @@ void SampleScene::Player::Init()
     AddComponent(canvas);
 
     light = std::make_shared<Light2D>(Light2D::Type::Directed);
-    light->SetIntensity(0.4f);
-    light->sortingLayer = 2;
+    light->SetIntensity(0.8f);
+    light->sortingLayer = 1;
     AddComponent(light);
 
     animation->AddAnimation("player/walk-forward.png", "walk-forward", 1, 4, 54, 63);

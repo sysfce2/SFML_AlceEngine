@@ -5,7 +5,6 @@ using namespace alce;
 SampleScene::Tree::Tree(Vector2 position)
 {
 	transform.position = position;
-    // sortingLayer = 2;
 }
 
 //Custom methods implementation

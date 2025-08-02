@@ -40,7 +40,7 @@ namespace alce
 
 		void Update();
 
-		Color color;
+		Color color = Colors::White;
 
 	private: 
 		
