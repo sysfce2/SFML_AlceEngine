@@ -71,7 +71,7 @@ Just write your prompts in the console while the game is running!
     * [FileSystem](Source/Alce/Engine/Core/FileSystem/): File and Folder management wrapper using C++17 std::filesystem, providing methods to create, delete, read, write, append, and clear files, check existence of files and folders, and handle paths as absolute strings with exception handling for invalid operations.
 
 * ## UIElements (User Interface):
-    > ⚠️ These elements are not recommended yet to be used.
+    > ⚠️ These elements are not recommended to be used yet.
     * [Button](Source/Alce/Engine/UI/Button/)
     * [Image](Source/Alce/Engine/UI/Image/)
     * [Text](Source/Alce/Engine/UI/Text/)
