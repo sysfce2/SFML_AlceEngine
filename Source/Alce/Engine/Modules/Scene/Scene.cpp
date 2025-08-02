@@ -9,6 +9,7 @@
 #include "../ARL/ARL.hpp"
 #include "../Json/Json.hpp"
 #include <thread>
+#include <unordered_set>
 
 using namespace alce;
 
@@ -34,38 +35,36 @@ void Scene::Save()
 void Scene::UpdateJson()
 {
     json.FromString("{}");
-
-    for(auto& sl : sortingLayers)
+    
+    for(auto& go : gameObjectList)
     {
-        for(auto& go : *sl.second.get())
-        {
-            String jsonStr = R"({
-                "id": "$id", 
-                "alias": "$alias", 
-                "transform": {
-                    "position": "$position",
-                    "rotation": $rotation,
-                    "scale": "$scale"
-                }
-            })";
-
-            jsonStr.Replace("$id", go->id);
-
-            if(go->alias != false)
-            {
-                jsonStr.Replace("$alias", go->alias);
+        String jsonStr = R"({
+            "id": "$id", 
+            "alias": "$alias", 
+            "transform": {
+                "position": "$position",
+                "rotation": $rotation,
+                "scale": "$scale"
             }
+        })";
 
-            jsonStr.Replace("$position", go->transform.position.ToString());
-            jsonStr.Replace("$rotation", go->transform.rotation);
-            jsonStr.Replace("$scale", go->transform.scale.ToString());
+        jsonStr.Replace("$id", go->id);
 
-            Json obj(jsonStr);
-
-            json.Set(go->alias == false ? go->id : go->alias, obj);
-            
+        if(go->alias != false)
+        {
+            jsonStr.Replace("$alias", go->alias);
         }
+
+        jsonStr.Replace("$position", go->transform.position.ToString());
+        jsonStr.Replace("$rotation", go->transform.rotation);
+        jsonStr.Replace("$scale", go->transform.scale.ToString());
+
+        Json obj(jsonStr);
+
+        json.Set(go->alias == false ? go->id : go->alias, obj);
+        
     }
+    
 }
 
 void Scene::AddGameObject(GameObjectPtr gameObject, String alias)
@@ -84,39 +83,45 @@ void Scene::AddGameObject(GameObjectPtr gameObject, String alias)
             }
         }
 
-        if(!sortingLayers.GetKeyList().Contains(gameObject->sortingLayer))
-        {
-            GameObjectListPtr list = std::make_shared<List<GameObjectPtr>>();
-            list.get()->Add(gameObject);
+        // if(!sortingLayers.GetKeyList().Contains(gameObject->sortingLayer))
+        // {
+        //     GameObjectListPtr list = std::make_shared<List<GameObjectPtr>>();
+        //     list.get()->Add(gameObject);
 
-            sortingLayers.Set(gameObject->sortingLayer, list);
-            gameObject->scene = this;
+        //     sortingLayers.Set(gameObject->sortingLayer, list);
+        //     gameObject->scene = this;
 
-            gameObject->alias = alias;
+        //     gameObject->alias = alias;
 
-            gameObject->Init();
+        //     gameObject->Init();
 
-            for(auto& c: gameObject->GetComponents())
-            {
-                c->Init();
-            }
+        //     for(auto& c: gameObject->GetComponents())
+        //     {
+        //         c->Init();
+        //     }
             
-            if(persist)
-            {
-                UpdateJson();
-            }
-            return;
-        }
+        //     if(persist)
+        //     {
+        //         UpdateJson();
+        //     }
+        //     return;
+        // }
 
-        if(sortingLayers[gameObject->sortingLayer].get()->Contains(gameObject))
+        // if(sortingLayers[gameObject->sortingLayer].get()->Contains(gameObject))
+        // {
+        //     Debug.Warning("Scene already contains gameObject \"{}\"", {gameObject->id});
+        //     return;
+        // }
+
+        if(gameObjectList.Contains(gameObject))
         {
             Debug.Warning("Scene already contains gameObject \"{}\"", {gameObject->id});
             return;
         }
 
-        sortingLayers[gameObject->sortingLayer].get()->Add(gameObject);
-        gameObject->scene = this;
+        gameObjectList.Add(gameObject);
 
+        gameObject->scene = this;
         gameObject->alias = alias;
 
         gameObject->Init();
@@ -141,14 +146,7 @@ void Scene::AddGameObject(GameObjectPtr gameObject, String alias)
 
 List<GameObjectPtr> Scene::GetAllGameObjects()
 {
-    List<GameObjectPtr> gameObjects;
-
-    for(auto& i: sortingLayers.GetValueList())
-    {
-        gameObjects.Merge(*i.get());
-    }
-
-    return gameObjects;
+    return gameObjectList;
 }
 
 void Scene::AddCanvas(CanvasPtr canvas, ComponentPtr camera)
@@ -182,7 +180,7 @@ bool Scene::IsPaused()
 
 void Scene::Clear()
 {
-    sortingLayers.Clear();
+    gameObjectList.Clear();
 }
 
 B2WorldPtr Scene::GetWorld()
@@ -216,16 +214,13 @@ void Scene::EventsManager(sf::Event& e)
         break;
     }
 
-    for(auto& sortingLayer: sortingLayers)
+    for(auto& go: gameObjectList)
     {
-        for(auto& gameObject: *sortingLayer.second.get())
-        {
-            gameObject->EventManager(e);
+        go->EventManager(e);
 
-            for(auto& component: gameObject->GetComponents())
-            {
-                component->EventManager(e);
-            }
+        for(auto& component: go->GetComponents())
+        {
+            component->EventManager(e);
         }
     }
 }
@@ -239,16 +234,27 @@ void Scene::Render()
         if(!camera->enabled) continue;
 
         Alce.GetWindow().setView(camera->view);
+        
+        List<unsigned int> layers;
+        std::unordered_set<unsigned int> seenLayers;
 
-        auto layers = sortingLayers.GetKeyList();
-        int max = Math.Max<int>(~layers);
-
-        for(int i = max; i >= 0; i--)
+        for (auto& go : gameObjectList)
         {
-            if(!layers.Contains(i)) continue;
-            
-            for(auto& gameObject: *sortingLayers.Get(i).get())
+            if(seenLayers.insert(go->sortingLayer).second)  
             {
+                layers.Add(go->sortingLayer);
+            }
+        }
+
+        maxLayer = Math.Max<unsigned int>(~layers);
+
+        for(int layer = 0; layer <= maxLayer; layer++)
+        {
+            if(!layers.Contains(layer)) continue;
+            
+            for(auto& gameObject: gameObjectList)
+            {
+                if(gameObject->sortingLayer != layer) continue;
                 if(!gameObject->enabled) continue;
 
                 if(gameObject->cardinals.Empty())
@@ -262,7 +268,7 @@ void Scene::Render()
                     !camera->GetBounds().InArea(*gameObject->cardinals["bottom-left"].get()) &&
                     !camera->GetBounds().InArea(*gameObject->cardinals["bottom-right"].get()))
                     {
-                        continue;
+                        if(SmartRender) continue;
                     }
                 }
 
@@ -271,8 +277,9 @@ void Scene::Render()
 
             if(developmentMode)
             {
-                for(auto& gameObject: *sortingLayers.Get(i).get())
+                for(auto& gameObject: gameObjectList)
                 {
+                    if(gameObject->sortingLayer != layer) continue;
                     if(!gameObject->enabled) continue;
 
                     if(gameObject->cardinals.Empty())
@@ -323,35 +330,40 @@ void Scene::Update()
 {
     if(paused) return;
 
+    if(world != nullptr) world->Step();
 
-    for(auto& sortingLayer: sortingLayers)
+    for(auto& gameObject: gameObjectList)
     {
-        for(auto& gameObject: *sortingLayer.second.get())
+        if(!gameObject->enabled) continue;
+        
+        gameObject->Update();
+
+        for(auto& component: gameObject->GetComponents())
         {
-            if(!gameObject->enabled) continue;
-            
-            gameObject->Update();
+            if(!component->enabled) continue;
+            component->Update();
 
-            for(auto& component: gameObject->GetComponents())
-            {
-                if(!component->enabled) continue;
-                component->Update();
+            if(component->id == "SpriteRenderer")
+                SetCardinals(gameObject,  gameObject->GetComponent<SpriteRenderer>()->GetCardinals());
 
-                if(component->id == "SpriteRenderer")
-                    SetCardinals(gameObject,  gameObject->GetComponent<SpriteRenderer>()->GetCardinals());
-
-                if(component->id == "Animation2d")
-                    SetCardinals(gameObject, gameObject->GetComponent<Animation2d>()->GetCardinals());
-            }
-        }
-
-        if(sortingLayer.second != nullptr)
-        {
-            sortingLayer.second->RemoveIf([](GameObjectPtr gameObject){
-                return gameObject->destroyed;
-            });
+            if(component->id == "Animation2d")
+                SetCardinals(gameObject, gameObject->GetComponent<Animation2d>()->GetCardinals());
         }
     }
+
+    // if(sortingLayer.second != nullptr)
+    // {
+    //     sortingLayer.second->RemoveIf([](GameObjectPtr gameObject){
+    //         return gameObject->destroyed;
+    //     });
+    // }
+
+    gameObjectList.RemoveIf([](GameObjectPtr gameObject) {
+        return gameObject->destroyed;
+    });
+    
+
+    ls.Cast();
 
     for(auto& canvas: canvasList)
     {
@@ -360,9 +372,6 @@ void Scene::Update()
             canvas->Update();
         }
     }
-
-    if(world != nullptr) world->Step();
-
 }
 
 void Scene::SetCardinals(GameObjectPtr gameObject, Dictionary<String, Vector2Ptr> cardinals)

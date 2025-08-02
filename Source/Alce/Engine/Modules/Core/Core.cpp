@@ -154,19 +154,15 @@ void CORE::SetCurrentScene(String name)
 
 		currentScene->Start();
 
-		for(auto& sl: currentScene->sortingLayers)
-		{
-			for(auto& go: *sl.second.get())
-			{
-				go->Start();
+        for(auto& go: currentScene->gameObjectList)
+        {
+            go->Start();
 
-				for(auto& c: go->GetComponents())
-				for(auto& c: go->GetComponents())
-				{
-					c->Start();
-				}
-			}
-		}
+            for(auto& c: go->GetComponents())
+            {
+                c->Start();
+            }
+        }	
 	}
 	catch (const std::exception& e)
 	{

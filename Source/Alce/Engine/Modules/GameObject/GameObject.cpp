@@ -2,6 +2,9 @@
 #include "../../Components/Camera/Camera.hpp"
 #include "../../Components/Rigidbody2d/Rigidbody2d.hpp"
 #include "../../Components/Raycast2d/Raycast2d.hpp"
+#include "../../Components/Light2D/Light2D.hpp"
+#include "../../Components/LightMesh2D/LightMesh2D.hpp"
+#include "../../Components/LightingArea2D/LightingArea2D.hpp"
 #include "../Scene/Scene.hpp"
 
 using namespace alce;
@@ -75,10 +78,19 @@ void GameObject::AddComponent(ComponentPtr component)
         }
 
         layers.Sort([](const unsigned int a, const unsigned int b) {
-            return a > b;
+            return a < b;
         });
 
         if(scene == nullptr) return;
+
+        Light2D* light = dynamic_cast<Light2D*>(component.get());
+        if(light) ((Scene*) scene)->ls.AddLight(light->light);
+        
+        LightMesh2D* lm = dynamic_cast<LightMesh2D*>(component.get());
+        if(lm) ((Scene*) scene)->ls.lightMeshes.Add(Pair<ShapePtr, bool*>(lm->shape, &lm->enabled));
+        
+        LightingArea2D* la = dynamic_cast<LightingArea2D*>(component.get());
+        if(la) ((Scene*) scene)->ls.AddLightingArea(la);
 
         Camera* camPtr = dynamic_cast<Camera*>(component.get());
         if(camPtr) ((Scene*) scene)->cameras.Add(camPtr);

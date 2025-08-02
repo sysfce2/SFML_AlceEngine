@@ -15,6 +15,8 @@
 #define PPM 30.0F
 #define DEG_PER_RAD 57.2957795F
 
+#define CIRCLE_QUALITY 30
+
 namespace alce
 {
 	class RANDOM
@@ -210,6 +212,11 @@ namespace alce
 	{
 	public:
 
+	    virtual ~Shape() 
+		{
+			
+		}
+
 		Shape()
 		{
 
@@ -259,7 +266,15 @@ namespace alce
 
 		CircleShape();
 
+		CircleShape(Vector2 position);
+
 		CircleShape(float radius);
+
+		CircleShape(float x, float y);
+
+		CircleShape(float x, float y, float radius);
+
+		CircleShape(Vector2 position, float radius);
 
 		bool InArea(Vector2 point);
 		

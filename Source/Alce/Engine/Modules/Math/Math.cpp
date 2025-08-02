@@ -518,8 +518,34 @@ CircleShape::CircleShape() : Shape(ShapeType::circle)
 	radius = 1.0f;
 }
 
+CircleShape::CircleShape(Vector2 position) : Shape(ShapeType::circle)
+{
+	this->position = position;
+	radius = 1.0f;
+}
+
+CircleShape::CircleShape(float x, float y) : Shape(ShapeType::circle)
+{
+	this->position.x = x;
+	this->position.y = y;
+	radius = 1.0f;
+}
+
+CircleShape::CircleShape(float x, float y, float radius) : Shape(ShapeType::circle)
+{
+	this->position.x = x;
+	this->position.y = y;
+	this->radius = radius;
+}
+
 CircleShape::CircleShape(float radius) : Shape(ShapeType::circle)
 {
+	this->radius = radius;
+}
+
+CircleShape::CircleShape(Vector2 position, float radius) : Shape(ShapeType::circle)
+{
+	this->position = position;
 	this->radius = radius;
 }
 

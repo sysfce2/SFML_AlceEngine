@@ -9,7 +9,8 @@ SampleScene::Sample::Sample() : Scene("Sample")
 {
 	persist = true;
 	DevelopmentMode(true);
-	InitPhysics(Vector2(0.0f, -1.0f));
+	InitPhysics(Vector2(0.0f, 0.0f));
+	SmartRender = false;
 }
 
 //Custom methods implementation
@@ -32,7 +33,7 @@ void SampleScene::Sample::Init()
 	SampleScene::TreePtr tree1 = std::make_shared<SampleScene::Tree>(Vector2(5, 3.5));
 	AddGameObject(tree1, "tree1");	
 	
-	SampleScene::TreePtr tree2 = std::make_shared<SampleScene::Tree>(Vector2(3, 3.5));
+	SampleScene::TreePtr tree2 = std::make_shared<SampleScene::Tree>(Vector2(-5.0f, 3.5));
 	AddGameObject(tree2, "tree2");	
 
 	Factory.RegisterCreator("Tree", []() {
