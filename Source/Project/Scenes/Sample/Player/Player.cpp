@@ -275,6 +275,7 @@ void SampleScene::Player::SetterManager(String name, String value)
     if(name == "intensity") light->SetIntensity(value.ParseFloat());
     if(name == "range") light->SetRange(value.ParseFloat());
     if(name == "beam") light->SetBeamAngle(value.ParseFloat());
+    if(name == "sortingLayer") sortingLayer = value.ParseInt();
 }
 
 String SampleScene::Player::GetterManager(String name)

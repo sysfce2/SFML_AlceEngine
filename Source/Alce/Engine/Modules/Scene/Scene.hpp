@@ -85,10 +85,10 @@ namespace alce
 
         LightingSystem ls;
 
-        String cosa = "algo";
-
         String name;
-        Dictionary<int, GameObjectListPtr> sortingLayers;
+        List<GameObjectPtr> gameObjectList;
+        unsigned int maxLayer;
+
         List<CanvasPtr> canvasList;
         List<Object*> cameras;
         bool paused = false;
@@ -112,18 +112,15 @@ namespace alce
         void LoadFromJson()
         {
             json.FromFile("./Scenes/" + GetName().ToAnsiString() + ".json");
-
-            for(auto& sl : sortingLayers)
+          
+            for(auto& go : gameObjectList)
             {
-                for(auto& go : *sl.second.get())
-                {
-                    bool hasAlias = json.Has(go->alias);
-                    bool hasId = json.Has(go->id);
+                bool hasAlias = json.Has(go->alias);
+                bool hasId = json.Has(go->id);
 
-                    if(hasAlias || hasId) 
-                    {
-                        go->transform.position.FromString(json.GetJson(hasAlias ? go->alias : go->id).GetJson("transform").Get("position"));
-                    }
+                if(hasAlias || hasId) 
+                {
+                    go->transform.position.FromString(json.GetJson(hasAlias ? go->alias : go->id).GetJson("transform").Get("position"));
                 }
             }
         }
