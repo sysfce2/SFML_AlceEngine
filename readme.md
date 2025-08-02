@@ -62,13 +62,13 @@ Just write your prompts in the console while the game is running!
     * [Color](Source/Alce/Engine/Modules/Color/): Wrapper class for SFML's sf::Color providing multiple constructors and setters for RGB, RGBA, hex and string formats, color blending, conversions, and predefined common colors with error handling and string parsing utilities in C++.
 
 * ### Utils:
-    * [Collections](Source/Alce/Engine/Core/Collections/): provides a collection of generic, exception-safe container classes—including a customizable List with advanced manipulation and filtering capabilities, a Pair utility, and a Dictionary implemented on top of the List—designed to facilitate flexible and efficient data storage and retrieval.
+    * [Collections](Source/Alce/Engine/Modules/Collections/): provides a collection of generic, exception-safe container classes—including a customizable List with advanced manipulation and filtering capabilities, a Pair utility, and a Dictionary implemented on top of the List—designed to facilitate flexible and efficient data storage and retrieval.
 
-    * [String](Source/Alce/Engine/Core/String/): versatile String class wrapping SFML’s string type, offering extensive manipulation methods such as substring operations, case conversion, comment removal, parsing to various data types, trimming, splitting, regex matching, and comprehensive operator overloads for flexible and efficient string handling in C++.
+    * [String](Source/Alce/Engine/Modules/String/): versatile String class wrapping SFML’s string type, offering extensive manipulation methods such as substring operations, case conversion, comment removal, parsing to various data types, trimming, splitting, regex matching, and comprehensive operator overloads for flexible and efficient string handling in C++.
 
-    * [Json](Source/Alce/Engine/Core/Json/): JSON wrapper class for C++ using RapidJSON, providing methods to parse from strings or files, get/set JSON values (strings, nested JSON, lists), check keys, delete or clear members, validate JSON, and serialize back to formatted strings or save as files — with exception handling for type errors and missing keys.
+    * [Json](Source/Alce/Engine/Modules/Json/): JSON wrapper class for C++ using RapidJSON, providing methods to parse from strings or files, get/set JSON values (strings, nested JSON, lists), check keys, delete or clear members, validate JSON, and serialize back to formatted strings or save as files — with exception handling for type errors and missing keys.
 
-    * [FileSystem](Source/Alce/Engine/Core/FileSystem/): File and Folder management wrapper using C++17 std::filesystem, providing methods to create, delete, read, write, append, and clear files, check existence of files and folders, and handle paths as absolute strings with exception handling for invalid operations.
+    * [FileSystem](Source/Alce/Engine/Modules/FileSystem/): File and Folder management wrapper using C++17 std::filesystem, providing methods to create, delete, read, write, append, and clear files, check existence of files and folders, and handle paths as absolute strings with exception handling for invalid operations.
 
 * ### UIElements (User Interface):
     > ⚠️ These elements are not recommended to be used yet.
