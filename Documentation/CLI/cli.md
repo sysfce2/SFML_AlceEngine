@@ -280,10 +280,10 @@ The following structure will be generated in the respective .cpp file within the
 ```cpp
 #pragma region implementation
 
-  void Particle::SetDensity(float density)
-  {
-    
-  }
+void Particle::SetDensity(float density)
+{
+  
+}
 
 #pragma endregion
 ```
