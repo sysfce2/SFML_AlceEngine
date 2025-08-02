@@ -25,8 +25,9 @@ void SampleScene::Tree::Init()
     // light = std::make_shared<Light2D>(Light2D::Type::Radial);
     // AddComponent(light);
 
-    // lightMesh = std::make_shared<LightMesh2D>(std::make_shared<RectShape>(50, 50));
-    // AddComponent(lightMesh);
+    lightMesh = std::make_shared<LightMesh2D>(std::make_shared<CircleShape>(30));
+    lightMesh->SetOffset(0, 2);
+    AddComponent(lightMesh);
 
     lightingArea = std::make_shared<alce::LightingArea2D>();
     lightingArea->SetSize(200, 200);
@@ -58,7 +59,7 @@ void SampleScene::Tree::SetterManager(String name, String value)
 
     if(name == "offset")
     {
-        lightingArea->SetOffset(value.Split(",")[0].ParseFloat(), value.Split(",")[1].ParseFloat());
+        lightMesh->SetOffset(value.Split(",")[0].ParseFloat(), value.Split(",")[1].ParseFloat());
     }
 
     if(name == "size")

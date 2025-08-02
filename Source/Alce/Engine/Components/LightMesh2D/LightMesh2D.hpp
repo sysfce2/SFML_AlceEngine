@@ -14,16 +14,21 @@ namespace alce
 
 		void SetShape(ShapePtr shape);
 
+		void SetOffset(Vector2 offset);
+
+		void SetOffset(float x, float y);
+
+		Vector2 GetOffset();
+
 		void DebugRender();
 
 		void Update();
-
-		Vector2 offset = Vector2(0, 0);
 
 	private:
 
 		friend class GameObject;
 
+		Vector2 offset = Vector2(0, 0);
 		ShapePtr shape;
 	};
 

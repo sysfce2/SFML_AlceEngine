@@ -101,29 +101,29 @@ void LightingSystem::AddLight(std::shared_ptr<candle::LightSource> light)
 
 void LightingSystem::Cast()
 {
-    for(auto& light: lights)
-    {
-        light->castLight(edgePool.begin(), edgePool.end());
-    }
-
-    // edgePool.clear();
-
-    // for(auto& shape: lightMeshes)
-    // {
-    //     if(!*shape.second) continue;
-
-    //     auto edges = GenerateEdgesFromShape(shape.first);
-        
-    //     for(auto& edge: edges)
-    //     {
-    //         edgePool.push_back(edge);
-    //     }
-    // }
-
     // for(auto& light: lights)
     // {
     //     light->castLight(edgePool.begin(), edgePool.end());
     // }
+
+    edgePool.clear();
+
+    for(auto& shape: lightMeshes)
+    {
+        if(!*shape.second) continue;
+
+        auto edges = GenerateEdgesFromShape(shape.first);
+        
+        for(auto& edge: edges)
+        {
+            edgePool.push_back(edge);
+        }
+    }
+
+    for(auto& light: lights)
+    {
+        light->castLight(edgePool.begin(), edgePool.end());
+    }
 
     // for(auto& la: lightingAreas)
     // {

@@ -86,8 +86,8 @@ void GameObject::AddComponent(ComponentPtr component)
         Light2D* light = dynamic_cast<Light2D*>(component.get());
         if(light) ((Scene*) scene)->ls.AddLight(light->light);
         
-        // LightMesh2D* lm = dynamic_cast<LightMesh2D*>(component.get());
-        // if(lm) ((Scene*) scene)->ls.lightMeshes.Add(Pair<ShapePtr, bool*>(lm->shape, &lm->enabled));
+        LightMesh2D* lm = dynamic_cast<LightMesh2D*>(component.get());
+        if(lm) ((Scene*) scene)->ls.lightMeshes.Add(Pair<ShapePtr, bool*>(lm->shape, &lm->enabled));
         
         LightingArea2D* la = dynamic_cast<LightingArea2D*>(component.get());
         if(la) ((Scene*) scene)->ls.AddLightingArea(la);

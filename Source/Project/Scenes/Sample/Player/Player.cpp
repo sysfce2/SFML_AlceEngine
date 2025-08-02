@@ -42,7 +42,7 @@ void SampleScene::Player::Init()
     canvas = std::make_shared<Canvas>();
     AddComponent(canvas);
 
-    light = std::make_shared<Light2D>(Light2D::Type::Directed);
+    light = std::make_shared<Light2D>(Light2D::Type::Radial);
     light->SetIntensity(0.8f);
     light->sortingLayer = 1;
     AddComponent(light);

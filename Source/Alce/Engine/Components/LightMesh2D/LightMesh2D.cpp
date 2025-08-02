@@ -22,6 +22,21 @@ void LightMesh2D::SetShape(ShapePtr shape)
     this->shape = shape;
 }
 
+void LightMesh2D::SetOffset(Vector2 offset)
+{
+    this->offset = offset;
+}
+
+void LightMesh2D::SetOffset(float x, float y)
+{
+    offset = Vector2(x, y);
+}
+
+Vector2 LightMesh2D::GetOffset()
+{
+    return offset;
+}
+
 #pragma endregion
 
 //Inherited methods
