@@ -25,7 +25,7 @@ Just write your prompts in the console while the game is running!
 
 # Features
 
-* ## Components:
+* ### Components:
     * [Animation2d](Source/Alce/Engine/Components/Animation2d/): handles 2D sprite sheet animations, allowing you to define, play, and control animations with different playback modes, frame timing, and origins. It also updates cardinal positions for spatial references.
 
     * [Camera](Source/Alce/Engine/Components/Camera/):  defines a 2D camera that controls the visible area of the scene, supporting zoom, viewport configuration, and smooth following of its associated game object's position and rotation.
@@ -44,7 +44,7 @@ Just write your prompts in the console while the game is running!
 
     * [LightingArea2D](Source/Alce/Engine/Components/LightingArea2D/): defines and manages a 2D lighting area that can render fog-like effects, adjusting its size, position offset, color, and opacity dynamically within a game or graphical application.
 
-* ## Modules:
+* ### Modules:
     * [Core](Source/Alce/Engine/Modules/Core/): manages window creation, scene management, asset loading (textures, sounds, fonts), system info retrieval, input handling, and the main game loop for a graphical application using SFML.
 
     * [Audio](Source/Alce/Engine/Modules/Audio/): manages audio playback by organizing sounds into channels, allowing loading, controlling (play, pause, stop), and adjusting sound properties (volume, pitch, looping) within each channel.
@@ -61,7 +61,7 @@ Just write your prompts in the console while the game is running!
 
     * [Color](Source/Alce/Engine/Modules/Color/): Wrapper class for SFML's sf::Color providing multiple constructors and setters for RGB, RGBA, hex and string formats, color blending, conversions, and predefined common colors with error handling and string parsing utilities in C++.
 
-* ## Utils:
+* ### Utils:
     * [Collections](Source/Alce/Engine/Core/Collections/): provides a collection of generic, exception-safe container classes—including a customizable List with advanced manipulation and filtering capabilities, a Pair utility, and a Dictionary implemented on top of the List—designed to facilitate flexible and efficient data storage and retrieval.
 
     * [String](Source/Alce/Engine/Core/String/): versatile String class wrapping SFML’s string type, offering extensive manipulation methods such as substring operations, case conversion, comment removal, parsing to various data types, trimming, splitting, regex matching, and comprehensive operator overloads for flexible and efficient string handling in C++.
@@ -70,14 +70,14 @@ Just write your prompts in the console while the game is running!
 
     * [FileSystem](Source/Alce/Engine/Core/FileSystem/): File and Folder management wrapper using C++17 std::filesystem, providing methods to create, delete, read, write, append, and clear files, check existence of files and folders, and handle paths as absolute strings with exception handling for invalid operations.
 
-* ## UIElements (User Interface):
+* ### UIElements (User Interface):
     > ⚠️ These elements are not recommended to be used yet.
     * [Button](Source/Alce/Engine/UI/Button/)
     * [Image](Source/Alce/Engine/UI/Image/)
     * [Text](Source/Alce/Engine/UI/Text/)
     * [TextInput](Source/Alce/Engine/UI/TextInput/)
 
-* ## CLI
+* ### CLI
   
     * [Alce CLI](Documentation/CLI/cli.md): prompt program designed to compile, generate and run Alce projects. Perfect if you dont want to install a complete C++ environment like Visual Studio or Code::Blocks.
 
