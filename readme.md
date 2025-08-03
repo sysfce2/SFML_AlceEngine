@@ -14,7 +14,7 @@ Alce Game Engine is a feature-rich game engine based on SFML and Box2D, designed
 
 # News and Updates
 
-### > (3/8/2025) Update: Candle Lighting System Implemented
+### > (3/8/2025) Candle Lighting Now Available in AlceEngine
 
 We're excited to introduce a new integration of Candle into the AlceEngine, bringing advanced 2D lighting capabilities to your SFML projects. This implementation includes support for radial and directional lights, fog-based lighting areas, and custom light meshes with support for rectangular, circular, and polygonal shapes. 
 
