@@ -351,13 +351,6 @@ void Scene::Update()
         }
     }
 
-    // if(sortingLayer.second != nullptr)
-    // {
-    //     sortingLayer.second->RemoveIf([](GameObjectPtr gameObject){
-    //         return gameObject->destroyed;
-    //     });
-    // }
-
     gameObjectList.RemoveIf([](GameObjectPtr gameObject) {
         return gameObject->destroyed;
     });
