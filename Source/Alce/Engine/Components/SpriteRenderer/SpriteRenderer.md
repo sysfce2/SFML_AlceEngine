@@ -14,7 +14,7 @@ SpriteRenderer()
 ```
 Creates a new ```SpriteRenderer``` instance. Initializes the internal sprite and allocates cardinal point references (top-left, top-right, bottom-left, bottom-right).
 
-## Public Fields
+## Parameters
 
 * ```Vector2 originOffset```: Offset applied to the sprite’s origin, relative to its center.
 
