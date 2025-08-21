@@ -39,15 +39,15 @@ AlceEngine provides well-structured and comprehensive documentation for every co
 
 ### 🧩 Components:
 
-* [Animation2d](Source/Alce/Engine/Components/Animation2D/Animation2D.md): handles 2D sprite sheet animations, allowing you to define, play, and control animations with different playback modes, frame timing, and origins. It also updates cardinal positions for spatial references.
+* [Animation2d](Source/Alce/Engine/Components/Animation2d/Animation2D.md): handles 2D sprite sheet animations, allowing you to define, play, and control animations with different playback modes, frame timing, and origins. It also updates cardinal positions for spatial references.
 
 * [Camera](Source/Alce/Engine/Components/Camera/Camera.md): defines a 2D camera that controls the visible area of the scene, supporting zoom, viewport configuration, and smooth following of its associated game object's position and rotation.
 
 * <img src="https://box2d.org/images/logo.svg" style="width: 23px; position: relative; top: 1px"> [ParticleSystem](Source/Alce/Engine/Components/ParticleSystem/ParticleSystem.md): manages a 2D particle system that emits physics-based particles from a defined area, applying customizable behaviors, collisions, and lifetimes to simulate effects like explosions, smoke, or sparks.
 
-* <img src="https://box2d.org/images/logo.svg" style="width: 23px; position: relative; top: 1px"> [Raycast2d](Source/Alce/Engine/Components/Raycast2D/Raycast2D.md): performs 2D raycasting to detect collisions along a direction and length, triggering impact events when objects are hit or no longer hit.
+* <img src="https://box2d.org/images/logo.svg" style="width: 23px; position: relative; top: 1px"> [Raycast2d](Source/Alce/Engine/Components/Raycast2d/Raycast2D.md): performs 2D raycasting to detect collisions along a direction and length, triggering impact events when objects are hit or no longer hit.
 
-* <img src="https://box2d.org/images/logo.svg" style="width: 23px; position: relative; top: 1px"> [Rigidbody2d](Source/Alce/Engine/Components/Rigidbody2D/Rigidbody2D.md): manages the 2D physics simulation of an object using Box2D, allowing the creation of rigid bodies with different shapes, applying forces and impulses, configuring physical properties (such as friction, density, or restitution), and synchronizing their position and rotation with the engine's transform system.
+* <img src="https://box2d.org/images/logo.svg" style="width: 23px; position: relative; top: 1px"> [Rigidbody2d](Source/Alce/Engine/Components/Rigidbody2d/Rigidbody2D.md): manages the 2D physics simulation of an object using Box2D, allowing the creation of rigid bodies with different shapes, applying forces and impulses, configuring physical properties (such as friction, density, or restitution), and synchronizing their position and rotation with the engine's transform system.
 
 * [SpriteRenderer](Source/Alce/Engine/Components/SpriteRenderer/SpriteRenderer.md): renders a 2D sprite using a texture, allowing you to load, assign, and manage multiple textures, while also updating its position, scale, rotation, and cardinal points based on the associated game object's transform.
 
