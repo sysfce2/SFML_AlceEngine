@@ -36,7 +36,7 @@ AlceEngine provides well-structured and comprehensive documentation for every co
 
 # 🧾 Features
 
-### 🧩 Components
+### 🧩 Components:
 
 * [Animation2d](Source/Alce/Engine/Components/Animation2D/Animation2D.md): handles 2D sprite sheet animations, allowing you to define, play, and control animations with different playback modes, frame timing, and origins. It also updates cardinal positions for spatial references.
 
@@ -84,7 +84,7 @@ AlceEngine provides well-structured and comprehensive documentation for every co
 
 * [FileSystem](Source/Alce/Engine/Modules/FileSystem/): File and Folder management wrapper using C++17 std::filesystem, providing methods to create, delete, read, write, append, and clear files, check existence of files and folders, and handle paths as absolute strings with exception handling for invalid operations.
 
-### 🖥️ UIElements (User Interface)
+### 🖥️ UIElements (User Interface):
 
 * [Button](Source/Alce/Engine/UI/Button/): represents an interactive UI element that can display text, respond to mouse events, and trigger custom callbacks on click, mouse enter, or mouse exit.
 
@@ -94,7 +94,7 @@ AlceEngine provides well-structured and comprehensive documentation for every co
 
 * [TextInput](Source/Alce/Engine/UI/TextInput/): represents a UI element that allows users to enter and edit text, featuring customizable appearance, placeholder text, cursor behavior, font size, and an onSubmit callback for handling input events.
 
-### ⚙️CLI
+### ⚙️CLI:
 
 * [Alce CLI](Documentation/CLI/cli.md): prompt program designed to compile, generate and run Alce projects. Perfect if you dont want to install a complete C++ environment like Visual Studio or Code::Blocks.
 
