@@ -347,7 +347,7 @@ void Scene::Update()
                 SetCardinals(gameObject,  gameObject->GetComponent<SpriteRenderer>()->GetCardinals());
 
             if(component->id == "Animation2d")
-                SetCardinals(gameObject, gameObject->GetComponent<Animation2d>()->GetCardinals());
+                SetCardinals(gameObject, gameObject->GetComponent<Animation2D>()->GetCardinals());
         }
     }
 

@@ -29,7 +29,7 @@ void SampleScene::Player::Init()
     rigidbody2d = std::make_shared<Rigidbody2D>();
     AddComponent(rigidbody2d);
 
-    animation = std::make_shared<Animation2d>();
+    animation = std::make_shared<Animation2D>();
     animation->sortingLayer = 2;
     AddComponent(animation);
 
@@ -63,6 +63,7 @@ void SampleScene::Player::Init()
     rigidbody2d->SetFixedRotation(true);
     
     TextPtr text = std::make_shared<Text>();
+    _text = text;
     canvas->AddElement(text);
     text->position = Vector2(20, 20);
     text->padding = Vector2(10, 10);
@@ -71,9 +72,9 @@ void SampleScene::Player::Init()
     *text += "<color='green'>Alce Engine</color> Sample Project";
     *text += "\nby @gabrielbeguren";
     text->borderRadius = 7;
-    text->borderWidth = 3;
+    text->borderWidth = 0;
     text->borderColor = Colors::Yellow;
-    text->backgroundColor = Colors::Black;
+    text->backgroundColor = Colors::Transparent;
 
     animation->transform->scale = Vector2(0, 0);
     leftRaycast2d->direction = Vector2(-0.447f, -0.894f);
@@ -90,12 +91,27 @@ void SampleScene::Player::Init()
     canvas->AddElement(button);
     button->zIndex = 5;
     button->position = Vector2(40, 100);
-    button->borderRadius = 2;
+    button->borderRadius = 7;
     button->borderWidth = 1;
     button->text = "guardar";
     button->borderColor = Colors::White;
     button->onClick = [](){
         
+    };
+
+    TextInputPtr ti = std::make_shared<TextInput>();
+    canvas->AddElement(ti);
+    ti->width = 500;
+    ti->height = 45;
+    ti->backgroundColor = Colors::Black;
+    ti->textColor = Colors::White;
+    ti->borderWidth = 1;
+    ti->cursorColor = Colors::White;
+    ti->positionType = UIElement::Relative;
+    ti->position = Vector2(0.01, 0.925f);
+    ti->fontSize = TextInput::Small;
+    ti->onSubmit = [=](){
+        Debug.Log(ti->GetText());
     };
 }
 
@@ -276,6 +292,7 @@ void SampleScene::Player::SetterManager(String name, String value)
     if(name == "range") light->SetRange(value.ParseFloat());
     if(name == "beam") light->SetBeamAngle(value.ParseFloat());
     if(name == "sortingLayer") sortingLayer = value.ParseInt();
+    if(name == "position") _text->position = Vector2(value.Split(",").First().ParseFloat(), value.Split(",").Last().ParseFloat());
 }
 
 String SampleScene::Player::GetterManager(String name)

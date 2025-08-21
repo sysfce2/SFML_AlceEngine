@@ -57,7 +57,7 @@ namespace alce
 
         unsigned int sortingLayer = 0;
 
-        Transform* transform = nullptr;
+        Transform2* transform = nullptr;
     
     protected:
 

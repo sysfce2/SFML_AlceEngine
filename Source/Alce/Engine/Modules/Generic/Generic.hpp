@@ -49,7 +49,7 @@ namespace alce
             return "undefined";
         }
 
-        Transform transform;
+        Transform2 transform;
     
     protected:
         

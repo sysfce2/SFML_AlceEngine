@@ -12,39 +12,43 @@
 
 Alce Game Engine is a feature-rich game engine based on SFML and Box2D, designed to simplify the development of 2D games. Its primary goal is to provide a comprehensive suite of tools and components that streamline the creation process—from physics simulations and animations to user interface management and local storage.
 
-# News and Updates
+# 📰 News and Updates
+
+### > (3/8/2025) Candle Lighting Now Available in AlceEngine
+We're excited to introduce a new integration of Candle into AlceEngine, bringing advanced 2D lighting capabilities to your SFML projects. This implementation includes support for radial and directional lights, fog-based lighting areas, and custom light meshes with support for rectangular, circular, and polygonal shapes.
+
+Designed to be modular and easy to use within the AlceEngine's component system, this integration enables dynamic lighting effects, real-time intensity control, and debug visualizations to streamline your workflow.
 
 ### > (03/03/2025) Release: Alce Runtime Language (ARL)
 
 A lightweight, human-readable command language designed for dynamic scene development and modification during runtime. It allows you to make real-time changes without the need for recompilation, streamlining iterative workflows in applications such as game development or interactive simulations.
  
 Just write your prompts in the console while the game is running!
+> [ARL Documentation](Documentation/ARL/ARL.md)
 
-[ARL Documentation](Documentation/ARL/ARL.md)
 
+# 🔧 Features
 
-# Features
+* ### 🧩 Components:
+    * [Animation2d](Source/Alce/Engine/Components/Animation2D/Animation2D.md): handles 2D sprite sheet animations, allowing you to define, play, and control animations with different playback modes, frame timing, and origins. It also updates cardinal positions for spatial references.
 
-* ### Components:
-    * [Animation2d](Source/Alce/Engine/Components/Animation2d/): handles 2D sprite sheet animations, allowing you to define, play, and control animations with different playback modes, frame timing, and origins. It also updates cardinal positions for spatial references.
+    * [Camera](Source/Alce/Engine/Components/Camera/Camera2D.md):  defines a 2D camera that controls the visible area of the scene, supporting zoom, viewport configuration, and smooth following of its associated game object's position and rotation.
 
-    * [Camera](Source/Alce/Engine/Components/Camera/):  defines a 2D camera that controls the visible area of the scene, supporting zoom, viewport configuration, and smooth following of its associated game object's position and rotation.
+    * <img src="https://box2d.org/images/logo.svg" style="width: 23px; position: relative; top: 1px"> [ParticleSystem](Source/Alce/Engine/Components/ParticleSystem/ParticleSystem.md): manages a 2D particle system that emits physics-based particles from a defined area, applying customizable behaviors, collisions, and lifetimes to simulate effects like explosions, smoke, or sparks.
 
-    * [ParticleSystem](Source/Alce/Engine/Components/ParticleSystem/): manages a 2D particle system that emits physics-based particles from a defined area, applying customizable behaviors, collisions, and lifetimes to simulate effects like explosions, smoke, or sparks.
+    * <img src="https://box2d.org/images/logo.svg" style="width: 23px; position: relative; top: 1px"> [Raycast2d](Source/Alce/Engine/Components/Raycast2D/Raycast2D.md): performs 2D raycasting to detect collisions along a direction and length, triggering impact events when objects are hit or no longer hit.
 
-    * [Raycast2d](Source/Alce/Engine/Components/Raycast2d/): performs 2D raycasting to detect collisions along a direction and length, triggering impact events when objects are hit or no longer hit.
+    * <img src="https://box2d.org/images/logo.svg" style="width: 23px; position: relative; top: 1px"> [Rigidbody2d](Source/Alce/Engine/Components/Rigidbody2D/Rigidbody2D.md): manages the 2D physics simulation of an object using Box2D, allowing the creation of rigid bodies with different shapes, applying forces and impulses, configuring physical properties (such as friction, density, or restitution), and synchronizing their position and rotation with the engine's transform system.
 
-    * [Rigidbody2d](Source/Alce/Engine/Components/Rigidbody2d/): manages the 2D physics simulation of an object using Box2D, allowing the creation of rigid bodies with different shapes, applying forces and impulses, configuring physical properties (such as friction, density, or restitution), and synchronizing their position and rotation with the engine's transform system.
+    * [SpriteRenderer](Source/Alce/Engine/Components/SpriteRenderer/SpriteRenderer.md): renders a 2D sprite using a texture, allowing you to load, assign, and manage multiple textures, while also updating its position, scale, rotation, and cardinal points based on the associated game object's transform.
 
-    * [SpriteRenderer](Source/Alce/Engine/Components/SpriteRenderer/): renders a 2D sprite using a texture, allowing you to load, assign, and manage multiple textures, while also updating its position, scale, rotation, and cardinal points based on the associated game object's transform.
+    * <img src="https://raw.githubusercontent.com/MiguelMJ/Candle/master/doc/logo.svg" style="width: 19px; position: relative; top: 2px"> [Light2D](Source/Alce/Engine/Components/Light2D/Light2D.md): defines a 2D light source (either radial or directional) that can be positioned, colored, and configured with parameters like range, intensity, beam width, and angle, to simulate dynamic lighting effects in a 2D environment.
 
-    * [Light2D](Source/Alce/Engine/Components/Light2D/): defines a 2D light source (either radial or directional) that can be positioned, colored, and configured with parameters like range, intensity, beam width, and angle, to simulate dynamic lighting effects in a 2D environment.
+    * <img src="https://raw.githubusercontent.com/MiguelMJ/Candle/master/doc/logo.svg" style="width: 19px; position: relative; top: 2px"> [LightMesh2D](Source/Alce/Engine/Components/LightMesh2D/LightMesh2D.md):  represents a 2D shape used as a light-blocking or light-interacting mesh, allowing you to define custom geometry (rectangle, circle, or polygon) that updates with the object's transform and can be visualized in debug mode.
 
-    * [LightMesh2D](Source/Alce/Engine/Components/LightMesh2D/):  represents a 2D shape used as a light-blocking or light-interacting mesh, allowing you to define custom geometry (rectangle, circle, or polygon) that updates with the object's transform and can be visualized in debug mode.
+    * <img src="https://raw.githubusercontent.com/MiguelMJ/Candle/master/doc/logo.svg" style="width: 19px; position: relative; top: 2px"> [LightingArea2D](Source/Alce/Engine/Components/LightingArea2D/LightingArea2D.md): defines and manages a 2D lighting area that can render fog-like effects, adjusting its size, position offset, color, and opacity dynamically within a game or graphical application.
 
-    * [LightingArea2D](Source/Alce/Engine/Components/LightingArea2D/): defines and manages a 2D lighting area that can render fog-like effects, adjusting its size, position offset, color, and opacity dynamically within a game or graphical application.
-
-* ### Modules:
+* ### 🔷 Modules:
     * [Core](Source/Alce/Engine/Modules/Core/): manages window creation, scene management, asset loading (textures, sounds, fonts), system info retrieval, input handling, and the main game loop for a graphical application using SFML.
 
     * [Audio](Source/Alce/Engine/Modules/Audio/): manages audio playback by organizing sounds into channels, allowing loading, controlling (play, pause, stop), and adjusting sound properties (volume, pitch, looping) within each channel.

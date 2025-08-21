@@ -2,7 +2,7 @@
 
 using namespace alce;
 
-Animation2d::Animation2d() : Component("Animation2d")
+Animation2D::Animation2D() : Component("Animation2d")
 {
     cardinals.Set("top-left", std::make_shared<Vector2>());
     cardinals.Set("top-right", std::make_shared<Vector2>());
@@ -12,7 +12,7 @@ Animation2d::Animation2d() : Component("Animation2d")
 
 #pragma region implementation
 
-void Animation2d::AddAnimation(String spritesheetFile, String name, int rows, int cols, int frameWidth, int frameHeight)
+void Animation2D::AddAnimation(String spritesheetFile, String name, int rows, int cols, int frameWidth, int frameHeight)
 {
     spritesheets.Set(name, new sf::Sprite());
     spritesheets[name]->setTexture(*Alce.GetTexture(spritesheetFile));
@@ -36,17 +36,17 @@ void Animation2d::AddAnimation(String spritesheetFile, String name, int rows, in
     animations.Set(name, frames);
 }
 
-void Animation2d::DeleteAnimation(String name)
+void Animation2D::DeleteAnimation(String name)
 {
     animations.RemoveByKey(name);
 }
 
-void Animation2d::SetOriginMode(OriginMode originMode)
+void Animation2D::SetOriginMode(OriginMode originMode)
 {
     this->originMode = originMode;
 }
 
-void Animation2d::PlayAnimation(String name, AnimationMode mode)
+void Animation2D::PlayAnimation(String name, AnimationMode mode)
 {
     if(!enabled) return;
 
@@ -67,24 +67,24 @@ void Animation2d::PlayAnimation(String name, AnimationMode mode)
     SetTextureRectForFrame();
 }
 
-void Animation2d::SetAnimationMode(AnimationMode mode)
+void Animation2D::SetAnimationMode(AnimationMode mode)
 {
     currentMode = mode;
 }
 
-String Animation2d::GetCurrentAnimation()
+String Animation2D::GetCurrentAnimation()
 {
     return this->currentAnimation;
 }
 
 #pragma region AnimationEngine
 
-void Animation2d::DetermineNumFrames()
+void Animation2D::DetermineNumFrames()
 {
     numFrames = animations[currentAnimation].Length();
 }
 
-void Animation2d::DetermineFirstFrameNum()
+void Animation2D::DetermineFirstFrameNum()
 {
     switch(currentMode)
     {
@@ -100,7 +100,7 @@ void Animation2d::DetermineFirstFrameNum()
     }
 }
 
-void Animation2d::DetermineNextFrameNum()
+void Animation2D::DetermineNextFrameNum()
 {
     if(!isPlaying) return;
     if(currentMode == AnimationMode::FirstFrameOnly) return;
@@ -140,7 +140,7 @@ void Animation2d::DetermineNextFrameNum()
     }
 }
 
-void Animation2d::SetTextureRectForFrame()
+void Animation2D::SetTextureRectForFrame()
 {
     auto rect = animations[currentAnimation].Get(currentFrameNum);
     spritesheets[currentAnimation]->setTextureRect(rect->ToIntRect());
@@ -179,29 +179,29 @@ void Animation2d::SetTextureRectForFrame()
     spritesheets[currentAnimation]->setOrigin(Vector2(originX, originY).ToVector2f());
 }
 
-bool Animation2d::IsDrawable()
+bool Animation2D::IsDrawable()
 {
 	return (animations.Length() > 0 && animations.HasKey(currentAnimation));
 }
 
 #pragma endregion
 
-void Animation2d::SetTimePerFrame(Time timePerFrame)
+void Animation2D::SetTimePerFrame(Time timePerFrame)
 {
     this->msPerFrame = timePerFrame.ToMiliseconds();
 }
 
-void Animation2d::Pause(bool flag)
+void Animation2D::Pause(bool flag)
 {
     this->paused = flag;
 }
 
-bool Animation2d::IsPlaying()
+bool Animation2D::IsPlaying()
 {
     return isPlaying;
 }
 
-Dictionary<String, Vector2Ptr> Animation2d::GetCardinals()
+Dictionary<String, Vector2Ptr> Animation2D::GetCardinals()
 {
     return cardinals;
 }
@@ -210,7 +210,7 @@ Dictionary<String, Vector2Ptr> Animation2d::GetCardinals()
 
 #pragma region inherited
 
-void Animation2d::Render()
+void Animation2D::Render()
 {
     if(!enabled) return;
     if(!IsDrawable()) return;
@@ -218,7 +218,7 @@ void Animation2d::Render()
     Alce.GetWindow().draw(*spritesheets[currentAnimation]);
 }
 
-void Animation2d::Update()
+void Animation2D::Update()
 {
     if(!enabled) return;
     if(!IsDrawable()) return;
