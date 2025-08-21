@@ -1050,7 +1050,7 @@ def link(alias):
         if createIcon():
             makefile.write("Temp/icon.res")
         
-        makefile.write(" -o " + "./Out/" + alias + "/" + project_name + " -LSFML-2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio ")
+        makefile.write(" -o " + "./Out/" + alias + "/" + project_name + " -LSFML-2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lopengl32")
 
         if build_mode == "release":
             makefile.write("-mwindows ")

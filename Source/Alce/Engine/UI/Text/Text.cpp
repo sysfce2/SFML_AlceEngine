@@ -16,17 +16,16 @@ void Text::Render()
 {
     if (borderRadius > 0)
     {
-        constexpr int SEGMENTS_PER_CORNER = 32;
-        int totalPoints = SEGMENTS_PER_CORNER * 4;
+        int totalPoints = CIRCLE_QUALITY * 4;
 
         sf::ConvexShape roundedBox;
         roundedBox.setPointCount(totalPoints);
 
-        float angleStep = 90.f / SEGMENTS_PER_CORNER;
+        float angleStep = 90.f / CIRCLE_QUALITY;
         int pointIndex = 0;
 
         auto addCorner = [&](float cx, float cy, float startAngle) {
-            for (int i = 0; i < SEGMENTS_PER_CORNER; ++i, ++pointIndex)
+            for (int i = 0; i < CIRCLE_QUALITY; ++i, ++pointIndex)
             {
                 float angle = startAngle + i * angleStep;
                 float rad = angle * (3.14159f / 180.f);

@@ -26,11 +26,11 @@ namespace alce
         BottomRight
     };
 
-    class Animation2d : public Component
+    class Animation2D : public Component
     {
     public:
 
-        Animation2d();
+        Animation2D();
 
         void AddAnimation(String spritesheetFile, String name, int rows, int cols, int frameWidth, int frameHeight);
 
@@ -85,5 +85,5 @@ namespace alce
         bool IsDrawable();
     };
 
-    typedef std::shared_ptr<Animation2d> Animation2dPtr;
+    typedef std::shared_ptr<Animation2D> Animation2dPtr;
 }

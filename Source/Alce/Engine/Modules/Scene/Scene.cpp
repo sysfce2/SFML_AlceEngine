@@ -347,16 +347,9 @@ void Scene::Update()
                 SetCardinals(gameObject,  gameObject->GetComponent<SpriteRenderer>()->GetCardinals());
 
             if(component->id == "Animation2d")
-                SetCardinals(gameObject, gameObject->GetComponent<Animation2d>()->GetCardinals());
+                SetCardinals(gameObject, gameObject->GetComponent<Animation2D>()->GetCardinals());
         }
     }
-
-    // if(sortingLayer.second != nullptr)
-    // {
-    //     sortingLayer.second->RemoveIf([](GameObjectPtr gameObject){
-    //         return gameObject->destroyed;
-    //     });
-    // }
 
     gameObjectList.RemoveIf([](GameObjectPtr gameObject) {
         return gameObject->destroyed;

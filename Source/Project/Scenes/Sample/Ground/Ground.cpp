@@ -28,6 +28,7 @@ void SampleScene::Ground::Init()
         BodyType::kinematic_body,
         true
     );
+
 }
 
 void SampleScene::Ground::Start()

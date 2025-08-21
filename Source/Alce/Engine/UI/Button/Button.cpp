@@ -25,16 +25,15 @@ void Button::Update()
 
     if (borderRadius > 0)
     {
-        constexpr int SEGMENTS_PER_CORNER = 32;
-        int totalPoints = SEGMENTS_PER_CORNER * 4;
+        int totalPoints = CIRCLE_QUALITY * 4;
 
         roundedBox.setPointCount(totalPoints);
 
-        float angleStep = 90.f / SEGMENTS_PER_CORNER;
+        float angleStep = 90.f / CIRCLE_QUALITY;
         int pointIndex = 0;
 
         auto addCorner = [&](float cx, float cy, float startAngle) {
-            for (int i = 0; i < SEGMENTS_PER_CORNER; ++i, ++pointIndex)
+            for (int i = 0; i < CIRCLE_QUALITY; ++i, ++pointIndex)
             {
                 float angle = startAngle + i * angleStep;
                 float rad = angle * (3.14159f / 180.f);
@@ -66,10 +65,13 @@ void Button::Update()
     richText.setCharacterSize(fontSize);
 
     sf::FloatRect textBounds = richText.getLocalBounds();
-    float textX = transform.position.x + (size.x - textBounds.width) / 2 - textBounds.left;
-    float textY = transform.position.y + (size.y - textBounds.height) / 2 - textBounds.top;
+    richText.setOrigin(textBounds.left + textBounds.width / 2.0f,
+                    textBounds.top + textBounds.height / 2.0f);
+    float offsetY = (richText.getCharacterSize() - textBounds.height) / 2.0f;
+    richText.setPosition(transform.position.x + size.x / 2.0f,
+                        transform.position.y + size.y / 2.0f + offsetY);
 
-    richText.setPosition(sf::Vector2f(textX, textY));
+
     richText.setCharacterSize(fontSize);
 }
 

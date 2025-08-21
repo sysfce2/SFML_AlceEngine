@@ -303,6 +303,241 @@ String Vector2::operator~()
 	return ToString();
 }
 
+#pragma region Vector3
+
+Vector3::Vector3() : x(0), y(0), z(0) {}
+
+Vector3::Vector3(float x, float y, float z) : x(x), y(y), z(z) 
+{
+
+}
+
+Vector3::Vector3(sf::Vector2f v) : x(v.x), y(v.y), z(0) 
+{
+
+}
+
+Vector3::Vector3(sf::Vector2i v) : x((float)v.x), y((float)v.y), z(0) 
+{
+
+}
+
+Vector3::Vector3(sf::Vector2u v) : x((float)v.x), y((float)v.y), z(0) 
+{
+
+}
+
+Vector3::Vector3(Vector2 v) : x(v.x), y(v.y), z(0) 
+{
+
+}
+
+Vector3::Vector3(b2Vec3 v) : x(v.x), y(v.y), z(v.z) {}
+
+Vector3& Vector3::operator=(const Vector3& v)
+{
+    x = v.x;
+    y = v.y;
+    z = v.z;
+    return *this;
+}
+
+Vector3& Vector3::operator=(const Vector2& v)
+{
+    x = v.x;
+    y = v.y;
+    z = 0;
+    return *this;
+}
+
+bool Vector3::operator!=(const Vector3& v)
+{
+    return !(x == v.x && y == v.y && z == v.z);
+}
+
+Vector3 Vector3::operator+(const Vector3& v)
+{
+    return Vector3(x + v.x, y + v.y, z + v.z);
+}
+
+Vector2 Vector3::operator+(const Vector2& v)
+{
+    return Vector2(x + v.x, y + v.y);
+}
+
+Vector3 Vector3::operator+(const float& s)
+{
+    return Vector3(x + s, y + s, z + s);
+}
+
+Vector3 Vector3::operator-(const Vector3& v)
+{
+    return Vector3(x - v.x, y - v.y, z - v.z);
+}
+
+Vector2 Vector3::operator-(const Vector2& v)
+{
+    return Vector2(x - v.x, y - v.y);
+}
+
+
+Vector3 Vector3::operator-(const float& s)
+{
+    return Vector3(x - s, y - s, z - s);
+}
+
+void Vector3::operator+=(const Vector3& v)
+{
+    x += v.x; y += v.y; z += v.z;
+}
+
+void Vector3::operator+=(const Vector2& v)
+{
+    x += v.x; y += v.y;
+}
+
+
+void Vector3::operator+=(const float& s)
+{
+    x += s; y += s; z += s;
+}
+
+void Vector3::operator-=(const Vector3& v)
+{
+    x -= v.x; y -= v.y; z -= v.z;
+}
+
+void Vector3::operator-=(const Vector2& v)
+{
+    x -= v.x; y -= v.y;
+}
+
+void Vector3::operator-=(const float& s)
+{
+    x -= s; y -= s; z -= s;
+}
+
+void Vector3::operator*=(const float s)
+{
+    x *= s; y *= s; z *= s;
+}
+
+Vector3 Vector3::operator*(const float s)
+{
+    return Vector3(x * s, y * s, z * s);
+}
+
+void Vector3::operator/=(const float s)
+{
+    x /= s; y /= s; z /= s;
+}
+
+Vector3 Vector3::operator/(const float s)
+{
+    return Vector3(x / s, y / s, z / s);
+}
+
+float Vector3::operator*(const Vector3& v)
+{
+    return x * v.x + y * v.y + z * v.z;
+}
+
+float Vector3::Magnitude()
+{
+    return std::sqrt(x * x + y * y + z * z);
+}
+
+Vector3 Vector3::Normalized()
+{
+    float m = Magnitude();
+    if(m == 0) return Vector3(0,0,0);
+    return Vector3(x / m, y / m, z / m);
+}
+
+sf::Vector2f Vector3::ToVector2f()
+{
+    return sf::Vector2f(x, y);
+}
+
+sf::Vector2i Vector3::ToVector2i()
+{
+    return sf::Vector2i((int)x, (int)y);
+}
+
+sf::Vector2u Vector3::ToVector2u()
+{
+    return sf::Vector2u((unsigned int)x, (unsigned int)y);
+}
+
+Vector2 Vector3::ToVector2()
+{
+	return Vector2(x, y);
+}
+
+b2Vec3 Vector3::Tob2Vec3()
+{
+    return b2Vec3(x, y, z);
+}
+
+Vector2 Vector3::ToMeters()
+{
+    return Vector2(x / PPM, y / PPM);
+}
+
+Vector2 Vector3::ToPixels()
+{
+	float pixelX = std::round(x * PPM);
+    float pixelY = std::round(Alce.GetScreenResolution().y - y * PPM);
+
+    return Vector2(pixelX, pixelY);
+}
+
+void Vector3::FromString(String _str)
+{
+    std::string str = _str.ToAnsiString();
+    size_t start = str.find('(');
+    size_t end = str.find(')');
+    if(start == std::string::npos || end == std::string::npos || start >= end) throw std::invalid_argument("Formato invalido");
+    std::string coords = str.substr(start + 1, end - start - 1);
+    size_t comma1 = coords.find(',');
+    size_t comma2 = coords.rfind(',');
+    if(comma1 == std::string::npos || comma2 == std::string::npos || comma1 == comma2) throw std::invalid_argument("Formato invalido");
+    x = std::stof(coords.substr(0, comma1));
+    y = std::stof(coords.substr(comma1 + 1, comma2 - comma1 - 1));
+    z = std::stof(coords.substr(comma2 + 1));
+}
+
+String Vector3::ToString()
+{
+    String str = "(x, y, z)";
+    return str.Replace("x", String(x)).Replace("y", String(y)).Replace("z", String(z));
+}
+
+float Vector3::Distance(Vector3 other)
+{
+    float dx = other.x - x;
+    float dy = other.y - y;
+    float dz = other.z - z;
+    return std::sqrt(dx*dx + dy*dy + dz*dz);
+}
+
+void Vector3::SetRound()
+{
+    x = int(x); y = int(y); z = int(z);
+}
+
+Vector3 Vector3::GetRound()
+{
+    return Vector3(int(x), int(y), int(z));
+}
+
+String Vector3::operator~()
+{
+    return ToString();
+}
+
+#pragma endregion
+
 #pragma endregion
 
 #pragma region Math

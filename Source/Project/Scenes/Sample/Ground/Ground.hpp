@@ -21,7 +21,6 @@ namespace SampleScene
 	private:
 
 		Rigidbody2DPtr rigidbody2d;
-
 	};
 	typedef std::shared_ptr<Ground> GroundPtr;
 }

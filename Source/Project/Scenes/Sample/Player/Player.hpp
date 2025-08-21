@@ -36,6 +36,8 @@ namespace SampleScene
 		Raycast2DPtr rightRaycast2d;
 		CanvasPtr canvas;
 
+		TextPtr _text;
+
 		Light2DPtr light;
 
 		void AnimationManager();

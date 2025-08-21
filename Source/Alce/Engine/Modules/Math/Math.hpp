@@ -15,7 +15,7 @@
 #define PPM 30.0F
 #define DEG_PER_RAD 57.2957795F
 
-#define CIRCLE_QUALITY 30
+#define CIRCLE_QUALITY 32
 
 namespace alce
 {
@@ -131,6 +131,109 @@ namespace alce
 	};
 
 	typedef std::shared_ptr<Vector2> Vector2Ptr;
+
+	#pragma endregion
+
+	#pragma region Vector3
+
+	class Vector3
+	{
+	public:
+
+		Vector3();
+
+		Vector3(float x, float y, float z);
+
+		Vector3(sf::Vector2f v);
+
+		Vector3(sf::Vector2i v);
+
+		Vector3(sf::Vector2u v);
+
+		Vector3(Vector2 v);
+
+		Vector3(b2Vec3 v);
+
+		Vector3& operator=(const Vector3& v);
+
+		Vector3& operator=(const Vector2& v);
+
+		bool operator!=(const Vector3& v);
+
+		Vector3 operator+(const Vector3& v);
+
+		Vector2 operator+(const Vector2& v);
+
+		Vector3 operator+(const float& s);
+
+		Vector3 operator-(const Vector3& v);
+
+		Vector2 operator-(const Vector2& v);
+
+		Vector3 operator-(const float& s);
+
+		void operator+=(const Vector3& v);
+
+		void operator+=(const Vector2& v);
+
+		void operator+=(const float& s);
+
+		void operator-=(const Vector3& v);
+
+		void operator-=(const Vector2& v);
+
+		void operator-=(const float& s);
+
+		void operator*=(const float s);
+
+		Vector3 operator*(const float s);
+
+		void operator/=(const float s);
+
+		Vector3 operator/(const float s);
+
+		float operator*(const Vector3& v);
+
+		float Magnitude();
+
+		Vector3 Normalized();
+
+		sf::Vector2f ToVector2f();
+
+		sf::Vector2i ToVector2i();
+
+		sf::Vector2u ToVector2u();
+
+		Vector2 ToVector2();
+
+		b2Vec3 Tob2Vec3();
+
+		Vector2 ToMeters();
+
+		Vector2 ToPixels();
+
+		String ToString();
+
+		void FromString(String str);
+
+		void ConvertToMeters();
+
+		void ConvertToPixels();
+
+		float Distance(Vector3 other);
+
+		void SetRound();
+
+		Vector3 GetRound();
+
+		String operator~();
+
+		float x = 0;
+		float y = 0;
+		float z = 0;
+	};
+
+	typedef std::shared_ptr<Vector3> Vector3Ptr;
 
 	#pragma endregion
 

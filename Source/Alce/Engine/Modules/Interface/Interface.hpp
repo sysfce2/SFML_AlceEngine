@@ -76,7 +76,7 @@ namespace alce
 
         friend class Canvas;
 
-        Transform transform;
+        Transform2 transform;
     };
 
     typedef std::shared_ptr<UIElement> UIElementPtr;
