@@ -16,18 +16,17 @@ Alce Game Engine is a feature-rich game engine based on SFML and Box2D, designed
 
 > [🌐 See full page here](Documentation/News/News.md)
 
+### > (24/8/2025) TextRenderer Component Released
+
+The new TextRenderer component is now available. It allows you to render styled text directly in the game world, with support for formatting, colors, backgrounds, and borders. Useful for names, dialogue, or any text that should exist as part of the scene rather than the UI.
+
+[📖 TextRenderer documentation](Source/Alce/Engine/Components/TextRenderer/TextRenderer.md)
+
 ### > (3/8/2025) Candle Lighting Now Available in AlceEngine
 
 We're excited to introduce a new integration of Candle into AlceEngine, bringing advanced 2D lighting capabilities to your SFML projects. This implementation includes support for radial and directional lights, fog-based lighting areas, and custom light meshes with support for rectangular, circular, and polygonal shapes. 
 
 Designed to be modular and easy to use within the AlceEngine's component system, this integration enables dynamic lighting effects, real-time intensity control, and debug visualizations to streamline your workflow.
-
-### > (03/03/2025) Release: Alce Runtime Language (ARL)
-
-A lightweight, human-readable command language designed for dynamic scene development and modification during runtime. It allows you to make real-time changes without the need for recompilation, streamlining iterative workflows in applications such as game development or interactive simulations.
- 
-Just write your prompts in the console while the game is running!
-> [🌐 ARL Documentation](Documentation/ARL/ARL.md)
 
 # 📖 Documentation
 
@@ -56,6 +55,8 @@ AlceEngine provides well-structured and comprehensive documentation for every co
 * <img src="https://raw.githubusercontent.com/MiguelMJ/Candle/master/doc/logo.svg" style="width: 19px; position: relative; top: 2px"> [LightMesh2D](Source/Alce/Engine/Components/LightMesh2D/LightMesh2D.md):  represents a 2D shape used as a light-blocking or light-interacting mesh, allowing you to define custom geometry (rectangle, circle, or polygon) that updates with the object's transform and can be visualized in debug mode.
 
 * <img src="https://raw.githubusercontent.com/MiguelMJ/Candle/master/doc/logo.svg" style="width: 19px; position: relative; top: 2px"> [LightingArea2D](Source/Alce/Engine/Components/LightingArea2D/LightingArea2D.md): defines and manages a 2D lighting area that can render fog-like effects, adjusting its size, position offset, color, and opacity dynamically within a game or graphical application.
+
+* [TextRenderer](Source/Alce/Engine/Components/TextRenderer/TextRenderer.md): renders styled text directly in the game world, supporting formatting, colors, and optional backgrounds with borders.
 
 ### 🔷 Modules:
 

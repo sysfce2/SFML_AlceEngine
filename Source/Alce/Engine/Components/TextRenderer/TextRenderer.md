@@ -59,23 +59,23 @@ Creates a new TextRenderer component. Font and text must be assigned before rend
 
 ## Example Usage
 ```cpp
-auto text = gameObject->AddComponent<TextRenderer>();
-text->font = "Arial";
+TextRendererPtr text = std::make_shared<TextRenderer>();
+text->font = "fonts/Merriweather/Merriweather-Black.ttf";
 text->fontSize = 24;
-text->color = Color::White;
+text->color = Colors::White;
 text->padding = Vector2(8, 4);
-text->backgroundColor = Color::Black.WithAlpha(128);
+text->backgroundColor = Colors::Black;
 text->borderWidth = 2;
-text->borderColor = Color::Yellow;
+text->borderColor = Colors::Yellow;
 
 // Supports inline styling
-text->SetText("Hello <bold>World</bold>! <color='red'>Red text</color>");
+*text +="Hello <bold>World</bold>! <color='red'>Red text</color>";
 ```
 
 
 This will render:
 
-* A semi-transparent black box with yellow outline.
+* A black box with yellow outline.
 
 * The word "World" in bold.
 
