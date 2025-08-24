@@ -593,6 +593,18 @@ void Rigidbody2D::DebugRender()
         Debug.Warning("Component Rigidbody2D has no association with any GameObject");
         return;
     }
+
+    if(body == nullptr)
+    {
+        Debug.Warning("Component Rigidbody2D has no body created");
+        return;
+    }
+
+    if(shape == nullptr)
+    {
+        Debug.Warning("Component Rigidbody2D has no shape defined");
+        return;
+    }
  
     if(shape->GetType() == ShapeType::rect)
     {

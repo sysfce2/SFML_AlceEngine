@@ -21,13 +21,16 @@ void SampleScene::Player::Init()
     AddTag("Player");
     sortingLayer = 1;
 
-    //transform.position = Vector2(0, 50);
-
     camera = std::make_shared<Camera>();
     AddComponent(camera);
 
     rigidbody2d = std::make_shared<Rigidbody2D>();
     AddComponent(rigidbody2d);
+
+    spriteRenderer = std::make_shared<SpriteRenderer>();
+    spriteRenderer->AddTexture("player/idle-forward.png", "idle-forward");
+    spriteRenderer->SetTexture("idle-forward");
+    // AddComponent(spriteRenderer);
 
     animation = std::make_shared<Animation2D>();
     animation->sortingLayer = 2;
@@ -47,12 +50,21 @@ void SampleScene::Player::Init()
     light->sortingLayer = 1;
     AddComponent(light);
 
+    // TextRendererPtr label = std::make_shared<TextRenderer>();
+    // *label += "<color='green'>aaaaa</color>";
+    // label->fontSize = 30;
+    // label->borderWidth = 5;
+    // label->borderRadius = 6;
+    // label->backgroundColor = Colors::Black;
+    // AddComponent(label);
+
     animation->AddAnimation("player/walk-forward.png", "walk-forward", 1, 4, 54, 63);
     animation->AddAnimation("player/walk-backward.png", "walk-backward", 1, 4, 54, 63);
     animation->AddAnimation("player/idle-forward.png", "idle-forward", 1, 1, 54, 63);
     animation->AddAnimation("player/idle-backward.png", "idle-backward", 1, 1, 54, 63);
     animation->AddAnimation("player/jump-forward.png", "jump-forward", 1, 1, 54, 63);
     animation->AddAnimation("player/jump-backward.png", "jump-backward", 1, 1, 54, 63);
+    animation->transform->scale = Vector2(0, 0);
 
     rigidbody2d->CreateBody(
         std::make_shared<RectShape>(Vector2(40.0f, 65.0f)),
@@ -70,13 +82,12 @@ void SampleScene::Player::Init()
 
     text->font = "fonts/Merriweather/Merriweather-Black.ttf";
     *text += "<color='green'>Alce Engine</color> Sample Project";
-    *text += "\nby @gabrielbeguren";
-    text->borderRadius = 7;
-    text->borderWidth = 0;
+    *text += "\nby @Ekrol34";
+    text->borderRadius = 5;
+    text->borderWidth = 3;
     text->borderColor = Colors::Yellow;
-    text->backgroundColor = Colors::Transparent;
+    text->backgroundColor = Colors::Black;
 
-    animation->transform->scale = Vector2(0, 0);
     leftRaycast2d->direction = Vector2(-0.447f, -0.894f);
     leftRaycast2d->length = 1.5f;
 
@@ -87,6 +98,7 @@ void SampleScene::Player::Init()
     status = "idle-forward";
     velocity = 1.0f;
 
+    //TODO: al activar este boton, de intro a sample crashea, sin embargo al iniciar desde sample no
     ButtonPtr button = std::make_shared<Button>(); 
     canvas->AddElement(button);
     button->zIndex = 5;
@@ -99,20 +111,20 @@ void SampleScene::Player::Init()
         
     };
 
-    TextInputPtr ti = std::make_shared<TextInput>();
-    canvas->AddElement(ti);
-    ti->width = 500;
-    ti->height = 45;
-    ti->backgroundColor = Colors::Black;
-    ti->textColor = Colors::White;
-    ti->borderWidth = 1;
-    ti->cursorColor = Colors::White;
-    ti->positionType = UIElement::Relative;
-    ti->position = Vector2(0.01, 0.925f);
-    ti->fontSize = TextInput::Small;
-    ti->onSubmit = [=](){
-        Debug.Log(ti->GetText());
-    };
+    // TextInputPtr ti = std::make_shared<TextInput>();
+    // canvas->AddElement(ti);
+    // ti->width = 500;
+    // ti->height = 45;
+    // ti->backgroundColor = Colors::Black;
+    // ti->textColor = Colors::White;
+    // ti->borderWidth = 1;
+    // ti->cursorColor = Colors::White;
+    // ti->positionType = UIElement::Relative;
+    // ti->position = Vector2(0.01, 0.925f);
+    // ti->fontSize = TextInput::Small;
+    // ti->onSubmit = [=](){
+    //     Debug.Log(ti->GetText());
+    // };
 }
 
 void SampleScene::Player::Start()

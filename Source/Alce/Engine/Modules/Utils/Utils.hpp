@@ -35,6 +35,8 @@ namespace alce
 
     std::vector<sf::Vector2f> ConvertShapeToPolygonPoints(ShapePtr shape);
 
+    sf::Color MapColorFromString(String colorString);
+
     template<typename T>
     List<T> MergeLists(List<List<T>> lists)
     {

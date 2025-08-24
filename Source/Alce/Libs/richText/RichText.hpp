@@ -184,8 +184,6 @@ namespace sfe
 
         std::string getStringOfLine(std::size_t line) const;
 
- 
-
     protected:
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

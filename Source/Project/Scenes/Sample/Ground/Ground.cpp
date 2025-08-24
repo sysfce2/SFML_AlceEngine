@@ -28,6 +28,15 @@ void SampleScene::Ground::Init()
         BodyType::kinematic_body,
         true
     );
+    
+    // TextRendererPtr label = std::make_shared<TextRenderer>();
+    // *label += "<color='green'>aaaaa</color>";
+    // label->fontSize = 30;
+    // label->borderWidth = 5;
+    // label->borderRadius = 6;
+    // label->backgroundColor = Colors::Black;
+    // AddComponent(label);
+
 
 }
 
@@ -39,6 +48,15 @@ void SampleScene::Ground::Start()
 void SampleScene::Ground::Update()
 {
 	
+}
+
+void SampleScene::Ground::SetterManager(String name, String value)
+{
+    if(name == "position")
+    {
+        Vector2 position = Vector2(value.Split(",")[0].ParseFloat(), value.Split(",")[1].ParseFloat());
+        rigidbody2d->SetPosition(position, true);
+    }
 }
 
 #pragma endregion

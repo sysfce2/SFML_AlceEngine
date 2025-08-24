@@ -18,9 +18,12 @@ namespace SampleScene
 
 		void Update();
 
+		void SetterManager(String name, String value);
+
 	private:
 
 		Rigidbody2DPtr rigidbody2d;
+		TextRendererPtr label;
 	};
 	typedef std::shared_ptr<Ground> GroundPtr;
 }

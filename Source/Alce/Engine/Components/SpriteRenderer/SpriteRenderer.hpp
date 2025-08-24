@@ -22,6 +22,10 @@ namespace alce
 
         void SetTexture(String name);
 
+        void SetAlpha(int alpha);
+
+        int GetAlpha();
+
         void RemoveTexture(String name);
 
         void SetTextureSmooth(String name, bool flag = true);
@@ -38,6 +42,8 @@ namespace alce
 
         Vector2 localCenter;
         Vector2 globarCenter;
+
+        int alpha = 255;
 
         String currentTexture = "";
         std::unique_ptr<sf::Sprite> sprite;

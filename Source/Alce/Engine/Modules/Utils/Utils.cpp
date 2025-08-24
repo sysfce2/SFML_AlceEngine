@@ -1,4 +1,5 @@
 #include "Utils.hpp"
+#include "../Color/Color.hpp"
 
 void alce::Shell(std::string cmd)
 {
@@ -20,6 +21,38 @@ alce::String alce::OS()
     #ifdef COMPILED_IN_MACOS
         return "MACOS";
     #endif
+}
+
+
+sf::Color alce::MapColorFromString(String colorString) 
+{
+    Dictionary<String, Color> colorMap = {
+        {"red", alce::Colors::Red},
+        {"green", alce::Colors::Green},
+        {"blue", alce::Colors::Blue},
+        {"white", alce::Colors::White},
+        {"black", alce::Colors::Black},
+        {"yellow", alce::Colors::Yellow},
+        {"cyan", alce::Colors::Cyan},
+        {"magenta", alce::Colors::Magenta},
+        {"orange", alce::Colors::Orange},
+        {"purple", alce::Colors::Purple},
+        {"pink", alce::Colors::Pink},
+        {"transparent", alce::Colors::Transparent}
+    };
+
+    if (colorMap.HasKey(colorString)) 
+    {
+        return colorMap.Get(colorString).ToSFMLColor();
+    }
+
+    if (colorString[0] == '#') 
+    {
+        Color hexColor(colorString);
+        return hexColor.ToSFMLColor();
+    }
+
+    return sf::Color::White;
 }
 
 alce::String alce::GenerateUUID() 

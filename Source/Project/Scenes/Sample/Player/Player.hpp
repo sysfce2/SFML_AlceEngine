@@ -35,6 +35,7 @@ namespace SampleScene
 		Raycast2DPtr leftRaycast2d;
 		Raycast2DPtr rightRaycast2d;
 		CanvasPtr canvas;
+		SpriteRendererPtr spriteRenderer;
 
 		TextPtr _text;
 

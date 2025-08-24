@@ -1,23 +1,22 @@
-#include "Text.hpp"
+#include "TextRenderer.hpp"
 
 using namespace alce;
 
-void Text::Init()
+void TextRenderer::Init()
 {
-    
+	
 }
 
-void Text::Start()
+void TextRenderer::Start()
 {
-
+	
 }
 
-void Text::Render()
+void TextRenderer::Render()
 {
     if (borderRadius > 0)
     {
         int totalPoints = CIRCLE_QUALITY * 4;
-
         sf::ConvexShape roundedBox;
         roundedBox.setPointCount(totalPoints);
 
@@ -40,7 +39,8 @@ void Text::Render()
         addCorner(borderRadius, size.y - borderRadius, 90);
         addCorner(borderRadius, borderRadius, 180);
 
-        roundedBox.setPosition(transform.position.ToVector2f());
+        // roundedBox.setPosition(transform->position.ToPixels().ToVector2f());
+        roundedBox.setPosition(richText.getPosition().x - padding.x, richText.getPosition().y - padding.y);
         roundedBox.setFillColor(backgroundColor.ToSFMLColor());
         roundedBox.setOutlineThickness(borderWidth);
         roundedBox.setOutlineColor(borderColor.ToSFMLColor());
@@ -50,8 +50,7 @@ void Text::Render()
     else 
     {
         sf::RectangleShape border;
-
-        border.setPosition(transform.position.ToVector2f());
+        border.setPosition(richText.getPosition().x - padding.x, richText.getPosition().y - padding.y);
         border.setSize(size.ToVector2f());
         border.setOutlineThickness(borderWidth);
         border.setOutlineColor(borderColor.ToSFMLColor());
@@ -63,17 +62,12 @@ void Text::Render()
     Alce.GetWindow().draw(richText);
 }
 
-void Text::Update() 
+void TextRenderer::Update()
 {
     if (!enabled) return;
 
     richText = sfe::RichText(*Alce.GetFont(font).get());
     richText.setCharacterSize(fontSize);
-
-    Vector2 pos = transform.position + padding;
-    richText.setPosition(pos.ToVector2f());
-    richText.setRotation(transform.rotation);
-    richText.setScale(transform.scale.ToVector2f());
 
     std::string text = ToAnsiString();  
 
@@ -108,65 +102,22 @@ void Text::Update()
             richText << currentColor << currentStyle << sf::String::fromUtf8(text.begin() + lastPos, text.begin() + pos);
         }
 
+        // procesar etiquetas
         if (!isClosingTag) 
         {
-            if (tag == "bold") 
-            {
-                styleStack.push(currentStyle);
-                isBold = true;
-            } 
-            else if (tag == "italic") 
-            {
-                styleStack.push(currentStyle);
-                isItalic = true;
-            } 
-            else if (tag == "underlined") 
-            {
-                styleStack.push(currentStyle);
-                isUnderlined = true;
-            } 
-            else if (tag == "strikeThrough") 
-            {
-                styleStack.push(currentStyle);
-                isStrikeThrough = true;
-            } 
-            else if (tag == "color") 
-            {
-                colorStack.push(currentColor);
-                currentColor = MapColorFromString(tagValue);
-            }
+            if (tag == "bold") { styleStack.push(currentStyle); isBold = true; }
+            else if (tag == "italic") { styleStack.push(currentStyle); isItalic = true; }
+            else if (tag == "underlined") { styleStack.push(currentStyle); isUnderlined = true; }
+            else if (tag == "strikeThrough") { styleStack.push(currentStyle); isStrikeThrough = true; }
+            else if (tag == "color") { colorStack.push(currentColor); currentColor = MapColorFromString(tagValue); }
         } 
         else 
         {
-            if (tag == "bold") 
-            {
-                currentStyle = styleStack.top();
-                styleStack.pop();
-                isBold = false;
-            } 
-            else if (tag == "italic") 
-            {
-                currentStyle = styleStack.top();
-                styleStack.pop();
-                isItalic = false;
-            } 
-            else if (tag == "underlined") 
-            {
-                currentStyle = styleStack.top();
-                styleStack.pop();
-                isUnderlined = false;
-            } 
-            else if (tag == "strikeThrough") 
-            {
-                currentStyle = styleStack.top();
-                styleStack.pop();
-                isStrikeThrough = false;
-            } 
-            else if (tag == "color") 
-            {
-                currentColor = colorStack.top();
-                colorStack.pop();
-            }
+            if (tag == "bold") { currentStyle = styleStack.top(); styleStack.pop(); isBold = false; }
+            else if (tag == "italic") { currentStyle = styleStack.top(); styleStack.pop(); isItalic = false; }
+            else if (tag == "underlined") { currentStyle = styleStack.top(); styleStack.pop(); isUnderlined = false; }
+            else if (tag == "strikeThrough") { currentStyle = styleStack.top(); styleStack.pop(); isStrikeThrough = false; }
+            else if (tag == "color") { currentColor = colorStack.top(); colorStack.pop(); }
         }
 
         lastPos = pos + match.length();
@@ -182,7 +133,23 @@ void Text::Update()
 
         richText << currentColor << currentStyle << sf::String::fromUtf8(text.begin() + lastPos, text.end());
     }
+    else if (lastPos == 0 && !text.empty())
+    {
+        richText << currentColor << currentStyle << sf::String::fromUtf8(text.begin(), text.end());
+    }
 
+    // calcular tamaño total de la caja con padding
     size = Vector2(richText.getGlobalBounds().width, richText.getGlobalBounds().height);
     size += (padding * 2);
+
+    // posicionar el texto centrado dentro de la caja
+    sf::FloatRect textBounds = richText.getLocalBounds();
+    sf::Vector2f boxPos = transform->position.ToPixels().ToVector2f();
+    sf::Vector2f boxSize(size.x, size.y);
+
+    float textX = boxPos.x + (boxSize.x - textBounds.width) / 2.f - textBounds.left;
+    float textY = boxPos.y + (boxSize.y - textBounds.height) / 2.f - textBounds.top;
+
+    richText.setPosition(textX, textY);
+    richText.setRotation(transform->rotation);
 }
