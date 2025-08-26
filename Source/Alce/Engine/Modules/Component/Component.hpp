@@ -58,6 +58,8 @@ namespace alce
         unsigned int sortingLayer = 0;
 
         Transform2* transform = nullptr;
+
+        Vector2 scale = Vector2(0, 0);  
     
     protected:
 

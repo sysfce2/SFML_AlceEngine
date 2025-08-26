@@ -23,7 +23,6 @@ namespace SampleScene
 	private:
 
 		Rigidbody2DPtr rigidbody2d;
-		TextRendererPtr label;
 	};
 	typedef std::shared_ptr<Ground> GroundPtr;
 }

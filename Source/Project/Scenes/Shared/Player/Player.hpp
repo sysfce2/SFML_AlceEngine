@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../Sample.hpp"
+#include "../Shared.hpp"
 
 using namespace alce;
 
-namespace SampleScene
+namespace SharedScene
 {
 	class Player : public GameObject
 	{
@@ -35,18 +35,19 @@ namespace SampleScene
 		Raycast2DPtr leftRaycast2d;
 		Raycast2DPtr rightRaycast2d;
 		CanvasPtr canvas;
-		SpriteRendererPtr spriteRenderer;
-
-		TextPtr _text;
+		SpriteRendererPtr backgroundRenderer;
 
 		Light2DPtr light;
 
 		void AnimationManager();
 
 		float velocity;
+		float walkSpeed;
+		float runSpeed;
 		bool grounded;
 		bool walking;
 		bool jumping;
+		bool running;
 
 		String status;
 	};

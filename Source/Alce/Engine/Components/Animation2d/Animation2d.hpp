@@ -32,7 +32,7 @@ namespace alce
 
         Animation2D();
 
-        void AddAnimation(String spritesheetFile, String name, int rows, int cols, int frameWidth, int frameHeight);
+        void AddAnimation(String spritesheetFile, String name, int rows, int cols, int frameWidth, int frameHeight, int numFrames = -1);
 
         void DeleteAnimation(String name);
 
@@ -57,6 +57,8 @@ namespace alce
         void Update();
 
         Vector2 scale = Vector2(1, 1);
+
+        Vector2 offset = Vector2(0, 0);
 
     private:
 

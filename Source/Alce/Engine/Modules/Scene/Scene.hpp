@@ -38,6 +38,11 @@ namespace alce
         B2WorldPtr GetWorld();
 
         void DevelopmentMode(bool flag = true);
+        
+        bool IsDevelopmentMode()
+        {
+            return developmentMode;
+        }
 
         void Shell(String prompt);
 

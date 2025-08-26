@@ -2,6 +2,16 @@
 
 using namespace alce;
 
+void TextRenderer::SetNewText(String str)
+{
+    this->str = str.ToSFMLString();
+}   
+
+void TextRenderer::AddText(String str)
+{
+    this->str += str.ToSFMLString();
+}   
+
 void TextRenderer::Init()
 {
 	
@@ -14,6 +24,7 @@ void TextRenderer::Start()
 
 void TextRenderer::Render()
 {
+    // Dibujar caja usando la misma boxPos calculada en Update()
     if (borderRadius > 0)
     {
         int totalPoints = CIRCLE_QUALITY * 4;
@@ -39,8 +50,8 @@ void TextRenderer::Render()
         addCorner(borderRadius, size.y - borderRadius, 90);
         addCorner(borderRadius, borderRadius, 180);
 
-        // roundedBox.setPosition(transform->position.ToPixels().ToVector2f());
-        roundedBox.setPosition(richText.getPosition().x - padding.x, richText.getPosition().y - padding.y);
+        // top-left de la caja (no restamos padding ni sumamos offset aquí)
+        roundedBox.setPosition(boxPos.ToVector2f());
         roundedBox.setFillColor(backgroundColor.ToSFMLColor());
         roundedBox.setOutlineThickness(borderWidth);
         roundedBox.setOutlineColor(borderColor.ToSFMLColor());
@@ -50,8 +61,8 @@ void TextRenderer::Render()
     else 
     {
         sf::RectangleShape border;
-        border.setPosition(richText.getPosition().x - padding.x, richText.getPosition().y - padding.y);
-        border.setSize(size.ToVector2f());
+        border.setPosition(boxPos.ToVector2f());           // top-left exacto de la caja
+        border.setSize(size.ToVector2f());                 // tamaño de la caja
         border.setOutlineThickness(borderWidth);
         border.setOutlineColor(borderColor.ToSFMLColor());
         border.setFillColor(backgroundColor.ToSFMLColor());
@@ -59,6 +70,7 @@ void TextRenderer::Render()
         Alce.GetWindow().draw(border);
     }
 
+    // Luego el texto (ya centrado en Update)
     Alce.GetWindow().draw(richText);
 }
 
@@ -138,17 +150,19 @@ void TextRenderer::Update()
         richText << currentColor << currentStyle << sf::String::fromUtf8(text.begin(), text.end());
     }
 
-    // calcular tamaño total de la caja con padding
     size = Vector2(richText.getGlobalBounds().width, richText.getGlobalBounds().height);
     size += (padding * 2);
 
-    // posicionar el texto centrado dentro de la caja
+    sf::Vector2f tl = transform->position.ToPixels().ToVector2f();
+    tl.x += offset.x;
+    tl.y += offset.y;
+    boxPos = Vector2(tl.x, tl.y);
+
     sf::FloatRect textBounds = richText.getLocalBounds();
-    sf::Vector2f boxPos = transform->position.ToPixels().ToVector2f();
     sf::Vector2f boxSize(size.x, size.y);
 
-    float textX = boxPos.x + (boxSize.x - textBounds.width) / 2.f - textBounds.left;
-    float textY = boxPos.y + (boxSize.y - textBounds.height) / 2.f - textBounds.top;
+    float textX = tl.x + (boxSize.x - textBounds.width) / 2.f - textBounds.left;
+    float textY = tl.y + (boxSize.y - textBounds.height) / 2.f - textBounds.top;
 
     richText.setPosition(textX, textY);
     richText.setRotation(transform->rotation);

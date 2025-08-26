@@ -4,13 +4,13 @@
 
 using namespace alce;
 
-namespace CLITestScene
+namespace SharedScene
 {
-	class CLITest : public Scene
+	class Shared : public Scene
 	{
 	public:
 
-		CLITest();
+		Shared();
 
 		void Init();
 
@@ -18,5 +18,5 @@ namespace CLITestScene
 
 	};
 
-	typedef std::shared_ptr<CLITest> CLITestPtr;
+	typedef std::shared_ptr<Shared> SharedPtr;
 }

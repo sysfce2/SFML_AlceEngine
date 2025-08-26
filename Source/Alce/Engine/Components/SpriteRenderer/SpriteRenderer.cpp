@@ -38,7 +38,7 @@ void SpriteRenderer::SetTexture(String name)
         return;
     }
 
-    sprite->setTexture(*textures.Get(name).get());
+    sprite->setTexture(*textures.Get(name).get(), true);
 }
 
 void SpriteRenderer::SetAlpha(int alpha)
@@ -48,10 +48,6 @@ void SpriteRenderer::SetAlpha(int alpha)
         Debug.Warning("Alpha value must be between 0 and 255, received: {}", {alpha});
         return;
     }
-    
-    // sf::Color color = sprite->getColor();
-    // color.a = alpha;
-    // sprite->setColor(color);
 
     this->alpha = alpha;
 }
@@ -90,7 +86,7 @@ Vector2 SpriteRenderer::GetLocalCenter()
 
 Vector2 SpriteRenderer::GetGlobalCenter()
 {
-    return globarCenter;
+    return globalCenter;
 }
 
 Dictionary<String, Vector2Ptr> SpriteRenderer::GetCardinals()
@@ -131,7 +127,7 @@ void SpriteRenderer::Update()
 
     sprite->setPosition(transform->position.ToPixels().ToVector2f());
     sprite->setOrigin(sprite->getLocalBounds().width / 2.0f, sprite->getLocalBounds().height / 2.0f);
-    sprite->setScale(transform->scale.ToVector2f());
+    sprite->setScale((transform->scale + scale).ToVector2f());
     sprite->setRotation(transform->rotation);
 
     sf::Color color = sprite->getColor();

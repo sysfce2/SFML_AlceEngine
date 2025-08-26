@@ -58,7 +58,7 @@ namespace alce
             return kernel;
         }
 
-        void Window(String title, DisplayMode displayMode = DisplayMode::Default, Vector2 size = Vector2(1280, 720), int antialiasing = 0);
+        void Window(String title, DisplayMode displayMode = DisplayMode::Default, Vector2 size = Vector2(1280, 720), bool vsync = false, int antialiasing = 0);
 
         sf::RenderWindow& GetWindow();
 

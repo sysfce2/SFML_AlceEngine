@@ -28,6 +28,8 @@ The ```Animation2D``` component updates the current frame of the animation based
 
 * ```bool flipVertical```: Whether the sprite is flipped vertically.
 
+* ```Vector2 offset```: positional adjustment that shifts an element (or group of elements) by a specified distance from its original location without altering its alignment.
+
 ## Animation Modes
 ```cpp
 enum AnimationMode

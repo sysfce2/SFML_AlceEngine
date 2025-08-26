@@ -277,33 +277,33 @@ void Scene::Render()
 
             if(developmentMode)
             {
-                for(auto& gameObject: gameObjectList)
-                {
-                    if(gameObject->sortingLayer != layer) continue;
-                    if(!gameObject->enabled) continue;
+                // for(auto& gameObject: gameObjectList)
+                // {
+                //     if(gameObject->sortingLayer != layer) continue;
+                //     if(!gameObject->enabled) continue;
 
-                    if(gameObject->cardinals.Empty())
-                    {
-                        if(!camera->GetBounds().InArea(gameObject->transform.position.ToPixels())) continue;
-                    }
-                    else
-                    {
-                        if(!camera->GetBounds().InArea(*gameObject->cardinals["top-left"].get()) &&
-                        !camera->GetBounds().InArea(*gameObject->cardinals["top-right"].get()) &&
-                        !camera->GetBounds().InArea(*gameObject->cardinals["bottom-left"].get()) &&
-                        !camera->GetBounds().InArea(*gameObject->cardinals["bottom-right"].get()))
-                        {
-                            continue;
-                        }
-                    }
+                //     if(gameObject->cardinals.Empty())
+                //     {
+                //         if(!camera->GetBounds().InArea(gameObject->transform.position.ToPixels())) continue;
+                //     }
+                //     else
+                //     {
+                //         if(!camera->GetBounds().InArea(*gameObject->cardinals["top-left"].get()) &&
+                //         !camera->GetBounds().InArea(*gameObject->cardinals["top-right"].get()) &&
+                //         !camera->GetBounds().InArea(*gameObject->cardinals["bottom-left"].get()) &&
+                //         !camera->GetBounds().InArea(*gameObject->cardinals["bottom-right"].get()))
+                //         {
+                //             continue;
+                //         }
+                //     }
 
-                    for(auto& component: gameObject->GetComponents())
-                    {
-                        component->DebugRender();
-                    }
+                //     for(auto& component: gameObject->GetComponents())
+                //     {
+                //         component->DebugRender();
+                //     }
 
-                    gameObject->DebugRender();
-                }         
+                //     gameObject->DebugRender();
+                // }         
             }
         }    
     }
@@ -314,6 +314,33 @@ void Scene::Render()
         {
             Camera* camera = (Camera*) _camera;
             RenderGrid(Alce.GetWindow(), camera->view);
+
+            for(auto& gameObject: gameObjectList)
+            {
+                if(!gameObject->enabled) continue;
+
+                if(gameObject->cardinals.Empty())
+                {
+                    if(!camera->GetBounds().InArea(gameObject->transform.position.ToPixels())) continue;
+                }
+                else
+                {
+                    if(!camera->GetBounds().InArea(*gameObject->cardinals["top-left"].get()) &&
+                    !camera->GetBounds().InArea(*gameObject->cardinals["top-right"].get()) &&
+                    !camera->GetBounds().InArea(*gameObject->cardinals["bottom-left"].get()) &&
+                    !camera->GetBounds().InArea(*gameObject->cardinals["bottom-right"].get()))
+                    {
+                        continue;
+                    }
+                }
+
+                for(auto& component: gameObject->GetComponents())
+                {
+                    component->DebugRender();
+                }
+
+                gameObject->DebugRender();
+            }         
         }
     }
 

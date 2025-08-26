@@ -76,6 +76,10 @@ namespace alce
 
 		void Update();
 
+		void SetNewText(String str);	
+
+		void AddText(String str);	
+
         Color color = Colors::White;
 
         sf::Text::Style style = sf::Text::Regular;
@@ -91,10 +95,12 @@ namespace alce
         Color backgroundColor = Colors::Transparent;
 
 		Vector2 padding = Vector2(15, 15);
+		Vector2 offset = Vector2(0, 0);
 
 	protected:
 
 		Vector2 size;
+		Vector2 boxPos;
 		sfe::RichText richText;
 
 	};

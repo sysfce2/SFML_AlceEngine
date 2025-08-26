@@ -1,7 +1,7 @@
 #include "Sample.hpp"
 #include "Tree/Tree.hpp"
 #include "Ground/Ground.hpp"
-#include "Player/Player.hpp"
+#include "../Shared/Player/Player.hpp"
 
 using namespace alce;
 
@@ -9,7 +9,7 @@ SampleScene::Sample::Sample() : Scene("Sample")
 {
 	persist = true;
 	DevelopmentMode(true);
-	InitPhysics(Vector2(0.0f, 0.0f));
+	InitPhysics(Vector2(0.0f, -1.0f));
 	SmartRender = false;
 }
 
@@ -24,7 +24,7 @@ SampleScene::Sample::Sample() : Scene("Sample")
 
 void SampleScene::Sample::Init()
 {
-	SampleScene::PlayerPtr player = std::make_shared<SampleScene::Player>();
+	SharedScene::PlayerPtr player = std::make_shared<SharedScene::Player>();
 	AddGameObject(player, "player");
 
 	SampleScene::GroundPtr ground = std::make_shared<SampleScene::Ground>();
@@ -43,7 +43,8 @@ void SampleScene::Sample::Init()
 
 void SampleScene::Sample::Start()
 {
-
+	Alce.stanby = true;
+	Alce.SetClearColor("#41424C");
 }
 
 #pragma endregion

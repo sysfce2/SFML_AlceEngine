@@ -12,12 +12,13 @@ Animation2D::Animation2D() : Component("Animation2d")
 
 #pragma region implementation
 
-void Animation2D::AddAnimation(String spritesheetFile, String name, int rows, int cols, int frameWidth, int frameHeight)
+void Animation2D::AddAnimation(String spritesheetFile, String name, int rows, int cols, int frameWidth, int frameHeight, int numFrames)
 {
     spritesheets.Set(name, new sf::Sprite());
     spritesheets[name]->setTexture(*Alce.GetTexture(spritesheetFile));
 
     List<RectShape*> frames;
+    int _numFrames = 0;
 
     int x = 0, y = 0;
 
@@ -27,6 +28,9 @@ void Animation2D::AddAnimation(String spritesheetFile, String name, int rows, in
         {
             frames.Add(new RectShape(Vector2(x, y), frameWidth, frameHeight));
             x += frameWidth;
+            _numFrames++;
+
+            if(numFrames != -1 && _numFrames >= numFrames) break;
         }
 
         y += frameHeight;
@@ -232,7 +236,8 @@ void Animation2D::Update()
         msSinceLastFrame = 0;
     }
 
-    spritesheets[currentAnimation]->setPosition(transform->position.ToPixels().ToVector2f());
+    // spritesheets[currentAnimation]->setPosition(transform->position.ToPixels().ToVector2f());
+    spritesheets[currentAnimation]->setPosition((transform->position.ToPixels() + offset).ToVector2f());
     spritesheets[currentAnimation]->setScale((transform->scale + scale).ToVector2f());
     spritesheets[currentAnimation]->setRotation(transform->rotation);
 

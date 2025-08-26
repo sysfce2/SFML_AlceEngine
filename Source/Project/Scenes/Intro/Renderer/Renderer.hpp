@@ -26,6 +26,9 @@ namespace IntroScene
 
 		CameraPtr camera;
 		SpriteRendererPtr spriteRenderer;
+		TextRendererPtr textRenderer;
+
+		int step = 0;
 
 		float elapsed;
 

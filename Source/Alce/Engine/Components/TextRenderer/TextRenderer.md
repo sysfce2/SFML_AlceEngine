@@ -48,6 +48,8 @@ By default, TextRenderer does not apply scaling from the Transform, since text s
 
 * ```Vector2 size```: Final computed size of the text box (auto-updated each frame).
 
+* ```Vector2 offset```: positional adjustment that shifts an element (or group of elements) by a specified distance from its original location without altering its alignment.
+
 ## Constructors
 
 ### Default Constructor
@@ -56,6 +58,22 @@ TextRenderer()
 ```
 
 Creates a new TextRenderer component. Font and text must be assigned before rendering.
+
+
+## Public Methods
+
+### SetNewText
+```cpp
+void SetNewText(String str)
+```
+
+Replaces the current text with the given string.
+
+### AddText
+```cpp
+void AddText(String str)
+```
+Appends the given string to the existing text.
 
 ## Example Usage
 ```cpp

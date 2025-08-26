@@ -41,7 +41,7 @@ namespace alce
     private:
 
         Vector2 localCenter;
-        Vector2 globarCenter;
+        Vector2 globalCenter;
 
         int alpha = 255;
 

@@ -64,6 +64,9 @@ void Button::Update()
     richText.setFont(font);
     richText.setCharacterSize(fontSize);
 
+    richText.clear();
+    richText << text.ToSFMLString();
+
     sf::FloatRect textBounds = richText.getLocalBounds();
     richText.setOrigin(textBounds.left + textBounds.width / 2.0f,
                     textBounds.top + textBounds.height / 2.0f);

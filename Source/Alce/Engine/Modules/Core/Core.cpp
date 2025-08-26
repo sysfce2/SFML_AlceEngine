@@ -4,7 +4,7 @@
 
 using namespace alce;
 
-void CORE::Window(String windowTitle, DisplayMode displayMode, Vector2 size, int antialiasing)
+void CORE::Window(String windowTitle, DisplayMode displayMode, Vector2 size, bool vsync, int antialiasing)
 {
 	sf::Uint32 style = sf::Style::Default;
 
@@ -40,7 +40,9 @@ void CORE::Window(String windowTitle, DisplayMode displayMode, Vector2 size, int
 	cs.antialiasingLevel = antialiasing;
 	window.create(sf::VideoMode(size.x, size.y), sf::String(~windowTitle), style, cs);
 	this->windowTitle = windowTitle;
-	window.setVerticalSyncEnabled(true);
+
+	if(vsync) window.setVerticalSyncEnabled(true);
+    else window.setFramerateLimit(60);
 
 	SetWindowIcon(iconFile);
 
@@ -135,7 +137,7 @@ ScenePtr CORE::GetScene(String name)
 
 void CORE::SetCurrentScene(String name)
 {
-	if(!scenes.GetKeyList().Contains(name))
+	if(!scenes.HasKey(name))
 	{
 		Debug.Warning("There is no scene named \"{}\"", {name});
 		return;
@@ -163,6 +165,8 @@ void CORE::SetCurrentScene(String name)
                 c->Start();
             }
         }	
+
+        currentScene->Update();
 	}
 	catch (const std::exception& e)
 	{
