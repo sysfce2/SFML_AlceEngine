@@ -45,7 +45,8 @@ namespace alce
         Fullscreen,
         None,
         Resize,
-        Titlebar
+        Titlebar,
+        NoResize
     };
 
     class CORE

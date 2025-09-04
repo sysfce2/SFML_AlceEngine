@@ -60,8 +60,8 @@ void Button::Update()
         box.setOutlineColor(borderColor.ToSFMLColor());
     }
 
-    font = *Alce.GetFont(fontPath).get();
-    richText.setFont(font);
+    _font = *Alce.GetFont(font).get();
+    richText.setFont(_font);
     richText.setCharacterSize(fontSize);
 
     richText.clear();

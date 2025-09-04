@@ -38,6 +38,7 @@ namespace SharedScene
 		SpriteRendererPtr backgroundRenderer;
 
 		Light2DPtr light;
+		TileMapPtr tilemap;
 
 		void AnimationManager();
 

@@ -40,12 +40,17 @@ void SharedScene::Player::Init()
     canvas = std::make_shared<Canvas>();
     AddComponent(canvas);
 
-	backgroundRenderer = std::make_shared<SpriteRenderer>();
-	// backgroundRenderer->sortingLayer = 0;
-	backgroundRenderer->AddTexture("dudegame/player/background.png", "background");
-	backgroundRenderer->SetTexture("background");
-	backgroundRenderer->scale = Vector2(4.0f, 4.0f);
-	AddComponent(backgroundRenderer);
+    tilemap = std::make_shared<TileMap>();
+    tilemap->scale = Vector2(2.0f, 2.0f);
+    AddComponent(tilemap);
+
+    tilemap->Load("tilemap/prueba_tmap.json", "tilemap/prueba_tset.png");
+
+	// backgroundRenderer = std::make_shared<SpriteRenderer>();
+	// backgroundRenderer->AddTexture("dudegame/player/background.png", "background");
+	// backgroundRenderer->SetTexture("background");
+	// backgroundRenderer->scale = Vector2(4.0f, 4.0f);
+	// AddComponent(backgroundRenderer);
 
     // light = std::make_shared<Light2D>(Light2D::Type::Radial);
     // light->SetIntensity(0.8f);
@@ -69,7 +74,6 @@ void SharedScene::Player::Init()
 	animation->AddAnimation("dudegame/player/running_backward.png", "running-backward", 2, 3, 192, 116, 6);
 	animation->offset = Vector2(0, 14);
 	animation->scale = Vector2(0.075f, 0.075f);
-    // animation->transform->scale = Vector2(0, 0);
 
     rigidbody2d->CreateBody(
         std::make_shared<RectShape>(Vector2(40.0f, 75.0f)),
@@ -84,9 +88,10 @@ void SharedScene::Player::Init()
     text->position = Vector2(20, 20);
     text->padding = Vector2(10, 10);
 
-    text->font = "fonts/Merriweather/Merriweather-Black.ttf";
-    *text += "Alce Engine Sample Project";
-    *text += "\nby <underlined>@Ekrol34</underlined>";
+    text->font = "fonts/Merriweather/Merriweather-Regular.ttf";
+    text->fontSize = 17;
+    *text += "<bold>Alce Engine Sample Project</bold>";
+    *text += "\n<bold>by <underlined>@Ekrol34</underlined></bold>";
     text->borderRadius = 5;
     text->borderWidth = 3;
     text->borderColor = Colors::Yellow;
@@ -108,9 +113,10 @@ void SharedScene::Player::Init()
 
     ButtonPtr button = std::make_shared<Button>(); 
     canvas->AddElement(button);
+    button->font = "fonts/Consolas/CONSOLA.ttf";
     button->zIndex = 5;
     button->position = Vector2(20, 100);
-    button->borderRadius = 0;
+    button->borderRadius = 3;
     button->borderWidth = 2;
     button->text = "Dev Mode: ON ";
     button->borderColor = Colors::White;

@@ -23,6 +23,7 @@ namespace SampleScene
 	private:
 
 		Rigidbody2DPtr rigidbody2d;
+		TileMapPtr tilemap;
 	};
 	typedef std::shared_ptr<Ground> GroundPtr;
 }

@@ -28,6 +28,12 @@ void SampleScene::Ground::Init()
         BodyType::kinematic_body,
         true
     );
+
+    // tilemap = std::make_shared<TileMap>();
+    // tilemap->scale = Vector2(2.0f, 2.0f);
+    // AddComponent(tilemap);
+
+    // tilemap->Load("tilemap/prueba_tmap.json", "tilemap/prueba_tset.png");
 }
 
 void SampleScene::Ground::Start()

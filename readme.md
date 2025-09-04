@@ -114,6 +114,7 @@ Minimun requirements:
 
 Recommended:
 * Python v3.1.0^
+* <img src="https://pyxeledit.com/images/icon256.png" style="width: 18px; position: relative; top: 2px"> [PyxelEdit](https://pyxeledit.com/)
 
 # ☎️ Contact
 

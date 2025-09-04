@@ -29,6 +29,9 @@ void CORE::Window(String windowTitle, DisplayMode displayMode, Vector2 size, boo
 	case DisplayMode::Titlebar:
 		style = sf::Style::Titlebar;
 		break;
+    case DisplayMode::NoResize:
+        style = sf::Style::Titlebar | sf::Style::Close;
+        break;
 	}
 
 	if (style == sf::Style::Fullscreen)

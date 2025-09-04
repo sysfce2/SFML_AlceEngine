@@ -34,7 +34,7 @@ namespace alce
         float borderRadius = 2;
 
         unsigned int fontSize = 18;
-        String fontPath = "fonts/Consolas/CONSOLA.ttf";
+        String font = "fonts/Consolas/CONSOLA.ttf";
         String text = "Button";
 
         Lambda onClick;
@@ -47,7 +47,7 @@ namespace alce
         sf::ConvexShape roundedBox;
 
         sfe::RichText richText;
-        sf::Font font;
+        sf::Font _font;
 
         bool isMouseOver = false;
         bool isOnClick = false;
