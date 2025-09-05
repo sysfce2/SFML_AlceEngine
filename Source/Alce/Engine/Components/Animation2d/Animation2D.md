@@ -73,7 +73,7 @@ Animation2D()
 
 Creates a new ```Animation2D``` instance. Initializes the cardinal points for tracking sprite corners.
 
-## Public Methods
+## API
 
 ### AddAnimation
 ```cpp

@@ -24,6 +24,8 @@ namespace SampleScene
 
 		Rigidbody2DPtr rigidbody2d;
 		TileMapPtr tilemap;
+
+		TextRendererPtr textRenderer;
 	};
 	typedef std::shared_ptr<Ground> GroundPtr;
 }

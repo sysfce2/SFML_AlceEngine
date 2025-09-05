@@ -664,6 +664,14 @@ bool RectShape::InArea(Vector2 point)
     return point.x >= position.x && point.x <= (position.x + width) && point.y >= position.y && point.y <= (position.y + height);
 }
 
+bool RectShape::Intersects(RectShape other)
+{
+	return !(position.x + width  < other.position.x ||      
+             position.x > other.position.x + other.width || 
+             position.y + height < other.position.y ||      
+             position.y > other.position.y + other.height); 
+}
+
 String RectShape::ToString()
 {
 	return alce::FormatString("width: {}, height: {}, x: {}, y: {}", {width, height, position.x, position.y});

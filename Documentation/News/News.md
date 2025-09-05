@@ -1,5 +1,11 @@
 # 📰 News and Updates
 
+### > (6/9/2025) TileMap Component Released
+
+The new TileMap component is now available. It lets you render tile-based maps exported from PyxelEdit directly on a GameObject, handling tilesets, layers, flips, and rotations automatically, while keeping the map centered on the object’s transform and updating its bounding corners for efficient scene culling. Perfect for creating levels, backgrounds, or any grid-based environment.
+
+[📖 TileMap documentation](Source/Alce/Engine/Components/TileMap/TileMap.md)
+
 ### > (24/8/2025) TextRenderer Component Released
 
 The new TextRenderer component is now available. It allows you to render styled text directly in the game world, with support for formatting, colors, backgrounds, and borders. Useful for names, dialogue, or any text that should exist as part of the scene rather than the UI.

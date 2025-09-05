@@ -18,7 +18,12 @@ namespace alce
 
 		void Update();
 
-		bool Load(String tilemap, String tileset);
+		bool Load(String tilemap, String tileset, int tilesPerRow = 8);
+
+		Dictionary<String, Vector2Ptr> GetCardinals();
+
+		Vector2 scale = Vector2(0, 0);
+		Vector2 offset = Vector2(0, 0);
 
 	private:
 
@@ -35,6 +40,7 @@ namespace alce
         int tilesPerRow = 0;
 
         std::vector<Layer> layers;
+		Dictionary<String, Vector2Ptr> cardinals;
 
         void BuildLayer(Json& layerJson);
 

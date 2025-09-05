@@ -18,6 +18,8 @@ Creates a new ```SpriteRenderer``` instance. Initializes the internal sprite and
 
 * ```Vector2 originOffset```: Offset applied to the sprite’s origin, relative to its center.
 
+## API
+
 ## AddTexture
 ```cpp
 void AddTexture(String file, String name)
@@ -32,8 +34,6 @@ Parameters:
 * ```name```: Identifier to reference the texture later.
 
 > __Notes__: _If the name already exists, the method logs a warning and ignores the request._
-
-## Public Methods
 
 ### SetTexture
 ```cpp

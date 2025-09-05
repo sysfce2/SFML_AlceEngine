@@ -412,6 +412,8 @@ namespace alce
 
 		bool InArea(Vector2 point);
 
+		bool Intersects(RectShape other);
+
 		float width = 0.0f;
 
 		float height = 0.0f;

@@ -40,12 +40,6 @@ void SharedScene::Player::Init()
     canvas = std::make_shared<Canvas>();
     AddComponent(canvas);
 
-    tilemap = std::make_shared<TileMap>();
-    tilemap->scale = Vector2(2.0f, 2.0f);
-    AddComponent(tilemap);
-
-    tilemap->Load("tilemap/prueba_tmap.json", "tilemap/prueba_tset.png");
-
 	// backgroundRenderer = std::make_shared<SpriteRenderer>();
 	// backgroundRenderer->AddTexture("dudegame/player/background.png", "background");
 	// backgroundRenderer->SetTexture("background");
@@ -106,7 +100,7 @@ void SharedScene::Player::Init()
     walking = false;
     status = "idle-forward";
 
-	walkSpeed = 1.0f;
+	walkSpeed = 0.5f;
 	runSpeed = 2.0f;
 
 	running = false;
@@ -127,9 +121,9 @@ void SharedScene::Player::Init()
 		if(Alce.GetCurrentScene()->IsDevelopmentMode())
 		{
 			button->text = "Dev Mode: OFF";
-			button->backgroundColor = Color("#3599DB");
-			button->mouseOverBackgroundColor = Color("#50ADEB");
-			button->onClickBackgroundColor = Color("#50ADEB");
+			button->backgroundColor = Color("#D13C28");
+			button->mouseOverBackgroundColor = Color("#E2583F");
+			button->onClickBackgroundColor = Color("#E2583F");
 			Alce.GetCurrentScene()->DevelopmentMode(false);
 		}
 		else

@@ -9,8 +9,8 @@ SampleScene::Sample::Sample() : Scene("Sample")
 {
 	persist = true;
 	DevelopmentMode(true);
-	InitPhysics(Vector2(0.0f, -1.0f));
-	SmartRender = false;
+	InitPhysics(Vector2(0.0f, -0.0f));
+	SmartRender = true;
 }
 
 //Custom methods implementation

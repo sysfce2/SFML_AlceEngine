@@ -5,6 +5,8 @@
 #include "../../Components/ParticleSystem/ParticleSystem.hpp"
 #include "../../Components/SpriteRenderer/SpriteRenderer.hpp"
 #include "../../Components/Animation2d/Animation2d.hpp"
+#include "../../Components/TileMap/TileMap.hpp"
+#include "../../Components/TextRenderer/TextRenderer.hpp"
 #include "../../UI/TextInput/TextInput.hpp"
 #include "../ARL/ARL.hpp"
 #include "../Json/Json.hpp"
@@ -230,7 +232,6 @@ void Scene::Render()
     for(auto& _camera: cameras)
     {
         Camera* camera = (Camera*) _camera;
-
         if(!camera->enabled) continue;
 
         Alce.GetWindow().setView(camera->view);
@@ -257,53 +258,41 @@ void Scene::Render()
                 if(gameObject->sortingLayer != layer) continue;
                 if(!gameObject->enabled) continue;
 
+                bool visible = true;
+
                 if(gameObject->cardinals.Empty())
                 {
-                    if(!camera->GetBounds().InArea(gameObject->transform.position.ToPixels())) continue;
+                    // Sin cardinales → usar solo la posición
+                    visible = camera->GetBounds().InArea(gameObject->transform.position.ToPixels());
                 }
                 else
                 {
-                    if(!camera->GetBounds().InArea(*gameObject->cardinals["top-left"].get()) &&
-                    !camera->GetBounds().InArea(*gameObject->cardinals["top-right"].get()) &&
-                    !camera->GetBounds().InArea(*gameObject->cardinals["bottom-left"].get()) &&
-                    !camera->GetBounds().InArea(*gameObject->cardinals["bottom-right"].get()))
-                    {
-                        if(SmartRender) continue;
-                    }
+                    // Con cardinales → usar intersección de rectángulos
+                    float minX = std::min({ gameObject->cardinals["top-left"]->x,
+                                            gameObject->cardinals["bottom-left"]->x,
+                                            gameObject->cardinals["top-right"]->x,
+                                            gameObject->cardinals["bottom-right"]->x });
+                    float maxX = std::max({ gameObject->cardinals["top-left"]->x,
+                                            gameObject->cardinals["bottom-left"]->x,
+                                            gameObject->cardinals["top-right"]->x,
+                                            gameObject->cardinals["bottom-right"]->x });
+                    float minY = std::min({ gameObject->cardinals["top-left"]->y,
+                                            gameObject->cardinals["top-right"]->y,
+                                            gameObject->cardinals["bottom-left"]->y,
+                                            gameObject->cardinals["bottom-right"]->y });
+                    float maxY = std::max({ gameObject->cardinals["top-left"]->y,
+                                            gameObject->cardinals["top-right"]->y,
+                                            gameObject->cardinals["bottom-left"]->y,
+                                            gameObject->cardinals["bottom-right"]->y });
+
+                    RectShape objBounds(minX, minY, maxX - minX, maxY - minY);
+
+                    visible = objBounds.Intersects(camera->GetBounds());
                 }
 
+                if(!visible && SmartRender) continue;
+
                 gameObject->Render();
-            }
-
-            if(developmentMode)
-            {
-                // for(auto& gameObject: gameObjectList)
-                // {
-                //     if(gameObject->sortingLayer != layer) continue;
-                //     if(!gameObject->enabled) continue;
-
-                //     if(gameObject->cardinals.Empty())
-                //     {
-                //         if(!camera->GetBounds().InArea(gameObject->transform.position.ToPixels())) continue;
-                //     }
-                //     else
-                //     {
-                //         if(!camera->GetBounds().InArea(*gameObject->cardinals["top-left"].get()) &&
-                //         !camera->GetBounds().InArea(*gameObject->cardinals["top-right"].get()) &&
-                //         !camera->GetBounds().InArea(*gameObject->cardinals["bottom-left"].get()) &&
-                //         !camera->GetBounds().InArea(*gameObject->cardinals["bottom-right"].get()))
-                //         {
-                //             continue;
-                //         }
-                //     }
-
-                //     for(auto& component: gameObject->GetComponents())
-                //     {
-                //         component->DebugRender();
-                //     }
-
-                //     gameObject->DebugRender();
-                // }         
             }
         }    
     }
@@ -319,20 +308,37 @@ void Scene::Render()
             {
                 if(!gameObject->enabled) continue;
 
+                bool visible = true;
+
                 if(gameObject->cardinals.Empty())
                 {
-                    if(!camera->GetBounds().InArea(gameObject->transform.position.ToPixels())) continue;
+                    visible = camera->GetBounds().InArea(gameObject->transform.position.ToPixels());
                 }
                 else
                 {
-                    if(!camera->GetBounds().InArea(*gameObject->cardinals["top-left"].get()) &&
-                    !camera->GetBounds().InArea(*gameObject->cardinals["top-right"].get()) &&
-                    !camera->GetBounds().InArea(*gameObject->cardinals["bottom-left"].get()) &&
-                    !camera->GetBounds().InArea(*gameObject->cardinals["bottom-right"].get()))
-                    {
-                        continue;
-                    }
+                    float minX = std::min({ gameObject->cardinals["top-left"]->x,
+                                            gameObject->cardinals["bottom-left"]->x,
+                                            gameObject->cardinals["top-right"]->x,
+                                            gameObject->cardinals["bottom-right"]->x });
+                    float maxX = std::max({ gameObject->cardinals["top-left"]->x,
+                                            gameObject->cardinals["bottom-left"]->x,
+                                            gameObject->cardinals["top-right"]->x,
+                                            gameObject->cardinals["bottom-right"]->x });
+                    float minY = std::min({ gameObject->cardinals["top-left"]->y,
+                                            gameObject->cardinals["top-right"]->y,
+                                            gameObject->cardinals["bottom-left"]->y,
+                                            gameObject->cardinals["bottom-right"]->y });
+                    float maxY = std::max({ gameObject->cardinals["top-left"]->y,
+                                            gameObject->cardinals["top-right"]->y,
+                                            gameObject->cardinals["bottom-left"]->y,
+                                            gameObject->cardinals["bottom-right"]->y });
+
+                    RectShape objBounds(minX, minY, maxX - minX, maxY - minY);
+
+                    visible = objBounds.Intersects(camera->GetBounds());
                 }
+
+                if(!visible) continue;
 
                 for(auto& component: gameObject->GetComponents())
                 {
@@ -352,6 +358,7 @@ void Scene::Render()
         }
     }
 }
+
 
 void Scene::Update()
 {
@@ -375,6 +382,12 @@ void Scene::Update()
 
             if(component->id == "Animation2d")
                 SetCardinals(gameObject, gameObject->GetComponent<Animation2D>()->GetCardinals());
+            
+            if(component->id == "TileMap")
+                SetCardinals(gameObject, gameObject->GetComponent<TileMap>()->GetCardinals());
+
+            if(component->id == "TextRenderer")
+                SetCardinals(gameObject, gameObject->GetComponent<TextRenderer>()->GetCardinals());
         }
     }
 
@@ -396,32 +409,48 @@ void Scene::Update()
 
 void Scene::SetCardinals(GameObjectPtr gameObject, Dictionary<String, Vector2Ptr> cardinals)
 {
-    if(!gameObject->cardinals.HasKey("top-left") || cardinals.HasKey("top-left") && (
-    gameObject->cardinals["top-left"]->y > cardinals["top-left"]->y ||
-    gameObject->cardinals["top-left"]->x > cardinals["top-left"]->x))
+    if (cardinals.HasKey("top-left"))
     {
-        gameObject->cardinals.Set("top-left", cardinals["top-left"]);
+        if (!gameObject->cardinals.HasKey("top-left"))
+            gameObject->cardinals.Set("top-left", cardinals["top-left"]);
+        else
+        {
+            gameObject->cardinals["top-left"]->x = std::min(gameObject->cardinals["top-left"]->x, cardinals["top-left"]->x);
+            gameObject->cardinals["top-left"]->y = std::min(gameObject->cardinals["top-left"]->y, cardinals["top-left"]->y);
+        }
     }
 
-    if(!gameObject->cardinals.HasKey("top-right") || cardinals.HasKey("top-right") && ( 
-    gameObject->cardinals["top-right"]->y > cardinals["top-right"]->y ||
-    gameObject->cardinals["top-right"]->x < cardinals["top-right"]->x))
+    if (cardinals.HasKey("top-right"))
     {
-        gameObject->cardinals.Set("top-right", cardinals["top-right"]);
+        if (!gameObject->cardinals.HasKey("top-right"))
+            gameObject->cardinals.Set("top-right", cardinals["top-right"]);
+        else
+        {
+            gameObject->cardinals["top-right"]->x = std::max(gameObject->cardinals["top-right"]->x, cardinals["top-right"]->x);
+            gameObject->cardinals["top-right"]->y = std::min(gameObject->cardinals["top-right"]->y, cardinals["top-right"]->y);
+        }
     }
 
-    if(!gameObject->cardinals.HasKey("bottom-left") || cardinals.HasKey("bottom-left") && (
-    gameObject->cardinals["bottom-left"]->y < cardinals["bottom-left"]->y ||
-    gameObject->cardinals["bottom-left"]->x > cardinals["bottom-left"]->x))
+    if (cardinals.HasKey("bottom-left"))
     {
-        gameObject->cardinals.Set("bottom-left", cardinals["bottom-left"]);
+        if (!gameObject->cardinals.HasKey("bottom-left"))
+            gameObject->cardinals.Set("bottom-left", cardinals["bottom-left"]);
+        else
+        {
+            gameObject->cardinals["bottom-left"]->x = std::min(gameObject->cardinals["bottom-left"]->x, cardinals["bottom-left"]->x);
+            gameObject->cardinals["bottom-left"]->y = std::max(gameObject->cardinals["bottom-left"]->y, cardinals["bottom-left"]->y);
+        }
     }
 
-    if(!gameObject->cardinals.HasKey("bottom-right") || cardinals.HasKey("bottom-right") && (
-    gameObject->cardinals["bottom-right"]->y < cardinals["bottom-right"]->y ||
-    gameObject->cardinals["bottom-right"]->x < cardinals["bottom-right"]->x))
+    if (cardinals.HasKey("bottom-right"))
     {
-        gameObject->cardinals.Set("bottom-right", cardinals["bottom-right"]);
+        if (!gameObject->cardinals.HasKey("bottom-right"))
+            gameObject->cardinals.Set("bottom-right", cardinals["bottom-right"]);
+        else
+        {
+            gameObject->cardinals["bottom-right"]->x = std::max(gameObject->cardinals["bottom-right"]->x, cardinals["bottom-right"]->x);
+            gameObject->cardinals["bottom-right"]->y = std::max(gameObject->cardinals["bottom-right"]->y, cardinals["bottom-right"]->y);
+        }
     }
 }
 

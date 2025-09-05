@@ -60,7 +60,7 @@ TextRenderer()
 Creates a new TextRenderer component. Font and text must be assigned before rendering.
 
 
-## Public Methods
+## API
 
 ### SetNewText
 ```cpp
@@ -74,6 +74,23 @@ Replaces the current text with the given string.
 void AddText(String str)
 ```
 Appends the given string to the existing text.
+
+### GetCardinals
+```cpp
+Dictionary<String, Vector2Ptr> GetCardinals()
+```
+
+Returns a dictionary with references to the sprite’s four cardinal points:
+
+* ```top-left```
+
+* ```top-right```
+
+* ```bottom-left```
+
+* ```bottom-right```
+
+These points are updated automatically each frame based on the sprite’s transform and size.
 
 ## Example Usage
 ```cpp

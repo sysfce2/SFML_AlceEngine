@@ -12,9 +12,14 @@ void TextRenderer::AddText(String str)
     this->str += str.ToSFMLString();
 }   
 
+Dictionary<String, Vector2Ptr> TextRenderer::GetCardinals()
+{
+    return cardinals;
+}
+
 void TextRenderer::Init()
 {
-	
+    
 }
 
 void TextRenderer::Start()
@@ -24,7 +29,6 @@ void TextRenderer::Start()
 
 void TextRenderer::Render()
 {
-    // Dibujar caja usando la misma boxPos calculada en Update()
     if (borderRadius > 0)
     {
         int totalPoints = CIRCLE_QUALITY * 4;
@@ -50,7 +54,6 @@ void TextRenderer::Render()
         addCorner(borderRadius, size.y - borderRadius, 90);
         addCorner(borderRadius, borderRadius, 180);
 
-        // top-left de la caja (no restamos padding ni sumamos offset aquí)
         roundedBox.setPosition(boxPos.ToVector2f());
         roundedBox.setFillColor(backgroundColor.ToSFMLColor());
         roundedBox.setOutlineThickness(borderWidth);
@@ -61,8 +64,8 @@ void TextRenderer::Render()
     else 
     {
         sf::RectangleShape border;
-        border.setPosition(boxPos.ToVector2f());           // top-left exacto de la caja
-        border.setSize(size.ToVector2f());                 // tamaño de la caja
+        border.setPosition(boxPos.ToVector2f());           
+        border.setSize(size.ToVector2f());                
         border.setOutlineThickness(borderWidth);
         border.setOutlineColor(borderColor.ToSFMLColor());
         border.setFillColor(backgroundColor.ToSFMLColor());
@@ -70,14 +73,14 @@ void TextRenderer::Render()
         Alce.GetWindow().draw(border);
     }
 
-    // Luego el texto (ya centrado en Update)
     Alce.GetWindow().draw(richText);
 }
 
 void TextRenderer::Update()
 {
-    if (!enabled) return;
+    if (!enabled || transform == nullptr) return;
 
+    // reconstruir richText
     richText = sfe::RichText(*Alce.GetFont(font).get());
     richText.setCharacterSize(fontSize);
 
@@ -111,10 +114,10 @@ void TextRenderer::Update()
             if (isUnderlined) currentStyle = static_cast<sf::Text::Style>(currentStyle | sf::Text::Underlined);
             if (isStrikeThrough) currentStyle = static_cast<sf::Text::Style>(currentStyle | sf::Text::StrikeThrough);
 
-            richText << currentColor << currentStyle << sf::String::fromUtf8(text.begin() + lastPos, text.begin() + pos);
+            richText << currentColor << currentStyle 
+                     << sf::String::fromUtf8(text.begin() + lastPos, text.begin() + pos);
         }
 
-        // procesar etiquetas
         if (!isClosingTag) 
         {
             if (tag == "bold") { styleStack.push(currentStyle); isBold = true; }
@@ -143,27 +146,47 @@ void TextRenderer::Update()
         if (isUnderlined) currentStyle = static_cast<sf::Text::Style>(currentStyle | sf::Text::Underlined);
         if (isStrikeThrough) currentStyle = static_cast<sf::Text::Style>(currentStyle | sf::Text::StrikeThrough);
 
-        richText << currentColor << currentStyle << sf::String::fromUtf8(text.begin() + lastPos, text.end());
+        richText << currentColor << currentStyle 
+                 << sf::String::fromUtf8(text.begin() + lastPos, text.end());
     }
     else if (lastPos == 0 && !text.empty())
     {
-        richText << currentColor << currentStyle << sf::String::fromUtf8(text.begin(), text.end());
+        richText << currentColor << currentStyle 
+                 << sf::String::fromUtf8(text.begin(), text.end());
     }
 
+    // Bounding box del texto
     size = Vector2(richText.getGlobalBounds().width, richText.getGlobalBounds().height);
     size += (padding * 2);
 
-    sf::Vector2f tl = transform->position.ToPixels().ToVector2f();
-    tl.x += offset.x;
-    tl.y += offset.y;
-    boxPos = Vector2(tl.x, tl.y);
+    Vector2 centerPos = transform->position.ToPixels() + offset;
+
+    // La esquina superior izquierda del box
+    boxPos = centerPos - (size / 2.0f);
 
     sf::FloatRect textBounds = richText.getLocalBounds();
     sf::Vector2f boxSize(size.x, size.y);
 
-    float textX = tl.x + (boxSize.x - textBounds.width) / 2.f - textBounds.left;
-    float textY = tl.y + (boxSize.y - textBounds.height) / 2.f - textBounds.top;
+    // Centrar richText dentro del box
+    float textX = centerPos.x - textBounds.width / 2.f - textBounds.left;
+    float textY = centerPos.y - textBounds.height / 2.f - textBounds.top;
 
     richText.setPosition(textX, textY);
     richText.setRotation(transform->rotation);
+
+    // ==== CARDINALES ====
+    float halfW = size.x / 2.f;
+    float halfH = size.y / 2.f;
+
+    cardinals["top-left"]->x = centerPos.x - halfW;
+    cardinals["top-left"]->y = centerPos.y - halfH;
+
+    cardinals["top-right"]->x = centerPos.x + halfW;
+    cardinals["top-right"]->y = centerPos.y - halfH;
+
+    cardinals["bottom-left"]->x = centerPos.x - halfW;
+    cardinals["bottom-left"]->y = centerPos.y + halfH;
+
+    cardinals["bottom-right"]->x = centerPos.x + halfW;
+    cardinals["bottom-right"]->y = centerPos.y + halfH;
 }

@@ -30,7 +30,7 @@ namespace alce
 
         void SetTextureSmooth(String name, bool flag = true);
 
-        Vector2 originOffset = Vector2(0.0f, 0.0f);
+        Vector2 offset = Vector2(0.0f, 0.0f);
 
         Vector2 GetLocalCenter();
 

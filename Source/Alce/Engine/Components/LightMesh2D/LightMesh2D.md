@@ -19,8 +19,7 @@ LightMesh2D(ShapePtr shape)
 
 Creates a new LightMesh2D with the provided shape. The shape can be a rectangle, circle, or polygon.
 
-## Public Methods
-
+## API
 ### GetShape
 ```cpp
 Shape GetShape()

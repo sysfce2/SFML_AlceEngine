@@ -22,7 +22,7 @@ ParticleSystem()
 
 Creates a new ```ParticleSystem``` with no emission. Emission begins only after Emit is called.
 
-## Public Fields
+## Parameters
 
 * ```Time delay```: Interval between consecutive particle emissions.
 
@@ -30,7 +30,7 @@ Creates a new ```ParticleSystem``` with no emission. Emission begins only after 
 
 * ```bool enableCollision```: Whether emitted particles participate in collisions.
 
-## Public Methods
+## API
 
 ### SetDelay
 ```cpp

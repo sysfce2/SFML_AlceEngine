@@ -27,7 +27,7 @@ Camera()
 
 Creates a new ```Camera``` instance. The initial viewport is set to cover the entire window, with no zoom applied.
 
-## Public Methods
+## API
 
 ### GetViewport
 ```cpp

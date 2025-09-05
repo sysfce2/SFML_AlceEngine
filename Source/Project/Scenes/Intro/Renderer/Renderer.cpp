@@ -41,7 +41,7 @@ void IntroScene::Renderer::Start()
 
 	textRenderer->SetNewText("Ekrol34");
 	transform.scale = Vector2(1, 1);
-	textRenderer->offset = Vector2(-140, 100);
+	textRenderer->offset = Vector2(-9, 165);
 	textRenderer->font = "fonts/Basic-Regular/Basic-Regular.ttf";
 	textRenderer->fontSize = 80;
 
@@ -58,7 +58,7 @@ void IntroScene::Renderer::Update()
 		spriteRenderer->SetTexture("EngineLogo");
 		transform.scale = Vector2(1, 1);
 		textRenderer->SetNewText("Alce Engine");
-		textRenderer->offset = Vector2(-160, 130);
+		textRenderer->offset = Vector2(0, 180);
 		textRenderer->fontSize = 50;
 		textRenderer->font = "fonts/Merriweather/Merriweather-Bold.ttf";
 	}

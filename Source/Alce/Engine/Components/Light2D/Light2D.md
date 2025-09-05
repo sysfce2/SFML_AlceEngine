@@ -55,7 +55,7 @@ Creates a new ```Light2D``` instance of the specified type. Default is radial. I
 
 * ```color```: white
 
-## Public Methods
+## API
 
 ### SetFade
 ```cpp

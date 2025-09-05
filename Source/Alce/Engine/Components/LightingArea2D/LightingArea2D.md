@@ -20,11 +20,11 @@ LightingArea2D()
 
 Creates a new ```LightingArea2D``` instance with default size (100, 100), full opacity, and black color.
 
-## Public Fields
+## Parameters
 
 * ```Color color```: The base color of the lighting area. Default is black.
 
-## Public Methods
+## API
 
 ### SetSize
 ```cpp

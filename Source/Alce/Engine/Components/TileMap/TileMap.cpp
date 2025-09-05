@@ -4,10 +4,13 @@ using namespace alce;
 
 TileMap::TileMap() : Component("TileMap")
 {
-
+    cardinals.Set("top-left", std::make_shared<Vector2>());
+    cardinals.Set("top-right", std::make_shared<Vector2>());
+    cardinals.Set("bottom-left", std::make_shared<Vector2>());
+    cardinals.Set("bottom-right", std::make_shared<Vector2>());
 }
 
-bool TileMap::Load(String jsonFile, String tilesetFile)
+bool TileMap::Load(String jsonFile, String tilesetFile, int _tilesPerRow)
 {
     jsonFile = String("./Assets/" + jsonFile.ToAnsiString());
     tilesetFile = String("./Assets/" + tilesetFile.ToAnsiString());
@@ -22,7 +25,7 @@ bool TileMap::Load(String jsonFile, String tilesetFile)
     tileSize = Vector2(mapJson.Get("tilewidth").ParseInt(), mapJson.Get("tileheight").ParseInt());
     tilesWide = mapJson.Get("tileswide").ParseInt();
     tilesHigh = mapJson.Get("tileshigh").ParseInt();
-    tilesPerRow = 8; 
+    tilesPerRow = _tilesPerRow;
 
     if (!tileset.loadFromFile(tilesetFile.ToAnsiString()))
     {
@@ -115,6 +118,11 @@ void TileMap::BuildLayer(Json& layerJson)
     layers.push_back(layer);
 }
 
+Dictionary<String, Vector2Ptr> TileMap::GetCardinals()
+{
+    return cardinals;
+}
+
 void TileMap::Init()
 {
     if (transform == nullptr)
@@ -131,19 +139,23 @@ void TileMap::Start()
     }
 }
 
-void TileMap::Update()
-{
-    
-}
-
 void TileMap::Render()
 {
     if (transform == nullptr) return;
 
+    float mapWidthPx  = tilesWide * tileSize.x;
+    float mapHeightPx = tilesHigh * tileSize.y;
+
+    sf::Vector2f origin(mapWidthPx / 2.0f, mapHeightPx / 2.0f);
+
     sf::Transform t;
-    t.translate(transform->position.ToPixels().ToVector2f());
+
+    Vector2 pos = transform->position + offset;
+
+    t.translate(pos.ToPixels().ToVector2f());
     t.rotate(transform->rotation);
     t.scale((transform->scale + scale).ToVector2f());
+    t.translate(-origin);
 
     sf::RenderStates states;
     states.transform = t;
@@ -153,4 +165,29 @@ void TileMap::Render()
     {
         Alce.GetWindow().draw(layer.vertices, states);
     }
+}
+
+void TileMap::Update()
+{
+    if (transform == nullptr) return;
+
+    float mapWidthPx  = tilesWide * tileSize.x;
+    float mapHeightPx = tilesHigh * tileSize.y;
+
+    Vector2 pixelpos = (transform->position + offset).ToPixels();
+
+    float halfW = mapWidthPx  * 0.5f * (transform->scale.x + scale.x);
+    float halfH = mapHeightPx * 0.5f * (transform->scale.y + scale.y);
+
+    cardinals["top-left"]->x = pixelpos.x - halfW;
+    cardinals["top-left"]->y = pixelpos.y - halfH;
+
+    cardinals["top-right"]->x = pixelpos.x + halfW;
+    cardinals["top-right"]->y = pixelpos.y - halfH;
+
+    cardinals["bottom-left"]->x = pixelpos.x - halfW;
+    cardinals["bottom-left"]->y = pixelpos.y + halfH;
+
+    cardinals["bottom-right"]->x = pixelpos.x + halfW;
+    cardinals["bottom-right"]->y = pixelpos.y + halfH; 
 }

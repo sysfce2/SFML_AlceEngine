@@ -16,6 +16,12 @@ Alce Game Engine is a feature-rich game engine based on SFML and Box2D, designed
 
 > [🌐 See full page here](Documentation/News/News.md)
 
+### > (6/9/2025) TileMap Component Released
+
+The new TileMap component is now available. It lets you render tile-based maps exported from PyxelEdit directly on a GameObject, handling tilesets, layers, flips, and rotations automatically, while keeping the map centered on the object’s transform and updating its bounding corners for efficient scene culling. Perfect for creating levels, backgrounds, or any grid-based environment.
+
+[📖 TileMap documentation](Source/Alce/Engine/Components/TileMap/TileMap.md)
+
 ### > (24/8/2025) TextRenderer Component Released
 
 The new TextRenderer component is now available. It allows you to render styled text directly in the game world, with support for formatting, colors, backgrounds, and borders. Useful for names, dialogue, or any text that should exist as part of the scene rather than the UI.
@@ -55,6 +61,8 @@ AlceEngine provides well-structured and comprehensive documentation for every co
 * <img src="https://raw.githubusercontent.com/MiguelMJ/Candle/master/doc/logo.svg" style="width: 19px; position: relative; top: 2px"> [LightMesh2D](Source/Alce/Engine/Components/LightMesh2D/LightMesh2D.md):  represents a 2D shape used as a light-blocking or light-interacting mesh, allowing you to define custom geometry (rectangle, circle, or polygon) that updates with the object's transform and can be visualized in debug mode.
 
 * <img src="https://raw.githubusercontent.com/MiguelMJ/Candle/master/doc/logo.svg" style="width: 19px; position: relative; top: 2px"> [LightingArea2D](Source/Alce/Engine/Components/LightingArea2D/LightingArea2D.md): defines and manages a 2D lighting area that can render fog-like effects, adjusting its size, position offset, color, and opacity dynamically within a game or graphical application.
+
+* <img src="https://pyxeledit.com/images/icon256.png" style="width: 18px; position: relative; top: 2px"> [TileMap](Source/Alce/Engine/Components/TileMap/TileMap.md): renders a [PyxelEdit](https://pyxeledit.com/)-exported JSON tilemap on a GameObject, slicing the tileset, handling flips and rotations, centering on the transform, applying scale and offset, and updating its bounding corners for efficient scene culling.
 
 * [TextRenderer](Source/Alce/Engine/Components/TextRenderer/TextRenderer.md): renders styled text directly in the game world, supporting formatting, colors, and optional backgrounds with borders.
 
