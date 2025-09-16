@@ -89,7 +89,7 @@ def printHelp():
     prints(" file.\n\n")
 
 def printVersion():    
-    prints("Alce CLI 1.0.2 (2025)\n", "magenta")
+    prints("Alce CLI 1.0.4 (2025)\n", "magenta")
 
 #endregion
 
@@ -1053,7 +1053,7 @@ def link(alias):
         makefile.write(" -o " + "./Out/" + alias + "/" + project_name + " -LSFML-2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lopengl32")
 
         if build_mode == "release":
-            makefile.write("-mwindows ")
+            makefile.write(" -mwindows ")
         
         makefile.close()
 
@@ -1074,8 +1074,13 @@ def link(alias):
             
             compiler_dlls = glob.glob(f"{compiler_bin_path}/*.dll")
 
+            wanted_dlls = [
+                "libstdc++-6.dll", "libwinpthread-1.dll"
+            ]
+
             for dll in compiler_dlls:
-                shutil.copy(dll, "./Out/" + alias)
+                if dll.split("\\")[-1] in wanted_dlls:
+                    shutil.copy(dll, "./Out/" + alias)
 
             if os.path.exists("Temp/icon.res"):
                 os.remove("Temp/icon.res")
