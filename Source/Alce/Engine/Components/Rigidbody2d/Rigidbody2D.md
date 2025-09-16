@@ -12,7 +12,7 @@ Forces, impulses, and torques can be applied at runtime, and the component autom
 
 The ```Rigidbody2D``` component integrates a GameObject into the 2D physics simulation. It automatically synchronizes the GameObject’s transform with the physics body, ensuring that position and rotation reflect the physics world. Forces, impulses, and torques applied through the component directly affect motion, velocity, and rotation. Changes to physical properties such as density, friction, restitution, or damping immediately influence how the body interacts with collisions and other ```Rigidbody2D``` instances. The body type (dynamic, static, kinematic) determines whether it responds to physics forces, is immovable, or can be controlled manually while still affecting other bodies.
 
-## Parameters
+## Fields
 
 * ```float density```: Mass density of the body. Default is 10.0.
 
@@ -56,9 +56,9 @@ Creates a new ```Rigidbody2D``` instance. No body is created until CreateBody is
 
 Destroys the underlying physics body if it exists.
 
-## Body Management
+# Body Management
 
-### CreateBody
+## CreateBody
 ```cpp
 void CreateBody(ShapePtr shape, BodyType bodyType = BodyType::dynamic_body, bool fixedRotation = false, MaskType maskType = MaskType::mask_1)
 ```
@@ -75,16 +75,16 @@ Parameters:
 
 * ```maskType```: Collision mask category.
 
-### DestroyBody
+## DestroyBody
 ```cpp
 void DestroyBody()
 ```
 
 Destroys the currently attached physics body, if any.
 
-## Physical Properties
+# Physical Properties
 
-### Density
+## Density
 ```cpp
 float GetDensity()
 void SetDensity(float density)
@@ -92,7 +92,7 @@ void SetDensity(float density)
 
 Gets or sets the density of the body. Updating density recalculates the mass.
 
-### Friction
+## Friction
 ```cpp
 float GetFriction()
 void SetFriction(float friction)
@@ -100,7 +100,7 @@ void SetFriction(float friction)
 
 Gets or sets the surface friction coefficient.
 
-### Restitution
+## Restitution
 ```cpp
 float GetRestitution()
 void SetRestitution(float restitution)
@@ -108,7 +108,7 @@ void SetRestitution(float restitution)
 
 Gets or sets the restitution (bounciness).
 
-### RestitutionThreshold
+## RestitutionThreshold
 ```cpp
 float GetRestitutionThreshold()
 void SetRestitutionThreshold(float restitutionThreshold)
@@ -116,51 +116,51 @@ void SetRestitutionThreshold(float restitutionThreshold)
 
 Gets or sets the minimum relative speed at which restitution is applied.
 
-### Inertia
+## Inertia
 ```cpp
 float GetInertia()
 ```
 
 Returns the rotational inertia of the body.
 
-### GravityScale
+## GravityScale
 ```cpp
 float GetGravityScale()
 ```
 
 Returns the gravity scaling factor applied to this body.
 
-## Forces & Motion
+# Forces & Motion
 
-### ApplyForce
+## ApplyForce
 ```cpp
 void ApplyForce(Vector2 force, bool wake = true)
 ```
 
 Applies a continuous force to the body’s center.
 
-### ApplyLinearForce
+## ApplyLinearForce
 ```cpp
 void ApplyLinearForce(Vector2 force, bool wake = true)
 ```
 
 Applies an instantaneous linear impulse to the body’s center.
 
-### ApplyAngularImpulse
+## ApplyAngularImpulse
 ```cpp
 void ApplyAngularImpulse(float impulse)
 ```
 
 Applies an angular impulse, instantly changing angular velocity.
 
-### ApplyTorque
+## ApplyTorque
 ```cpp
 void ApplyTorque(float torque, bool wake = true)
 ```
 
 Applies continuous torque to the body.
 
-### LinearVelocity
+## LinearVelocity
 ```cpp
 void SetLinearVelocity(Vector2 velocity)
 Vector2 GetLinearVelocity()
@@ -168,44 +168,44 @@ Vector2 GetLinearVelocity()
 
 Sets or gets the linear velocity.
 
-### SetVerticalVelocity
+## SetVerticalVelocity
 ```cpp
 void SetVerticalVelocity(float vy)
 ```
 
 Sets the vertical velocity, keeping horizontal unchanged.
 
-### SetHorizontalVelocity
+## SetHorizontalVelocity
 ```cpp
 void SetHorizontalVelocity(float vx)
 ```
 
 Sets the horizontal velocity, keeping vertical unchanged.
 
-### SetAngularVelocity
+## SetAngularVelocity
 ```cpp
 void SetAngularVelocity(float va)
 ```
 
 Sets the angular velocity.
 
-### SetAngularDamping
+## SetAngularDamping
 ```cpp
 void SetAngularDamping(float ad)
 ```
 
 Sets the angular damping factor (slows down rotation over time).
 
-### SetLinearDamping
+## SetLinearDamping
 ```cpp
 void SetLinearDamping(float ld)
 ```
 
 Sets the linear damping factor (slows down movement over time).
 
-## Transform & Orientation
+# Transform & Orientation
 
-### Angle
+## Angle
 ```cpp
 float GetAngle()
 void SetAngle(float angle)
@@ -213,14 +213,14 @@ void SetAngle(float angle)
 
 Gets or sets the body’s rotation angle in radians.
 
-### GetPosition
+## GetPosition
 ```cpp
 Vector2 GetPosition()
 ```
 
 Returns the current world position of the body.
 
-### SetPosition
+## SetPosition
 ```cpp
 void SetPosition(Vector2 position, bool awake = true)
 void SetPosition(float x, float y, bool awake = true)
@@ -228,23 +228,23 @@ void SetPosition(float x, float y, bool awake = true)
 
 Moves the body to the given position.
 
-### SetRotation
+## SetRotation
 ```cpp
 void SetRotation(float angle, bool awake = true)
 ```
 
 Rotates the body to the specified angle.
 
-### SetFixedRotation
+## SetFixedRotation
 ```cpp
 void SetFixedRotation(bool flag)
 ```
 
 Enables or disables rotation for the body.
 
-## Body Definition
+# Body Definition
 
-### BodyType
+## BodyType
 ```cpp
 BodyType GetBodyType()
 void SetBodyType(BodyType bodyType)
@@ -252,16 +252,16 @@ void SetBodyType(BodyType bodyType)
 
 Gets or sets the type of the body (dynamic, static, kinematic).
 
-### GetShapeType
+## GetShapeType
 ```cpp
 ShapeType GetShapeType()
 ```
 
 Returns the type of the shape used by the body.
 
-## Tagging
+# Tagging
 
-### Tag
+## Tag
 ```cpp
 void SetTag(String tag)
 String GetTag()

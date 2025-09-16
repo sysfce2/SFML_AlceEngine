@@ -8,7 +8,7 @@ It is useful for following GameObjects, creating dynamic views, and controlling 
 
 The ```Camera``` automatically updates its view based on the ```GameObject```’s transform. The camera smoothly interpolates its position towards the target using the ```smoothFactor``` property, allowing for smooth following of moving objects. Zoom and viewport settings immediately affect how the scene is rendered. The camera size and bounds are recalculated whenever the window size or viewport changes.
 
-## Parameters
+## Fields
 
 * ```float smoothFactor```: Controls how smoothly the camera follows its target. 1.0 is fully smooth, 0.0 is instant.
 
@@ -27,44 +27,44 @@ Camera()
 
 Creates a new ```Camera``` instance. The initial viewport is set to cover the entire window, with no zoom applied.
 
-## API
+# Methods
 
-### GetViewport
+## GetViewport
 ```cpp
 RectShape GetViewport()
 ```
 
 Returns the current camera viewport as a rectangle relative to the window.
 
-### SetViewport
+## SetViewport
 ```cpp
 void SetViewport(RectShape viewport)
 ```
 
 Sets the camera viewport. The viewport defines which portion of the window the camera renders to.
 
-### Zoom
+## Zoom
 ```cpp
 void Zoom(float zoom)
 ```
 
 Sets the camera zoom level. Values must be greater than 0. Zooming in increases the size of objects on screen, while zooming out decreases it.
 
-### GetZoom
+## GetZoom
 ```cpp
 float GetZoom()
 ```
 
 Returns the current zoom level of the camera.
 
-### GetBounds
+## GetBounds
 ```cpp
 RectShape GetBounds()
 ```
 
 Returns the current world bounds of the camera as a rectangle, based on its position and viewport size.
 
-### GetSize
+## GetSize
 ```cpp
 Vector2 GetSize()
 ```

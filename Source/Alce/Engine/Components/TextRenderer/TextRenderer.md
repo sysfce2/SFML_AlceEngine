@@ -26,7 +26,7 @@ By default, TextRenderer does not apply scaling from the Transform, since text s
 
 > If tags are malformed (e.g., unclosed ```<bold>```), text may render partially without the intended style.
 
-# Parameters
+# Fields
 
 * ```String text```: The UTF-8 encoded text to display. Supports inline formatting tags.
 
@@ -60,22 +60,22 @@ TextRenderer()
 Creates a new TextRenderer component. Font and text must be assigned before rendering.
 
 
-## API
+# Methods
 
-### SetNewText
+## SetNewText
 ```cpp
 void SetNewText(String str)
 ```
 
 Replaces the current text with the given string.
 
-### AddText
+## AddText
 ```cpp
 void AddText(String str)
 ```
 Appends the given string to the existing text.
 
-### GetCardinals
+## GetCardinals
 ```cpp
 Dictionary<String, Vector2Ptr> GetCardinals()
 ```

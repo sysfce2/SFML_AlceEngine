@@ -22,7 +22,7 @@ Defines the type of light:
 
 * ```Directed```: Spotlight-like light, with adjustable beam width.
 
-## Parameters
+## Fields
 
 * ```Light2D::Type type```: Determines the type of light: Radial (omnidirectional) or Directed (spotlight).
 
@@ -55,72 +55,72 @@ Creates a new ```Light2D``` instance of the specified type. Default is radial. I
 
 * ```color```: white
 
-## API
+# Methods
 
-### SetFade
+## SetFade
 ```cpp
 void SetFade(bool fade = true)
 ```
 
 Enables or disables fading of the light over time.
 
-### IsFading
+## IsFading
 ```cpp
 bool IsFading()
 ```
 
 Returns whether fading is enabled.
 
-### SetRange
+## SetRange
 ```cpp
 void SetRange(float range)
 ```
 
 Sets the effective range of the light.
 
-### GetRange
+## GetRange
 ```cpp
 float GetRange()
 ```
 
 Returns the current range of the light.
 
-### SetBeamWidth
+## SetBeamWidth
 ```cpp
 void SetBeamWidth(float width)
 ```
 
 Sets the width of the light beam (for directed lights only).
 
-### GetBeamWidth
+## GetBeamWidth
 ```cpp
 float GetBeamWidth()
 ```
 
 Returns the current beam width.
 
-### SetBeamAngle
+## SetBeamAngle
 ```cpp
 void SetBeamAngle(float angle)
 ```
 
 Sets the angle of the light beam (for radial lights only).
 
-### GetBeamAngle
+## GetBeamAngle
 ```cpp
 float GetBeamAngle()
 ```
 
 Returns the current beam angle.
 
-### SetIntensity
+## SetIntensity
 ```cpp
 void SetIntensity(float intensity)
 ```
 
 Sets the light intensity. Value must be between 0.0f (off) and 1.0f (full brightness). Values outside this range are ignored.
 
-### GetIntensity
+## GetIntensity
 ```cpp
 float GetIntensity()
 ```

@@ -72,11 +72,11 @@ AlceEngine provides structured and comprehensive documentation for every compone
 
 * [Core](Source/Alce/Engine/Modules/Core/): manages window creation, scene management, asset loading (textures, sounds, fonts), system info retrieval, input handling, and the main game loop for a graphical application using SFML.
 
-* [Audio](Source/Alce/Engine/Modules/Audio/): manages audio playback by organizing sounds into channels, allowing loading, controlling (play, pause, stop), and adjusting sound properties (volume, pitch, looping) within each channel.
+* [Audio](Source/Alce/Engine/Modules/Audio/Audio.md): manages audio playback by organizing sounds into channels, allowing loading, controlling (play, pause, stop), and adjusting sound properties (volume, pitch, looping) within each channel.
 
 * [Storage](Source/Alce/Engine/Modules/Storage): manages persistent JSON-based data storage by dynamically mapping named entries to multiple segmented files, ensuring size limits are respected and providing methods to set, get, delete, and clear stored data.
 
-* [Chrono](Source/Alce/Engine/Modules/Chrono/): implements a Time class that stores time internally in milliseconds and provides methods and operators to add, subtract, convert, compare, and reset time values with validation against negative inputs.
+* [Chrono](Source/Alce/Engine/Modules/Chrono/Chrono.md): implements a Time class that stores time internally in milliseconds and provides methods and operators to add, subtract, convert, compare, and reset time values with validation against negative inputs.
 
 * [Debug](Source/Alce/Engine/Modules/Debug/): provides a DEBUG utility for formatted console logging with color-coded message types (info, warning, ARL messages/errors), optional asynchronous file persistence, and rate-limiting based on elapsed time.
 

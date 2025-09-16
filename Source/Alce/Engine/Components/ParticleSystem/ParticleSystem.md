@@ -30,30 +30,30 @@ Creates a new ```ParticleSystem``` with no emission. Emission begins only after 
 
 * ```bool enableCollision```: Whether emitted particles participate in collisions.
 
-## API
+# Methods
 
-### SetDelay
+## SetDelay
 ```cpp
 void SetDelay(Time delay)
 ```
 
 Defines the emission interval.
 
-### SetEmitArea
+## SetEmitArea
 ```cpp
 void SetEmitArea(ShapePtr emitArea)
 ```
 
 Sets the spawn area for new particles.
 
-### Emit
+## Emit
 ```cpp
 void Emit()
 ```
 
 Starts emitting particles.
 
-### Stop
+## Stop
 ```cpp
 void Stop()
 ```
@@ -83,7 +83,7 @@ Particle()
 
 Creates a new ```Particle``` instance with default parameters. The physics body is created when ```Create``` is called.
 
-## Public Fields
+## Fields
 
 * ```Time lifetime```: Duration until the particle is automatically destroyed.
 
@@ -91,128 +91,128 @@ Creates a new ```Particle``` instance with default parameters. The physics body 
 
 * ```ShapePtr shape```: Collision shape of the particle (default: 25×25 rectangle).
 
-## Public Methods
+# Methods
 
-### Create
+## Create
 ```cpp
 void Create(Vector2 position, bool enableCollision)
 ```
 
 Initializes the particle with a physics body at the given position.
 
-### SetDensity
+## SetDensity
 ```cpp
 void SetDensity(float density)
 ```
 
 Updates the body’s mass density.
 
-### SetFriction
+## SetFriction
 ```cpp
 void SetFriction(float friction)
 ```
 
 Sets surface friction.
 
-### SetRestitution
+## SetRestitution
 ```cpp
 void SetRestitution(float restitution)
 ```
 
 Sets elasticity for bounces.
 
-### SetRestitutionThreshold
+## SetRestitutionThreshold
 ```cpp
 void SetRestitutionThreshold(float threshold)
 ```
 
 Controls minimum collision impulse for restitution.
 
-### ApplyForce
+## ApplyForce
 ```cpp
 void ApplyForce(Vector2 force, bool wake)
 ```
 
 Applies continuous force at the center.
 
-### ApplyLinearForce
+## ApplyLinearForce
 ```cpp
 void ApplyLinearForce(Vector2 force, bool wake)
 ```
 
 Applies an instantaneous impulse.
 
-### SetLinearVelocity
+## SetLinearVelocity
 ```cpp
 void SetLinearVelocity(Vector2 velocity)
 ```
 
 Directly sets velocity.
 
-### SetHorizontalVelocity
+## SetHorizontalVelocity
 ```cpp
 void SetHorizontalVelocity(float vy) 
 ```
 
 Adjusts only vertical velocity.
 
-### SetVerticalVelocity
+## SetVerticalVelocity
 ```cpp
 void SetVerticalVelocity(float vx)
 ```
 
 Adjusts only horizontal velocity.
 
-### SetAngularVelocity
+## SetAngularVelocity
 ```cpp
 void SetAngularVelocity(float va)
 ```
 
 Sets rotation speed.
 
-### SetAngularDamping
+## SetAngularDamping
 ```cpp
 void SetAngularDamping(float ad)
 ```
 
 Slows down angular motion.
 
-### SetLinearDamping
+## SetLinearDamping
 ```cpp
 void SetLinearDamping(float ld)
 ```
 
 Slows down linear motion.
 
-### ApplyAngularImpulse
+## ApplyAngularImpulse
 ```cpp
 void ApplyAngularImpulse(float impulse)
 ```
 
 Applies a rotation impulse.
 
-### ApplyTorque
+## ApplyTorque
 ```cpp
 void ApplyTorque(float torque, bool wake)
 ```
 
 Applies continuous torque.
 
-### SetAngle
+## SetAngle
 ```cpp
 void SetAngle(float angle)
 ```
 
 Rotates the body to the given angle.
 
-### SetFixedRotation
+## SetFixedRotation
 ```cpp
 void SetFixedRotation(bool flag)
 ```
 
 Locks/unlocks rotation.
 
-### SetLifetime
+## SetLifetime
 ```cpp
 void SetLifetime(Time lifetime)
 ```

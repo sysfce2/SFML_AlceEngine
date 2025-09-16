@@ -19,22 +19,22 @@ LightMesh2D(ShapePtr shape)
 
 Creates a new LightMesh2D with the provided shape. The shape can be a rectangle, circle, or polygon.
 
-## API
-### GetShape
+# Methods
+## GetShape
 ```cpp
 Shape GetShape()
 ```
 
 Returns the current shape associated with the LightMesh2D.
 
-### SetShape
+## SetShape
 ```cpp
 void SetShape(ShapePtr shape)
 ```
 
 Assigns a new shape to the LightMesh2D. If the shape is null, no changes are applied.
 
-### SetOffset
+## SetOffset
 ```cpp
 void SetOffset(Vector2 offset)
 void SetOffset(float x, float y)
@@ -42,7 +42,7 @@ void SetOffset(float x, float y)
 
 Sets a relative offset for the light's position with respect to the GameObject it is attached to.
 
-### GetOffset
+## GetOffset
 ```cpp
 Vector2 GetOffset()
 ```

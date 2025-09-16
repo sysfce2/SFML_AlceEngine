@@ -25,7 +25,7 @@ Tile index -1 means empty; tile index 0 is valid.
 The map is always centered at the transform position, not drawn from the top-left corner.
 Transform scaling and rotation are applied to the whole map.
 
-## Parameters
+## Fields
 
 * ```Vector2 scale```: Additional scale factor applied to the tilemap (added to the  GameObject’s transform scale).
 
@@ -58,9 +58,9 @@ TileMap()
 
 Creates a new TileMap component with empty layers.
 
-## API
+# Methods
 
-### Load
+## Load
 ```cpp
 bool Load(String tilemap, String tileset, int tilesPerRow = 8)
 ```
@@ -75,7 +75,7 @@ Loads a PyxelEdit JSON tilemap and a tileset PNG.
 
 Returns true if successful.
 
-### GetCardinals
+## GetCardinals
 ```cpp
 Dictionary<String, Vector2Ptr> GetCardinals()
 ```

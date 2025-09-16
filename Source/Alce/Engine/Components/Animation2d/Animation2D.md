@@ -8,7 +8,7 @@ It is useful for character animations, particle effects, UI elements, and any 2D
 
 The ```Animation2D``` component updates the current frame of the animation based on elapsed time (```TimePerFrame```) and the selected AnimationMode. It automatically updates the sprite’s position, scale, and rotation to match the GameObject’s transform. The origin point of the sprite can be set to any corner or the center to control rotation and positioning behavior. The component also tracks the corners of the animation frame in world coordinates via the cardinals dictionary.
 
-## Parameters
+## Fields
 
 * ```Vector2 scale```: Additional scale applied to the sprite on top of the GameObject’s transform. Default is (1,1).
 
@@ -73,44 +73,44 @@ Animation2D()
 
 Creates a new ```Animation2D``` instance. Initializes the cardinal points for tracking sprite corners.
 
-## API
+# Methods
 
-### AddAnimation
+## AddAnimation
 ```cpp
 void AddAnimation(String spritesheetFile, String name, int rows, int cols, int frameWidth, int frameHeight)
 ```
 
 Adds an animation from a spritesheet, specifying the number of rows and columns and frame dimensions.
 
-### DeleteAnimation
+## DeleteAnimation
 ```cpp
 void DeleteAnimation(String name)
 ```
 
 Removes an animation by its name.
 
-### SetOriginMode
+## SetOriginMode
 ```cpp
 void SetOriginMode(OriginMode originMode)
 ```
 
 Sets the origin point of the sprite for positioning and rotation.
 
-### PlayAnimation
+## PlayAnimation
 ```cpp
 void PlayAnimation(String name, AnimationMode mode = AnimationMode::LoopForwards)
 ```
 
 Plays the specified animation with the given playback mode.
 
-### SetAnimationMode
+## SetAnimationMode
 ```cpp
 void SetAnimationMode(AnimationMode mode)
 ```
 
 Changes the playback mode of the current animation.
 
-### SetTimePerFrame
+## SetTimePerFrame
 ```cpp
 void SetTimePerFrame(Time timePerFrame)
 ```
@@ -124,21 +124,21 @@ void Pause(bool flag = true)
 
 Pauses or resumes the animation.
 
-### IsPlaying
+## IsPlaying
 ```cpp
 bool IsPlaying()
 ```
 
 Returns whether the animation is currently playing.
 
-### GetCardinals
+## GetCardinals
 ```cpp
 Dictionary<String, Vector2Ptr> GetCardinals()
 ```
 
 Returns the world positions of the four corners of the current frame.
 
-### GetCurrentAnimation
+## GetCurrentAnimation
 ```cpp
 String GetCurrentAnimation()
 ```

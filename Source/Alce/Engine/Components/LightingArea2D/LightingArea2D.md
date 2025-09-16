@@ -20,13 +20,13 @@ LightingArea2D()
 
 Creates a new ```LightingArea2D``` instance with default size (100, 100), full opacity, and black color.
 
-## Parameters
+## Fields
 
 * ```Color color```: The base color of the lighting area. Default is black.
 
-## API
+# Methods
 
-### SetSize
+## SetSize
 ```cpp
 void SetSize(Vector2 size)
 void SetSize(float width, float height)
@@ -34,7 +34,7 @@ void SetSize(float width, float height)
 
 Sets the size of the lighting area. Changes mark the component for recomputation so the internal lighting area is updated.
 
-### SetOffset
+## SetOffset
 ```cpp
 void SetOffset(Vector2 offset)
 void SetOffset(float x, float y)
@@ -42,21 +42,21 @@ void SetOffset(float x, float y)
 
 Sets a relative offset for the lighting area position relative to the GameObject it is attached to.
 
-### GetOffset
+## GetOffset
 ```cpp
 Vector2 GetOffset()
 ```
 
 Returns the current offset of the lighting area relative to the GameObject.
 
-### SetOpacity
+## SetOpacity
 ```cpp
 void SetOpacity(float opacity)
 ```
 
 Sets the opacity of the lighting area. Value must be between 0.0f (fully transparent) and 1.0f (fully opaque). Values outside this range are ignored.
 
-### GetOpacity
+## GetOpacity
 ```cpp
 float GetOpacity()
 ```

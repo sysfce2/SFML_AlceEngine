@@ -4,7 +4,7 @@ The ```SpriteRenderer``` component is responsible for drawing 2D images (sprites
 
 A SpriteRenderer manages one or more textures, allows dynamically switching between them, and controls rendering details such as smoothing. It is typically used for any game entity that requires a visual appearance.
 
-All transformations applied to the GameObject (movement, scaling, rotation) are automatically propagated to the sprite, ensuring that the rendered image always matches the logical state of the object in the game world.
+All transformations applied to the ```GameObject``` (movement, scaling, rotation) are automatically propagated to the sprite, ensuring that the rendered image always matches the logical state of the object in the game world.
 
 ## Constructors
 
@@ -14,11 +14,11 @@ SpriteRenderer()
 ```
 Creates a new ```SpriteRenderer``` instance. Initializes the internal sprite and allocates cardinal point references (top-left, top-right, bottom-left, bottom-right).
 
-## Parameters
+## Fields
 
 * ```Vector2 originOffset```: Offset applied to the sprite’s origin, relative to its center.
 
-## API
+# Methods
 
 ## AddTexture
 ```cpp
@@ -35,7 +35,7 @@ Parameters:
 
 > __Notes__: _If the name already exists, the method logs a warning and ignores the request._
 
-### SetTexture
+## SetTexture
 ```cpp
 void SetTexture(String name)
 ```
@@ -47,19 +47,19 @@ Parameters:
 
 >__Notes__: _Logs a warning if the texture name does not exist._
 
-### SetAlpha
+## SetAlpha
 ```cpp
 void SetAlpha(int alpha)
 ```
 Changes the transparency of the sprite by setting its alpha channel.
 
-### GetAlpha
+## GetAlpha
 ```cpp
 int GetAlpha()
 ```
 Returns the current alpha value (transparency) of the sprite.
 
-### RemoveTexture
+## RemoveTexture
 ```cpp
 void RemoveTexture(String name)
 ```
@@ -72,7 +72,7 @@ Parameters:
 
 > __Notes__: _If the texture does not exist, a warning is logged._
 
-### SetTextureSmooth
+## SetTextureSmooth
 ```cpp
 void SetTextureSmooth(String name, bool flag = true)
 ```
@@ -87,21 +87,21 @@ Parameters:
 
 > __Notes__: _Logs a warning if the texture does not exist._
 
-### GetLocalCenter
+## GetLocalCenter
 ```cpp
 Vector2 GetLocalCenter()
 ```
 
 Returns the local center of the sprite (relative to its own coordinate space).
 
-### GetGlobalCenter
+## GetGlobalCenter
 ```cpp
 Vector2 GetGlobalCenter()
 ```
 
 Returns the global center of the sprite (taking into account the world transform).
 
-### GetCardinals
+## GetCardinals
 ```cpp
 Dictionary<String, Vector2Ptr> GetCardinals()
 ```
