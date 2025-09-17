@@ -4,7 +4,7 @@ The ```ParticleSystem``` component manages the emission, update, and destruction
 It defines when and where particles are spawned, and applies a user-defined configuration function (behavior lambda) to each one.
 Typical use cases include explosions, fire, smoke, sparks, or magical effects.
 
-## Behaviour
+# Behaviour
 
 When ```Emit``` is active, the system periodically spawns new particles inside the defined ```emitArea```.
 Each new particle is configured using the provided behavior lambda, then added to the scene and updated every frame.
@@ -13,16 +13,15 @@ Particles automatically expire once their lifetime ends, at which point they are
 
 A debug visualization is also available, rendering the emission area as an outline in the scene.
 
-## Constructors
+# Constructors
 
-### Default Constructor
 ```cpp
 ParticleSystem()
 ```
 
 Creates a new ```ParticleSystem``` with no emission. Emission begins only after Emit is called.
 
-## Parameters
+# Fields
 
 * ```Time delay```: Interval between consecutive particle emissions.
 
@@ -67,23 +66,22 @@ The ```Particle``` entity represents a lightweight physics-driven object with a 
 It exposes basic physical properties (density, friction, restitution, damping, velocity) and can optionally interact with the physics world through collisions.
 Particles are managed by a ```ParticleSystem``` and are not intended to behave as full gameplay entities.
 
-## Behaviour
+# Behaviour
 
 On every update, the particle reduces its lifetime and updates its transform based on the underlying physics body.
 Once its lifetime reaches zero, the particle is destroyed and removed from the system.
 
 Particles can receive forces, impulses, velocities, damping, and torque to control their short-lived behavior.
 
-## Constructors
+# Constructors
 
-### Default Constructor
 ```cpp
 Particle()
 ```
 
 Creates a new ```Particle``` instance with default parameters. The physics body is created when ```Create``` is called.
 
-## Fields
+# Fields
 
 * ```Time lifetime```: Duration until the particle is automatically destroyed.
 

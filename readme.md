@@ -84,7 +84,7 @@ AlceEngine provides structured and comprehensive documentation for every compone
 
 * [Math](Source/Alce/Engine/Modules/Math/):  provides mathematical utilities, random number generation, 2D vector operations, and shape classes (rectangle, polygon, circle) with geometry-related functions and conversions.
 
-* [Color](Source/Alce/Engine/Modules/Color/): Wrapper class for SFML's sf::Color providing multiple constructors and setters for RGB, RGBA, hex and string formats, color blending, conversions, and predefined common colors with error handling and string parsing utilities in C++.
+* [Color](Source/Alce/Engine/Modules/Color/Color.md): Wrapper class for SFML's sf::Color providing multiple constructors and setters for RGB, RGBA, hex and string formats, color blending, conversions, and predefined common colors with error handling and string parsing utilities in C++.
 
 ### 🛠️ Utils:
 

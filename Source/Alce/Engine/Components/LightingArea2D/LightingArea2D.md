@@ -7,20 +7,19 @@ The ```LightingArea2D``` component defines a 2D lighting area that can be attach
 
 This component is useful for 2D lighting systems, fog effects, localized illumination, and dynamic light areas that follow objects in the scene.
 
-## Behaviour
+# Behaviour
 
 The ```LightingArea2D``` automatically updates its internal lighting area based on the ```GameObject```’s transform combined with the configured offset and size. When size or offset is changed, the component recomputes the internal lighting area. Opacity and color can be modified at any time, immediately affecting the visual representation of the lighting. Lights added to the area are drawn within the bounds of the component, allowing dynamic and localized illumination effects.
 
-## Constructors
+# Constructors
 
-### Default Constructor
 ```cpp
 LightingArea2D()
 ```
 
 Creates a new ```LightingArea2D``` instance with default size (100, 100), full opacity, and black color.
 
-## Fields
+# Fields
 
 * ```Color color```: The base color of the lighting area. Default is black.
 

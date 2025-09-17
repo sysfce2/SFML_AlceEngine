@@ -10,23 +10,22 @@ This makes it useful for mechanics such as line-of-sight detection, laser beams,
 
 It also provides a simple debug visualization, drawing the ray as a red line in the scene.
 
-## Parameters
+## Fields
 
 * ```float length```: The length of the ray (default: 5.0f).
 
 * ```Vector2 direction```: The normalized direction vector of the ray (default: (0, -1), pointing upwards).
 
 
-## Constructors
+# Constructors
 
-### Default Constructor
 ```cpp
 Raycast2D()
 ```
 
 Creates a new Raycast2D instance with default values.
 
-## Behavior
+# Behaviour
 
 On every update, the component casts a ray starting at the ```GameObject```'s position and extending in the specified direction for the configured length.
 

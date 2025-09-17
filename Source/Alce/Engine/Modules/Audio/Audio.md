@@ -16,7 +16,7 @@ void Add(String name, String file)
 
 Adds a new sound to the channel.
 
-__Parameters:__
+__Fields:__
 
 * ```name```: Unique identifier for the sound.
 

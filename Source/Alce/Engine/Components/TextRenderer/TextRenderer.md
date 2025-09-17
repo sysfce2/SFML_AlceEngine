@@ -4,7 +4,7 @@ It supports rich text formatting (bold, italic, underline, strike-through, and i
 
 Unlike raw SFML ```sf::Text```, ```TextRenderer``` integrates directly with the engine’s component system and synchronizes its position with the owning ```GameObject```’s Transform.
 
-## Behaviour
+# Behaviour
 
 The ```TextRenderer``` component handles the full pipeline of displaying text inside the game window:
 
@@ -52,12 +52,11 @@ By default, TextRenderer does not apply scaling from the Transform, since text s
 
 ## Constructors
 
-### Default Constructor
 ```cpp
 TextRenderer()
 ```
 
-Creates a new TextRenderer component. Font and text must be assigned before rendering.
+Creates a new ```TextRenderer``` component. Font and text must be assigned before rendering.
 
 
 # Methods

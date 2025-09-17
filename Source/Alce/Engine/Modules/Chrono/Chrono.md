@@ -16,7 +16,7 @@ The ```Chrono``` class acts as a singleton container that holds a ```deltaTime``
 
 > All comparisons and arithmetic are based on the internal millisecond representation.
 
-## Constructors
+# Constructors
 ```cpp
 Time();
 Time(float miliseconds);

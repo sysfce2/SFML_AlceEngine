@@ -7,7 +7,7 @@ The ```Light2D``` component represents a 2D light source that can be attached to
 
 It is useful for 2D lighting systems, dynamic illumination, and visual effects in games or simulations.
 
-## Behaviour
+# Behaviour
 
 The ```Light2D``` automatically updates its internal light source based on the ```GameObject```’s transform, including position and rotation. Radial lights use the beam angle property, while directed lights use beam width. Changes to range, intensity, fade, and color are immediately reflected in the visual output. The light follows the ```GameObject``` in real time, providing dynamic and adjustable 2D illumination.
 
@@ -22,7 +22,7 @@ Defines the type of light:
 
 * ```Directed```: Spotlight-like light, with adjustable beam width.
 
-## Fields
+# Fields
 
 * ```Light2D::Type type```: Determines the type of light: Radial (omnidirectional) or Directed (spotlight).
 
@@ -36,9 +36,8 @@ beamAngle	float	The angle of the light beam, only used for Radial lights.
 
 * ```Color color```: The color of the light. Default is white.
 
-## Constructors
+# Constructors
 
-### Default Constructor
 ```cpp
 Light2D(Type type = Type::Radial)
 ```

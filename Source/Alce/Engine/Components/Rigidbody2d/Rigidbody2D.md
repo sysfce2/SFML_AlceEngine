@@ -8,11 +8,11 @@ It integrates the object into the __Box2D__ world and controls physical properti
 A ```Rigidbody2D``` can be defined as ```dynamic```, ```static```, or ```kinematic```, making it suitable for a wide range of use cases: characters, platforms, projectiles, sensors, or static colliders.
 Forces, impulses, and torques can be applied at runtime, and the component automatically keeps the associated GameObject’s transform in sync with the physics world.
 
-## Behaviour
+# Behaviour
 
 The ```Rigidbody2D``` component integrates a GameObject into the 2D physics simulation. It automatically synchronizes the GameObject’s transform with the physics body, ensuring that position and rotation reflect the physics world. Forces, impulses, and torques applied through the component directly affect motion, velocity, and rotation. Changes to physical properties such as density, friction, restitution, or damping immediately influence how the body interacts with collisions and other ```Rigidbody2D``` instances. The body type (dynamic, static, kinematic) determines whether it responds to physics forces, is immovable, or can be controlled manually while still affecting other bodies.
 
-## Fields
+# Fields
 
 * ```float density```: Mass density of the body. Default is 10.0.
 

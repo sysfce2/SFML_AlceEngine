@@ -6,13 +6,12 @@ The ```LightMesh2D``` component defines a 2D light mesh that can be attached to 
 
 It is useful for 2D lighting systems, light masks, visual collision outlines, or any effect that requires a customizable light shape.
 
-## Behaviour
+# Behaviour
 
 The ```LightMesh2D``` automatically updates its shape’s position based on the ```GameObject```'s transform combined with the configured offset. This ensures that the light mesh moves consistently with the object while allowing independent adjustments. Changing the shape or offset immediately affects how the light is applied.
 
-## Constructors
+# Constructors
 
-### Shape Constructor
 ```cpp
 LightMesh2D(ShapePtr shape)
 ```

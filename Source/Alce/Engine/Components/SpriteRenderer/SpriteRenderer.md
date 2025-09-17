@@ -6,15 +6,14 @@ A SpriteRenderer manages one or more textures, allows dynamically switching betw
 
 All transformations applied to the ```GameObject``` (movement, scaling, rotation) are automatically propagated to the sprite, ensuring that the rendered image always matches the logical state of the object in the game world.
 
-## Constructors
+# Constructors
 
-### Default Constructor
 ```cpp
 SpriteRenderer()
 ```
 Creates a new ```SpriteRenderer``` instance. Initializes the internal sprite and allocates cardinal point references (top-left, top-right, bottom-left, bottom-right).
 
-## Fields
+# Fields
 
 * ```Vector2 originOffset```: Offset applied to the sprite’s origin, relative to its center.
 

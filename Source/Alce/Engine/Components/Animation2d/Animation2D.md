@@ -8,7 +8,7 @@ It is useful for character animations, particle effects, UI elements, and any 2D
 
 The ```Animation2D``` component updates the current frame of the animation based on elapsed time (```TimePerFrame```) and the selected AnimationMode. It automatically updates the sprite’s position, scale, and rotation to match the GameObject’s transform. The origin point of the sprite can be set to any corner or the center to control rotation and positioning behavior. The component also tracks the corners of the animation frame in world coordinates via the cardinals dictionary.
 
-## Fields
+# Fields
 
 * ```Vector2 scale```: Additional scale applied to the sprite on top of the GameObject’s transform. Default is (1,1).
 
@@ -64,9 +64,8 @@ enum OriginMode
 
 Specifies the origin of the sprite for rotation, scaling, and positioning.
 
-## Constructors
+# Constructors
 
-### Default Constructor
 ```cpp
 Animation2D()
 ```

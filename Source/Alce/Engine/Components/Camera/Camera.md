@@ -4,11 +4,11 @@ The ```Camera``` component represents a 2D camera that can be attached to a ```G
 
 It is useful for following GameObjects, creating dynamic views, and controlling the portion of the scene visible to the player.
 
-## Behaviour
+# Behaviour
 
 The ```Camera``` automatically updates its view based on the ```GameObject```’s transform. The camera smoothly interpolates its position towards the target using the ```smoothFactor``` property, allowing for smooth following of moving objects. Zoom and viewport settings immediately affect how the scene is rendered. The camera size and bounds are recalculated whenever the window size or viewport changes.
 
-## Fields
+# Fields
 
 * ```float smoothFactor```: Controls how smoothly the camera follows its target. 1.0 is fully smooth, 0.0 is instant.
 
@@ -18,9 +18,8 @@ The ```Camera``` automatically updates its view based on the ```GameObject```’
 
 * ```Vector2 size```: Size of the camera view in pixels, calculated from the window size and viewport.
 
-## Constructors
+# Constructors
 
-### Default Constructor
 ```cpp
 Camera()
 ```
