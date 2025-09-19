@@ -35,7 +35,6 @@ void SampleScene::Ground::Init()
     tilemap->Load("dudegame/grounds/ground1/ground1_tmap.json", "dudegame/grounds/ground1/ground1_tset.png", 10);
     tilemap->scale = Vector2(0.005f, 0.005f);
     tilemap->offset = Vector2(0.0f, -5.5f);
-
 }
 
 void SampleScene::Ground::Start()
@@ -72,6 +71,11 @@ void SampleScene::Ground::SetterManager(String name, String value)
     {
         Vector2 scale = Vector2(value.Split(",")[0].ParseFloat(), value.Split(",")[1].ParseFloat());
         transform.scale = scale;
+    }
+
+    if(name == "text")
+    {
+        textRenderer->SetNewText(value);
     }
 }
 

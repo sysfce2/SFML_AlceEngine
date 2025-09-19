@@ -100,7 +100,7 @@ void SharedScene::Player::Init()
     walking = false;
     status = "idle-forward";
 
-	walkSpeed = 0.5f;
+	walkSpeed = 0.7f;
 	runSpeed = 2.0f;
 
 	running = false;

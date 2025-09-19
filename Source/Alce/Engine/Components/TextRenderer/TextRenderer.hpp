@@ -140,13 +140,27 @@ namespace alce
 
 		void AddText(String str);	
 
+		void SetBackgroundTexture(String path, bool keepAspect = false);
+
+		void RemoveBackgroundTexture();
+
 		Dictionary<String, Vector2Ptr> GetCardinals();
 
+		void EnableFixedBox(Vector2 boxSize);
+
+    	void DisableFixedBox();
+
+    	bool IsUsingFixedBox() 
+		{ 
+			return useFixedBox; 
+		}
+
         Color color = Colors::White;
-
         sf::Text::Style style = sf::Text::Regular;
-
         unsigned int fontSize = 17;
+
+		String horizontalAlign = "left";
+		bool wordWrap = true;
 
         String font = "fonts/Basic-Regular/Basic-Regular.ttf";
 
@@ -166,7 +180,19 @@ namespace alce
 		sfe::RichText richText;
 
 		Dictionary<String, Vector2Ptr> cardinals;
+
+		sf::Texture backgroundTexture;
+		sf::Sprite backgroundSprite;
+		bool hasBackgroundTexture = false;
+		bool keepAspectRatio = true;
+
+		bool useFixedBox = false;
+		Vector2 fixedBoxSize;
+
+	private:
+
 	};
 
 	typedef std::shared_ptr<TextRenderer> TextRendererPtr;
 }
+

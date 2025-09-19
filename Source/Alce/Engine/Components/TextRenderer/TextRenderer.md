@@ -1,6 +1,6 @@
 # 🧩 TextRenderer
 The ```TextRenderer``` component provides styled text rendering capabilities for a GameObject.
-It supports rich text formatting (bold, italic, underline, strike-through, and inline colors), optional background boxes with borders and rounded corners, and automatic alignment inside its bounding box.
+It supports rich text formatting (bold, italic, underline, strike-through, and inline colors), optional background boxes with borders and rounded corners, fixed or auto-sized text boxes, word wrapping, and automatic alignment inside its bounding box.
 
 Unlike raw SFML ```sf::Text```, ```TextRenderer``` integrates directly with the engine’s component system and synchronizes its position with the owning ```GameObject```’s Transform.
 
@@ -50,6 +50,8 @@ By default, TextRenderer does not apply scaling from the Transform, since text s
 
 * ```Vector2 offset```: positional adjustment that shifts an element (or group of elements) by a specified distance from its original location without altering its alignment.
 
+* ```bool wordWrap```: Enables wrapping text by words within a fixed-size box. Defaults to true.
+
 ## Constructors
 
 ```cpp
@@ -73,6 +75,42 @@ Replaces the current text with the given string.
 void AddText(String str)
 ```
 Appends the given string to the existing text.
+
+## SetBackgroundTexture
+```cpp
+void SetBackgroundTexture(String path, bool keepAspect = false)
+```
+
+Sets a background texture from a file path (relative to ./Assets/).
+keepAspect determines whether the texture preserves its original aspect ratio.
+
+## RemoveBackgroundTexture
+```cpp
+void RemoveBackgroundTexture()
+```
+
+Removes any assigned background texture.
+
+## EnableFixedBox
+```cpp
+void EnableFixedBox(Vector2 boxSize)
+```
+
+Activates a fixed-size box and sets its size.
+
+## DisableFixedBox
+```cpp
+void DisableFixedBox()
+```
+
+Disables fixed-size mode, returning to auto-size mode.
+
+## IsUsingFixedBox
+```cpp
+bool IsUsingFixedBox()
+```
+
+Returns whether the text box is currently fixed-size.## 
 
 ## GetCardinals
 ```cpp
