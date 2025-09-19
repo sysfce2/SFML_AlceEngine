@@ -1,3 +1,4 @@
 ~ To do list ~
 
-#TD1: Fix or just redo the Input Text UI Component (relation to bug #B1)
+#TD1: Apply TextRenderer changes to Text UIElement
+#TD2: Apply Candle elements to the particles in ParticleSystem

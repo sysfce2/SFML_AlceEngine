@@ -42,6 +42,12 @@ AlceEngine provides structured and comprehensive documentation for every compone
 
 > [🌐 Check out the full documentation here.](https://github.com/Ekrol34/AlceEngine/wiki)
 
+# ⌨️ Contributing
+
+Alce Engine is completely open to new contributors. We welcome fresh ideas, feature proposals, bug reports, and code improvements from anyone interested. Whether you want to fix a small issue, suggest a new component, or take on a bigger task, your input and participation are highly valued and encouraged.
+
+> [Check out the TODO list](Documentation/TODO/EN.txt)
+
 # 🧾 Features
 
 ### 🧩 Components:
