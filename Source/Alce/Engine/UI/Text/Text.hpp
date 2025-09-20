@@ -76,10 +76,25 @@ namespace alce
 
         void Update();
 
+		void SetNewText(String str);
+
+        void AddText(String str);
+
+        void SetBackgroundImage(String path, bool keepAspect = true);
+
+        void RemoveBackgroundImage();
+
+        void EnableFixedBox(Vector2 boxSize);
+
+        void DisableFixedBox();
+
+        bool IsUsingFixedBox();
+
+        String horizontalAlign = String("left");
+        bool wordWrap = true;
+
         Color color = Colors::White;
-
         sf::Text::Style style = sf::Text::Regular;
-
         unsigned int fontSize = 17;
 
         String font = "fonts/Basic-Regular/Basic-Regular.ttf";
@@ -93,8 +108,17 @@ namespace alce
     protected:
 
 		Vector2 size;
-
         sfe::RichText richText;
+
+		bool hasBackgroundTexture = false;
+        sf::Texture backgroundTexture;
+        sf::Sprite backgroundSprite;
+        bool keepAspectRatio = true;
+
+        bool useFixedBox = false;
+        Vector2 fixedBoxSize;
+
+        Vector2 boxPos;
     };
 
     typedef std::shared_ptr<Text> TextPtr; 

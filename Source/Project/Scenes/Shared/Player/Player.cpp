@@ -105,36 +105,36 @@ void SharedScene::Player::Init()
 
 	running = false;
 
-    ButtonPtr button = std::make_shared<Button>(); 
-    canvas->AddElement(button);
-    button->font = "fonts/Consolas/CONSOLA.ttf";
-    button->zIndex = 5;
-    button->position = Vector2(20, 100);
-    button->borderRadius = 3;
-    button->borderWidth = 2;
-    button->text = "Dev Mode: ON ";
-    button->borderColor = Colors::White;
-	button->backgroundColor = Color("#5EBF28");
-	button->mouseOverBackgroundColor = Color("#79D343");
-    button->onClick = [button](){
+    // ButtonPtr button = std::make_shared<Button>(); 
+    // canvas->AddElement(button);
+    // button->font = "fonts/Consolas/CONSOLA.ttf";
+    // button->zIndex = 5;
+    // button->position = Vector2(20, 100);
+    // button->borderRadius = 3;
+    // button->borderWidth = 2;
+    // button->text = "Dev Mode: ON ";
+    // button->borderColor = Colors::White;
+	// button->backgroundColor = Color("#5EBF28");
+	// button->mouseOverBackgroundColor = Color("#79D343");
+    // button->onClick = [button](){
         
-		if(Alce.GetCurrentScene()->IsDevelopmentMode())
-		{
-			button->text = "Dev Mode: OFF";
-			button->backgroundColor = Color("#D13C28");
-			button->mouseOverBackgroundColor = Color("#E2583F");
-			button->onClickBackgroundColor = Color("#E2583F");
-			Alce.GetCurrentScene()->DevelopmentMode(false);
-		}
-		else
-		{
-			button->text = "Dev Mode: ON ";
-			button->backgroundColor = Color("#5EBF28");
-			button->mouseOverBackgroundColor = Color("#79D343");
-			button->onClickBackgroundColor = Color("#79D343");
-			Alce.GetCurrentScene()->DevelopmentMode(true);
-		}
-    };
+	// 	if(Alce.GetCurrentScene()->IsDevelopmentMode())
+	// 	{
+	// 		button->text = "Dev Mode: OFF";
+	// 		button->backgroundColor = Color("#D13C28");
+	// 		button->mouseOverBackgroundColor = Color("#E2583F");
+	// 		button->onClickBackgroundColor = Color("#E2583F");
+	// 		Alce.GetCurrentScene()->DevelopmentMode(false);
+	// 	}
+	// 	else
+	// 	{
+	// 		button->text = "Dev Mode: ON ";
+	// 		button->backgroundColor = Color("#5EBF28");
+	// 		button->mouseOverBackgroundColor = Color("#79D343");
+	// 		button->onClickBackgroundColor = Color("#79D343");
+	// 		Alce.GetCurrentScene()->DevelopmentMode(true);
+	// 	}
+    // };
 
     // TextInputPtr ti = std::make_shared<TextInput>();
     // canvas->AddElement(ti);

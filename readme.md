@@ -102,13 +102,13 @@ Alce Engine is completely open to new contributors. We welcome fresh ideas, feat
 
 * [FileSystem](Source/Alce/Engine/Modules/FileSystem/): File and Folder management wrapper using C++17 std::filesystem, providing methods to create, delete, read, write, append, and clear files, check existence of files and folders, and handle paths as absolute strings with exception handling for invalid operations.
 
-### 🖥️ UIElements (User Interface):
+### 📇 UIElements (User Interface):
 
 * [Button](Source/Alce/Engine/UI/Button/): represents an interactive UI element that can display text, respond to mouse events, and trigger custom callbacks on click, mouse enter, or mouse exit.
 
 * [Image](Source/Alce/Engine/UI/Image/): represents a UI element that can display and manage multiple textures, allowing dynamic switching and rendering of images with adjustable origin offsets.
 
-* [Text](Source/Alce/Engine/UI/Text/): represents a UI element that displays customizable text, allowing you to set color, font, size, style, borders, and background, with support for initialization from various data types.
+* [Text](Source/Alce/Engine/UI/Text/Text.md): represents a UI element that displays customizable text, allowing you to set color, font, size, style, borders, and background, with support for initialization from various data types.
 
 * [TextInput](Source/Alce/Engine/UI/TextInput/): represents a UI element that allows users to enter and edit text, featuring customizable appearance, placeholder text, cursor behavior, font size, and an onSubmit callback for handling input events.
 
