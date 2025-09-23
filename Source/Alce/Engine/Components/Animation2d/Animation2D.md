@@ -112,6 +112,7 @@ Changes the playback mode of the current animation.
 ## SetTimePerFrame
 ```cpp
 void SetTimePerFrame(Time timePerFrame)
+void SetTimePerFrame(float ms)
 ```
 
 Sets the duration of each frame in milliseconds.

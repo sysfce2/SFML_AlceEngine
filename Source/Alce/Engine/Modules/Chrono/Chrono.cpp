@@ -11,6 +11,8 @@ Time::Time(float miliseconds)
 {
     if (miliseconds < 0.0f)
         throw exception::time::InvalidMeasureValue("<?> Here -> alce::Time::Time(float miliseconds)\n<!> Reason -> Negative value for <miliseconds>");
+
+    ms = miliseconds;
 }
 
 Time::Time(Dictionary<String, float> measures)
@@ -86,6 +88,29 @@ float Time::ToSeconds()
 float Time::ToMiliseconds()
 {
     return ms;
+}
+
+#include <iostream>
+
+String Time::ToString(String format)
+{
+    String str = "";   
+    int _ms = ms;
+    int _h = _ms / 3600000;
+    _ms -= 3600000 * _h;
+    int _m = _ms / 60000;
+    _ms -= _m * 60000;
+    int _s = _ms / 1000;
+    _ms -= _s * 1000;
+
+    if(format.Contains("{h}")) str += std::to_string(_h) + ":";
+    if(format.Contains("{m}")) str += std::to_string(_m) + ":";
+    if(format.Contains("{s}")) str += std::to_string(_s) + ":";
+    if(format.Contains("{ms}")) str += std::to_string(_ms);
+    
+    if(str.Last() == ':') str.PopLast();
+
+    return str;
 }
 
 Time& Time::Reset()

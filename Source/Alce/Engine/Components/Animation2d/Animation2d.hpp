@@ -44,6 +44,8 @@ namespace alce
 
         void SetTimePerFrame(Time timePerFrame);
 
+        void SetTimePerFrame(float ms);
+
         void Pause(bool flag = true);
 
         bool IsPlaying();

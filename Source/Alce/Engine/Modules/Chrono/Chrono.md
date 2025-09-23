@@ -76,6 +76,31 @@ Converts the stored time to the specified unit.
 
 __Returns:__ Time value expressed in the chosen unit.
 
+## ToString
+```cpp
+String ToString(String format = "{h}{m}{s}{ms}");
+```
+
+Formats the stored time into a human-readable string according to the specified pattern.
+
+The format string may include the following placeholders:
+
+* ```{h}``` → Hours component
+
+* ```{m}``` → Minutes component
+
+* ```{s}``` → Seconds component
+
+* ```{ms}``` → Milliseconds component
+
+Any placeholder not included will be omitted from the output. Components are separated by ```:``` automatically, except if the last placeholder would produce a trailing colon (which is removed).
+
+__Parameters:__
+
+* ```format``` (optional): A string specifying which time units to include. Default is ```"{h}{m}{s}{ms}"```.
+
+__Returns:__ A string representing the formatted time.
+
 ## Reset
 ```cpp
 Time& Reset();

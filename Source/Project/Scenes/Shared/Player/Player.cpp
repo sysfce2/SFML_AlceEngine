@@ -68,6 +68,7 @@ void SharedScene::Player::Init()
 	animation->AddAnimation("dudegame/player/running_backward.png", "running-backward", 2, 3, 192, 116, 6);
 	animation->offset = Vector2(0, 14);
 	animation->scale = Vector2(0.075f, 0.075f);
+    animation->SetTimePerFrame(125);
 
     rigidbody2d->CreateBody(
         std::make_shared<RectShape>(Vector2(40.0f, 75.0f)),

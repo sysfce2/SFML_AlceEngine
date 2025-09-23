@@ -37,6 +37,8 @@ namespace alce
 
         float ToMiliseconds();
 
+        String ToString(String format = "{h}{m}{s}{ms}");
+
         Time& Reset();
 
         Time operator+(float miliseconds);

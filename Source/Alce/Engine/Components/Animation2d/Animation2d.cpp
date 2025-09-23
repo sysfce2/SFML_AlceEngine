@@ -190,14 +190,19 @@ bool Animation2D::IsDrawable()
 
 #pragma endregion
 
-void Animation2D::SetTimePerFrame(Time timePerFrame)
+void Animation2D::SetTimePerFrame(Time time)
 {
-    this->msPerFrame = timePerFrame.ToMiliseconds();
+    msPerFrame = time.ToMiliseconds();
+}
+
+void Animation2D::SetTimePerFrame(float ms)
+{
+    msPerFrame = ms;
 }
 
 void Animation2D::Pause(bool flag)
 {
-    this->paused = flag;
+    paused = flag;
 }
 
 bool Animation2D::IsPlaying()
