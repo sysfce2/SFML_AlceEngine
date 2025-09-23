@@ -90,8 +90,6 @@ float Time::ToMiliseconds()
     return ms;
 }
 
-#include <iostream>
-
 String Time::ToString(String format)
 {
     String str = "";   
