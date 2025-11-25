@@ -1,4 +1,4 @@
-# 🔷 Input
+# 📦 Input
 
 The ```Input``` module provides a unified system to handle user input from the keyboard, mouse, and joystick devices. It simplifies checking for pressed, held, or released states of keys and buttons, as well as retrieving mouse position and joystick axes.  
 

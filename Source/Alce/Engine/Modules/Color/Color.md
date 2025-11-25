@@ -1,4 +1,4 @@
-# 🔷 Color
+# 📦 Color
 
 The ```Color``` module provides a simple system to manage colors within the application. It is based on the sf::Color class from the SFML library, but adds utilities to create, convert, blend, and serialize colors in different formats (RGB, RGBA, Hexadecimal, Strings).
 

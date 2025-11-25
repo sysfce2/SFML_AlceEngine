@@ -1,4 +1,4 @@
-# 🔷 Debug
+# 📦 Debug
 
 The ```Debug``` module provides a lightweight logging and diagnostic system for applications. It allows printing colored log and warning messages to the console, as well as persisting them into files for later inspection.
 

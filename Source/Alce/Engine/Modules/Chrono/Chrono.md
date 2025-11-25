@@ -1,4 +1,4 @@
-# 🔷 Chrono
+# 📦 Chrono
 
 The ```Chrono``` module provides a utility for handling and measuring time within an application. It allows you to represent time spans, perform arithmetic operations, convert between different time units, and compare durations. It also offers a singleton class that maintains a global ```deltaTime``` reference.
 

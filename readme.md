@@ -74,7 +74,7 @@ Alce Engine is completely open to new contributors. We welcome fresh ideas, feat
 
 * [TextRenderer](Source/Alce/Engine/Components/TextRenderer/TextRenderer.md): renders styled text directly in the game world, supporting formatting, colors, and optional backgrounds with borders.
 
-### 🔷 Modules:
+### 📦 Modules:
 
 * [Core](Source/Alce/Engine/Modules/Core/): manages window creation, scene management, asset loading (textures, sounds, fonts), system info retrieval, input handling, and the main game loop for a graphical application using SFML.
 
@@ -94,7 +94,7 @@ Alce Engine is completely open to new contributors. We welcome fresh ideas, feat
 
 ### 🛠️ Utils:
 
-* [Collections](Source/Alce/Engine/Modules/Collections/): provides a collection of generic, exception-safe container classes—including a customizable List with advanced manipulation and filtering capabilities, a Pair utility, and a Dictionary implemented on top of the List—designed to facilitate flexible and efficient data storage and retrieval.
+* [Collections](Source/Alce/Engine/Modules/Collections/Collections.md): provides a collection of generic, exception-safe container classes—including a customizable List with advanced manipulation and filtering capabilities, a Pair utility, and a Dictionary implemented on top of the List—designed to facilitate flexible and efficient data storage and retrieval.
 
 * [String](Source/Alce/Engine/Modules/String/): versatile String class wrapping SFML’s string type, offering extensive manipulation methods such as substring operations, case conversion, comment removal, parsing to various data types, trimming, splitting, regex matching, and comprehensive operator overloads for flexible and efficient string handling in C++.
 

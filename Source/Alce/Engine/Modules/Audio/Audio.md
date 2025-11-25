@@ -1,4 +1,4 @@
-# 🔷 Audio
+# 📦 Audio
 
 The ```Audio``` module provides a simple system to manage and play sounds within an application. It allows you to organize sounds into channels, control playback, volume, pitch, looping, and other properties, all in a structured and easy-to-use manner.
 

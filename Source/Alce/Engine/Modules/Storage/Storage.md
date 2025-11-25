@@ -1,4 +1,4 @@
-# 🔷 Storage
+# 📦 Storage
 
 The ```Storage``` module provides a persistent key-value storage system built on top of the ```Json``` module. It allows storing and retrieving JSON objects, strings, and lists across sessions by saving data into files located in the ```./Storage/``` directory.  
 
