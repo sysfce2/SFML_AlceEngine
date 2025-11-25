@@ -100,7 +100,7 @@ Alce Engine is completely open to new contributors. We welcome fresh ideas, feat
 
 * [Json](Source/Alce/Engine/Modules/Json/Json): JSON wrapper class for C++ using RapidJSON, providing methods to parse from strings or files, get/set JSON values (strings, nested JSON, lists), check keys, delete or clear members, validate JSON, and serialize back to formatted strings or save as files — with exception handling for type errors and missing keys.
 
-* [FileSystem](Source/Alce/Engine/Modules/FileSystem/): File and Folder management wrapper using C++17 std::filesystem, providing methods to create, delete, read, write, append, and clear files, check existence of files and folders, and handle paths as absolute strings with exception handling for invalid operations.
+* [FileSystem](Source/Alce/Engine/Modules/FileSystem/FileSystem.md): File and Folder management wrapper using C++17 std::filesystem, providing methods to create, delete, read, write, append, and clear files, check existence of files and folders, and handle paths as absolute strings with exception handling for invalid operations.
 
 ### 📇 UIElements (User Interface):
 
