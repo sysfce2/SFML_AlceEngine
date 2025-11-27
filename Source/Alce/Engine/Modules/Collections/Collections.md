@@ -14,10 +14,9 @@ The ```Pair<K, V>``` class holds a lightweight key–value pair, typically used 
 The ```Map<K, V>``` class maintains a list of ```Pair<K, V>``` objects, providing key-based access, addition, deletion, search, and iteration.
 
 ---
-
 # 🧾 List<T>
 
-A dynamic array structure that stores a sequence of elements of type ```T```, offering access, manipulation, and iteration utilities.
+A dynamic array structure that stores a sequence of elements of ```type T```, offering access, manipulation, and utility methods.
 
 # Constructors
 ```cpp
@@ -25,45 +24,98 @@ List()
 List(std::initializer_list<T> values)
 ```
 
+
 Creates an empty list or initializes it with given elements.
 
 # Methods
-
 ## Add
 ```cpp
-void Add(const T& value)
+List<T>& Add(const T& value)
 ```
 
 Appends an element to the end of the list.
+Returns a reference to the list.
 
-## Remove
+## AddFirst
 ```cpp
-void Remove(const T& value)
+List<T>& AddFirst(const T& value)
 ```
 
-Removes the first occurrence of the specified value.
-Throws if the value is not found.
+Inserts an element at the beginning of the list.
+
+## SetFirst
+```cpp
+List<T>& SetFirst(size_t index)
+```
+
+Moves the element at the specified index to the beginning of the list.
+Throws if index is out of bounds.
+
+## PopFirst
+```cpp
+List<T>& PopFirst()
+```
+
+Removes the first element from the list.
+Throws if the list is empty.
+
+## PopLast
+```cpp
+List<T>& PopLast()
+```
+
+Removes the last element from the list.
+Throws if the list is empty.
+
+## First
+```cpp
+T& First()
+```
+
+Returns a reference to the first element.
+Throws if the list is empty.
+
+## Last
+```cpp
+T& Last()
+```
+
+Returns a reference to the last element.
+Throws if the list is empty.
 
 ## Get
 ```cpp
 T& Get(size_t index)
-const T& Get(size_t index) const
 ```
 
-
-Returns the element at the specified index.
+Returns a reference to the element at the specified index.
 Throws if the index is out of bounds.
 
-## Size
+## Set
 ```cpp
-size_t Size() const
+List<T>& Set(size_t index, const T& value)
 ```
 
-Returns the number of elements.
+Replaces the element at the given index with the provided value.
+Throws if index is out of bounds.
+
+## Length
+```cpp
+size_t Length() const
+```
+
+Returns the number of elements in the list.
+
+## Empty
+```cpp
+bool Empty() const
+```
+
+Returns true if the list has no elements.
 
 ## Clear
 ```cpp
-void Clear()
+List<T>& Clear()
 ```
 
 Removes all elements from the list.
@@ -75,120 +127,200 @@ bool Contains(const T& value) const
 
 Checks whether an element exists in the list.
 
-## ForEach
+## FindIndex
 ```cpp
-void ForEach(std::function<void(T&)> action)
+int FindIndex(const T& value) const
 ```
 
-Applies a function to every element.
+Returns the index of the first occurrence of the element.
+Returns -1 if not found.
 
-## Any
+## FindAndRemove
 ```cpp
-bool Any(std::function<bool(const T&)> predicate) const
+List<T>& FindAndRemove(const T& value)
 ```
 
-Returns true if any element satisfies a condition.
+Finds and removes the first occurrence of the given element.
+Returns the list.
+
+## RemoveIndex
+```cpp
+List<T>& RemoveIndex(size_t index)
+```
+
+Removes the element at the specified index.
+Throws if the index is out of bounds.
+
+## RemoveIf
+```cpp
+template<typename Predicate>
+List<T>& RemoveIf(Predicate condition)
+```
+
+Removes all elements that satisfy the given condition.
+
+## Filter
+```cpp
+template<typename Predicate>
+List<T> Filter(Predicate condition) const
+```
+
+Returns a new list containing elements that satisfy the given condition.
 
 ## Sort
 ```cpp
-void Sort(std::function<bool(const T&, const T&)> comparator)
+List<T>& Sort(CompareFunction compare)
 ```
 
-Sorts list elements using a custom comparator.
+Sorts elements using a custom comparator function.
 
-## Iterators:
+## Merge
 ```cpp
-iterator begin()
-iterator end()
-const_iterator cbegin() const
-const_iterator cend() const
+List<T>& Merge(List<T> other)
 ```
 
-Provides support for range-based loops and STL compatibility.
+Appends elements from another list that are not already present.
+
+## ForEach
+```cpp
+template<typename Func>
+List<T>& ForEach(Func action)
+```
+
+Applies a function to each element of the list.
+
+## ToStdVector
+```cpp
+std::vector<T> ToStdVector() const
+```
+
+Returns a copy of the internal std::vector.
+
+## ToStdVectorPtr
+```cpp
+std::vector<T>* ToStdVectorPtr()
+```
+
+Returns a pointer to the internal std::vector.
 
 ---
 
-# 🧾 Pair<K, V>
+# 🧾 Pair<F, S>
 
-A lightweight structure to hold a key–value pair.
+A lightweight structure that stores a pair of values, typically representing a key-value relationship or any two associated elements.
 
-# Constructors
+## Constructors
 ```cpp
-Pair(const K& key, const V& value)
+Pair()
+Pair(F first, S second)
 ```
 
-Creates a pair with the given key and value.
+Creates an empty pair or initializes it with the given first and second values.
 
-## GetKey / GetValue
-```cpp
-K& GetKey()
-V& GetValue()
-const K& GetKey() const
-const V& GetValue() const
-```
-
-Returns references to key and value.
+## Fields
+* ```F first```: The first element of the pair.
+* ```S second```: The second element of the pair.
 
 ---
 
-# 🧾 Map<K, V>
+# 🧾 Dictionary<K, V>
 
-A key–value collection built on top of ```List<Pair<K, V>>```.
+A key-value collection that maps unique keys of type ```K``` to corresponding values of type ```V```.
+Implemented internally using a ```List<Pair<K, V>>```.
+
+## Constructors
+```cpp
+Dictionary()
+Dictionary(std::initializer_list<std::pair<K, V>> map)
+```
+
+
+Creates an empty dictionary or initializes it with a list of key-value pairs.
 
 # Methods
 
-## Add
+## Length
 ```cpp
-void Add(const K& key, const V& value)
+size_t Length() const
 ```
 
-Adds a new pair.
-Throws if the key already exists.
+Returns the number of key-value pairs stored in the dictionary.
+
+## Empty
+```cpp
+bool Empty() const
+```
+
+Returns true if the dictionary contains no elements.
 
 ## Get
 ```cpp
-V& Get(const K& key)
-const V& Get(const K& key) const
+V Get(K key) const
 ```
 
-Retrieves the value for a given key.
-Throws if the key is not found.
-
-## Remove
-```cpp
-void Remove(const K& key)
-```
-
-Deletes a key–value pair.
+Returns the value associated with the specified key.
 Throws if the key does not exist.
 
-## Contains
+## Set
 ```cpp
-bool Contains(const K& key) const
+void Set(K key, V value)
 ```
 
-Checks if a key is present.
+If the key already exists, updates its associated value.
+If the key does not exist, inserts a new key-value pair.
 
-## Count
+## RemoveByKey
 ```cpp
-size_t Count() const
+void RemoveByKey(K key)
 ```
 
-Returns the number of stored pairs.
+Removes the entry with the specified key, if it exists.
+
+## RemoveByValue
+```cpp
+void RemoveByValue(V value)
+```
+
+Removes all entries that contain the specified value.
 
 ## Clear
 ```cpp
 void Clear()
 ```
 
-Removes all entries.
+Removes all key-value pairs from the dictionary.
 
-## Iterators
+## HasKey
 ```cpp
-iterator begin()
-iterator end()
-const_iterator cbegin() const
-const_iterator cend() const
+bool HasKey(const K& key) const
 ```
 
-Enables traversal using range-based for loops.
+Checks whether the given key exists in the dictionary.
+
+## GetKeyList
+```cpp
+List<K> GetKeyList() const
+```
+
+Returns a List containing all keys in the dictionary.
+
+## GetValueList
+```cpp
+List<V> GetValueList() const
+```
+
+Returns a List containing all values in the dictionary.
+
+## FilterByValue
+```cpp
+Dictionary<K, V> FilterByValue(const V& value) const
+```
+
+Returns a new dictionary containing only entries with the specified value.
+
+## std_vector
+```cpp
+std::vector<Pair<K, V>> std_vector() const
+```
+
+Returns a copy of the underlying list as a std::vector of pairs.
