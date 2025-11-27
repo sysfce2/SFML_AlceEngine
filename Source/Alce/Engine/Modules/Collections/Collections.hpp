@@ -38,7 +38,6 @@ namespace alce
 			return *this;
 		}
 
-		//Falta
 		List<T>& AddFirst(const T& element)
 		{
 			vector.insert(vector.begin(), element);
@@ -46,7 +45,6 @@ namespace alce
 			return *this;
 		}
 
-		//Falta
 		List<T>& SetFirst(size_t index)
 		{
 			if (index >= this->Length()) 
@@ -61,7 +59,6 @@ namespace alce
 			return *this;
 		}
 
-		//Falta
 		List<T>& PopFirst()
 		{
 			if (this->Length() == 0) 
@@ -72,7 +69,6 @@ namespace alce
 			return *this;
 		}
 
-		//Falta
 		List<T>& PopLast()
 		{
 			if (this->Length() == 0) 
@@ -83,7 +79,6 @@ namespace alce
 			return *this;
 		}
 
-		//Falta
 		T& Last()
 		{
 			if (this->Length() == 0) 
@@ -92,7 +87,6 @@ namespace alce
 			return vector.back();
 		}
 
-		//Falta
 		T& First()
 		{
 			if (this->Length() == 0) 
@@ -108,7 +102,6 @@ namespace alce
 			return *this;
 		}
 
-		//Modificar
 		T& Get(size_t index)
 		{
 			if (index > this->Length() - 1) 
@@ -117,7 +110,6 @@ namespace alce
 			return vector[index];
 		}
 
-		//Falta
 		List<T>& Set(size_t index, const T& value)
 		{
 			if (index >= vector.size()) 
@@ -128,13 +120,11 @@ namespace alce
 			return *this;
 		}
 
-		//Esta mal en la doc
 		size_t Length()
 		{
 			return vector.size();
 		}
 
-		//Falta
 		template<typename Predicate>
 		List<T> Filter(Predicate condition)
 		{
@@ -151,7 +141,6 @@ namespace alce
 			return result;
 		}
 
-		//Falta
 		int FindIndex(const T& element)
 		{
 			for (size_t i = 0; i < this->vector.size(); i++)
@@ -162,7 +151,6 @@ namespace alce
 			return -1;
 		}
 
-		//Falta
 		List<T>& FindAndRemove(const T& element)
 		{
 			auto it = std::find(vector.begin(), vector.end(), element);
@@ -174,7 +162,6 @@ namespace alce
 			return *this;
 		}
 
-		//Falta
 		List<T>& RemoveIndex(unsigned int index)
 		{
 			vector.erase(vector.begin() + index);
@@ -182,7 +169,6 @@ namespace alce
 			return *this;
 		}
 
-		//Falta
 		template<typename Predicate>
 		List<T>& RemoveIf(Predicate condition)
 		{
@@ -191,7 +177,6 @@ namespace alce
 			return *this;
 		}
 
-		//Falta
 		List<T>& Sort(CompareFunction compare)
 	    {
         	std::sort(vector.begin(), vector.end(), compare);
@@ -199,7 +184,6 @@ namespace alce
 			return *this;
     	}
 
-		//Falta
 		List<T>& Merge(List<T> other)
 		{
 			for (const T& element : other.vector)
@@ -224,25 +208,21 @@ namespace alce
 			return *this;
 		}
 
-		//Esta mal en la doc
 		bool Contains(const T& element)
 		{
 			return std::find(vector.begin(), vector.end(), element) != vector.end();
 		}
 
-		//Falta
 		bool Empty()
 		{
 			return this->Length() == 0;
 		}
 
-		//Falta
 		std::vector<T> ToStdVector()
 		{
 			return vector;
 		}
 
-		//Falta
 		std::vector<T>* ToStdVectorPtr()
 		{
 			return &vector;
