@@ -145,7 +145,3 @@ This extension is very useful for visualizing all the TODO comments in our proje
 
 
 This extension provides dedicated icons in the navigation bar. It doesn't affect the code itself, but it does facilitate the visualization of the project structure in that bar. Consider using this extension not only for your Alce Engine projects but also for any other external projects: Angular, React, Unity, etc.
-
-# Conclusion
-
-At this point, you'll have everything ready to start developing your incredible game with Alce Engine!
