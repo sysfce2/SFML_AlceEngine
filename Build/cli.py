@@ -89,7 +89,7 @@ def printHelp():
     prints(" file.\n\n")
 
 def printVersion():    
-    prints("Alce CLI 1.0.4 (2025)\n", "magenta")
+    prints("Alce CLI 1.0.5 (2025)\n", "magenta")
 
 #endregion
 
@@ -818,14 +818,14 @@ def initProject():
 
     if os.path.exists("./settings.json"):
         warning("File Build/settings.json already exists, do you want to replace it? (y/n)")
-        if(input().lower() != "y"):
+        if(input().lower() != "y" or input().lower() != "yes"):
             return
     
     is_valid = False
 
     while not is_valid:
 
-        prints("\nInsert Project name: ")
+        prints("Insert Project name: ")
         project_name = input()
 
         is_valid = isProjectNameValid(project_name)
@@ -846,7 +846,7 @@ def initProject():
     }
     settings_json.write(json.dumps(settings, indent=4))
     settings_json.close()
-    prints("\nCreated -> Build/settings.json\n", "green")
+    prints("\nCreated -> Build/settings.json", "green")
     warning("The compiler bin path was set undefined by default.")
 
 #endregion
@@ -977,18 +977,27 @@ def initCompile():
 
 def build():
     try:
+
         if len(compile_stack) == 0:
             return True
 
         makefile = open("Temp/Makefile", "w")
         makefile.write("all:\n")
 
+        gpp = "g++"
+        if compiler_bin_path != "":
+            gpp = compiler_bin_path + "/g++"
+
         for file in compile_stack:
-            makefile.write("\tg++ -std=c++2a -ISFML-2.6.1/include -c " + file + " -o ./Objects/" + file.split("/")[-1].replace("cpp", "o") + "\n")
+            makefile.write(f"\t{gpp} -std=c++2a -ISFML-2.6.1/include -c " + file + " -o ./Objects/" + file.split("/")[-1].replace("cpp", "o") + "\n")
 
         makefile.close()
 
-        if os.system("mingw32-make -f Temp/Makefile") != 0:
+        make = "mingw32-make"
+        if compiler_bin_path != "":
+            make = f"{compiler_bin_path}/mingw32-make"
+
+        if os.system(f"{make} -f Temp/Makefile") != 0:
             os.remove("Temp/Makefile")
             return False
         else:
@@ -1041,8 +1050,13 @@ def link(alias):
         for o in o_files:
             o_files[c] = o.replace("\\", "/")
             c += 1
+
         
-        makefile.write("\tg++ ")
+        gpp = "g++"
+        if compiler_bin_path != "":
+            gpp = compiler_bin_path + "/g++"
+        
+        makefile.write(f"\t{gpp} ")
 
         for o in o_files:
             makefile.write(o + " ")
@@ -1057,7 +1071,12 @@ def link(alias):
         
         makefile.close()
 
-        if os.system("mingw32-make -f Temp/Makefile") != 0:
+        
+        make = "mingw32-make"
+        if compiler_bin_path != "":
+            make = f"{compiler_bin_path}/mingw32-make"
+
+        if os.system(f"{make} -f Temp/Makefile") != 0:
             os.remove("Makefile")
             return False
         else:
@@ -1107,7 +1126,11 @@ def run(alias, mode):
         sys.exit(1)
 
     if mode == "debug":
-        subprocess.run(["gdb", f"./Out/{alias}/{project_name}.exe"])
+        gdb = "gdb"
+        if compiler_bin_path != "":
+            gdb = compiler_bin_path + "/gdb"
+        
+        subprocess.run([gdb, f"./Out/{alias}/{project_name}.exe"])
     if mode == "standard":
         subprocess.run(f"./Out/{alias}/{project_name}.exe")
 
@@ -1133,13 +1156,22 @@ def readSettings():
         else:
             compiler_bin_path = compiler.get("bin-path", None)
 
-            if compiler_bin_path is None:
-                error("Compiler bin path is missing at [Build/settings.json -> compiler::bin-path]")
+            if compiler_bin_path == "" or compiler_bin_path is None:
+                warning(" Compiler bin path is missing at [Build/settings.json -> compiler::bin-path].")
                 return
             else:
                 if not isDir(compiler_bin_path):
-                    error(f"Invalid path {compiler_bin_path} at [Build/settings.json -> compiler::bin-path]")
-                    return
+                    error(f" Invalid path {compiler_bin_path} at [Build/settings.json -> compiler::bin-path]")
+                    res = ""
+                    valid=["y", "yes", "Y", "YES", "n", "no", "N", "NO"]
+                    while not(res in valid):
+                       print("\nContinue with default settings? (Y/N): ")
+                       res = input()
+                    
+                    if valid == "y" or valid == "Y" or valid == "yes" or valid == "YES":
+                        compiler_bin_path = ""
+                    else:
+                        sys.exit(0)
 
         #endregion
 

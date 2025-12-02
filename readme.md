@@ -122,14 +122,30 @@ Alce Engine is completely open to new contributors. We welcome fresh ideas, feat
 
 Learn how to set up Alce Engine with ease through [this tutorial](./Documentation/Tutorials/setup.md).
 
+Once installed, you can compile and run your project using the [CLI](Documentation/CLI/cli.md):
+```bash
+cd build
+
+# 1. Initialize the project (only once)
+./alce init
+
+# 2. Compile your build
+./alce compile alias=dev
+
+# 3. Run the game
+./alce run alias=dev
+
+```` 
+
 # 📋 Requirements
 
 Minimun requirements:
 * GCC 32bit v13.1.0^ (g++, mingw32-make, gdb)
 * Windows 10, 11
+* Python v3.1.0^
 
 Recommended:
-* Python v3.1.0^
+
 * <img src="https://pyxeledit.com/images/icon256.png" style="width: 18px; position: relative; top: 2px"> [PyxelEdit](https://pyxeledit.com/)
 
 # ☎️ Contact
