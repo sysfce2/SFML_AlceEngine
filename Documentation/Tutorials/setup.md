@@ -19,7 +19,7 @@ As of now, Alce Engine is primarily focused on the Windows environment. However,
 
 In order to compile the project along with the Alce Engine CLI, you'll need the GCC 13.1.0 MinGW 32-bit compiler. There are several ways to install it, but in this tutorial, we'll use MSYS2, as this tool greatly simplifies the process.
 
-Start by installing MSYS2 following the instructions on its [website](https://www.msys2.org/). 
+Start by installing MSYS2 following the instructions on its <a href="https://www.msys2.org/" target="_blank">website</a>. 
 
 <img src="./../resources/setup/setup_12.png" width="600px">
 
