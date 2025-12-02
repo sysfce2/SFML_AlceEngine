@@ -72,6 +72,7 @@ Once the changes are saved, open a new terminal (if you had one open before the 
 g++ --version
 mingw32-make --version
 gdb --version
+python3 --version
 ```
 
 If you didn't receive an error message indicating that the command is not recognized in all three commands, congratulations, you have successfully installed the compiler. The toughest part of this tutorial is now behind you! :smile:
