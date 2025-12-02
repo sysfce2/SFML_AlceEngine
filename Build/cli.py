@@ -818,14 +818,14 @@ def initProject():
 
     if os.path.exists("./settings.json"):
         warning("File Build/settings.json already exists, do you want to replace it? (y/n)")
-        if(input().lower() != "y"):
+        if(input().lower() != "y" or input().lower() != "yes"):
             return
     
     is_valid = False
 
     while not is_valid:
 
-        prints("\nInsert Project name: ")
+        prints("Insert Project name: ")
         project_name = input()
 
         is_valid = isProjectNameValid(project_name)
@@ -846,7 +846,7 @@ def initProject():
     }
     settings_json.write(json.dumps(settings, indent=4))
     settings_json.close()
-    prints("\nCreated -> Build/settings.json\n", "green")
+    prints("\nCreated -> Build/settings.json", "green")
     warning("The compiler bin path was set undefined by default.")
 
 #endregion

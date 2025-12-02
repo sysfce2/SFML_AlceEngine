@@ -48,7 +48,7 @@ C:/msys64
     |    |    |-> mingw32-make.exe
 ```
 
-Copy the path of the folder "<i>C:\msys64\mingw32\bin</i>" and open the system variable editor.
+Copy the path of the folder ```C:\msys64\mingw32\bin``` and open the system variable editor.
 
 The easiest way to do this is by typing "environment variable" into your Windows Search bar and clicking “Edit the system environment variables.”
 
@@ -88,7 +88,7 @@ Having direct access to the engine's source code allows users the freedom to mod
 Now that we understand this, let's proceed to download the engine's repository. If you have Git installed, simply clone the repository using the following command:
 
 ```bash
-git clone https://github.com/gabrielbeguren/AlceEngine
+git clone https://github.com/ekrol34/AlceEngine
 ```
 
 If, on the other hand, you don't have Git installed (though we highly recommend it), you can also download the source code as a zip file from the GitHub interface.
