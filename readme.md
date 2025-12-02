@@ -127,9 +127,10 @@ Learn how to set up Alce Engine with ease through [this tutorial](./Documentatio
 Minimun requirements:
 * GCC 32bit v13.1.0^ (g++, mingw32-make, gdb)
 * Windows 10, 11
+* Python v3.1.0^
 
 Recommended:
-* Python v3.1.0^
+
 * <img src="https://pyxeledit.com/images/icon256.png" style="width: 18px; position: relative; top: 2px"> [PyxelEdit](https://pyxeledit.com/)
 
 # ☎️ Contact
