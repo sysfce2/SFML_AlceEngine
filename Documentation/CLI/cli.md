@@ -1,5 +1,4 @@
 # Alce Command Line Interface
-
 ### Table of Contents
 
 1. [Introduction](#Introduction)
@@ -64,6 +63,18 @@ Additionally, there are 4 files:
 
 Creates the required configuration file "```Build/Settings.json```" with the next fields:
 
+```json
+{
+    "compiler": {
+        "bin-path": ""
+    },
+    "project": {
+        "name": "Test",
+        "icon": "Assets/icon.ico"
+    }
+}
+```
+
 * __Compiler__:
   * __"bin-path"__: the bin path of the MinGW32 compiler.
 * __Project__:
@@ -83,9 +94,9 @@ Compiles the project using an alias name.
 
 There are two compilation methods available:
 
-* ```__Full Compilation__```: This method includes all files inside the ```./Source``` folder in the compilation queue. It is recommended for releases and major tests.
+* ```Full Compilation```: This method includes all files inside the ```./Source``` folder in the compilation queue. It is recommended for releases and major tests.
   
-* ```__Express Compilation__```: This method only includes the last modified files inside the ```./Source``` folder in the compilation queue. It is recommended for minor changes and quick adjustments.
+* ```Express Compilation```: This method only includes the last modified files inside the ```./Source``` folder in the compilation queue. It is recommended for minor changes and quick adjustments.
 
 Once compilation succeeded, output files are generated inside the ```./Build/Out``` folder, following the next scheme:
 
@@ -105,8 +116,8 @@ __Note__: The use of express compilation does not involve the compilation of aff
 
 There are two build modes available:
 
-* ```__Development__```: In this mode, the project execution will be accompanied by a debugging console.
-* ```__Release__```: In this mode, the project execution will be clean and free of debugging information.
+* ```Development```: In this mode, the project execution will be accompanied by a debugging console.
+* ```Release```: In this mode, the project execution will be clean and free of debugging information.
 
 ### Default values:
 
@@ -164,8 +175,8 @@ Runs the project by alias name.
 
 There are two run modes available:
 
-* ```__Standard Mode__```: Runs the project as a standard application.
-* ```__Debug Mode__```: Runs the project with GDB, the GNU project debugger.
+* ```Standard Mode```: Runs the project as a standard application.
+* ```Debug Mode```: Runs the project with GDB, the GNU project debugger.
 
 __Note__: the use of ```--debug``` mode could affect the performance of the project.
 
@@ -286,4 +297,3 @@ void Particle::SetDensity(float density)
 
 #pragma endregion
 ```
-
