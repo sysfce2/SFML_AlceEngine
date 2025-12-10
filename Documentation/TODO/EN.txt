@@ -1,4 +1,4 @@
 ~ To do list ~
 
-#TD1: Apply TextRenderer changes to Text UIElement
+#TD1: Create UIElement Animation. A copy of Animation2D but as a UI element.
 #TD2: Apply Candle elements to the particles in ParticleSystem

@@ -170,7 +170,7 @@ namespace alce
 		float borderRadius = 0.0f;
         Color backgroundColor = Colors::Transparent;
 
-		Vector2 padding = Vector2(15, 15);
+		Vector2 padding = Vector2(0, 0);
 		Vector2 offset = Vector2(0, 0);
 
 	protected:

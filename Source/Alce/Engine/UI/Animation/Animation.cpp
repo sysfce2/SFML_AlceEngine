@@ -1,16 +1,18 @@
-#include "Animation2D.hpp"
+#include "Animation.hpp"
 
 using namespace alce;
 
-Animation2D::Animation2D() : Component("Animation2d")
+void Animation::Init()
 {
-    cardinals.Set("top-left", std::make_shared<Vector2>());
-    cardinals.Set("top-right", std::make_shared<Vector2>());
-    cardinals.Set("bottom-left", std::make_shared<Vector2>());
-    cardinals.Set("bottom-right", std::make_shared<Vector2>());
+    
 }
 
-void Animation2D::AddAnimation(String spritesheetFile, String name, int rows, int cols, int frameWidth, int frameHeight, int numFrames)
+void Animation::Start()
+{
+    
+}
+
+void Animation::AddAnimation(String spritesheetFile, String name, int rows, int cols, int frameWidth, int frameHeight, int numFrames)
 {
     spritesheets.Set(name, new sf::Sprite());
     spritesheets[name]->setTexture(*Alce.GetTexture(spritesheetFile));
@@ -38,17 +40,17 @@ void Animation2D::AddAnimation(String spritesheetFile, String name, int rows, in
     animations.Set(name, frames);
 }
 
-void Animation2D::DeleteAnimation(String name)
+void Animation::DeleteAnimation(String name)
 {
     animations.RemoveByKey(name);
 }
 
-void Animation2D::SetOriginMode(OriginMode originMode)
+void Animation::SetOriginMode(OriginMode originMode)
 {
     this->originMode = originMode;
 }
 
-void Animation2D::PlayAnimation(String name, AnimationMode mode)
+void Animation::PlayAnimation(String name, AnimationMode mode)
 {
     if(!enabled) return;
 
@@ -69,24 +71,42 @@ void Animation2D::PlayAnimation(String name, AnimationMode mode)
     SetTextureRectForFrame();
 }
 
-void Animation2D::SetAnimationMode(AnimationMode mode)
+void Animation::SetAnimationMode(AnimationMode mode)
 {
     currentMode = mode;
 }
 
-String Animation2D::GetCurrentAnimation()
+void Animation::SetTimePerFrame(Time time)
+{
+    msPerFrame = time.ToMiliseconds();
+}
+
+void Animation::SetTimePerFrame(float ms)
+{
+    msPerFrame = ms;
+}
+
+void Animation::Pause(bool flag)
+{
+    paused = flag;
+}
+
+bool Animation::IsPlaying()
+{
+    return isPlaying;
+}
+
+String Animation::GetCurrentAnimation()
 {
     return this->currentAnimation;
 }
 
-#pragma region AnimationEngine
-
-void Animation2D::DetermineNumFrames()
+void Animation::DetermineNumFrames()
 {
     numFrames = animations[currentAnimation].Length();
 }
 
-void Animation2D::DetermineFirstFrameNum()
+void Animation::DetermineFirstFrameNum()
 {
     switch(currentMode)
     {
@@ -102,7 +122,7 @@ void Animation2D::DetermineFirstFrameNum()
     }
 }
 
-void Animation2D::DetermineNextFrameNum()
+void Animation::DetermineNextFrameNum()
 {
     if(!isPlaying) return;
     if(currentMode == AnimationMode::FirstFrameOnly) return;
@@ -142,7 +162,7 @@ void Animation2D::DetermineNextFrameNum()
     }
 }
 
-void Animation2D::SetTextureRectForFrame()
+void Animation::SetTextureRectForFrame()
 {
     auto rect = animations[currentAnimation].Get(currentFrameNum);
     spritesheets[currentAnimation]->setTextureRect(rect->ToIntRect());
@@ -181,40 +201,14 @@ void Animation2D::SetTextureRectForFrame()
     spritesheets[currentAnimation]->setOrigin(Vector2(originX, originY).ToVector2f());
 }
 
-bool Animation2D::IsDrawable()
+bool Animation::IsDrawable()
 {
 	return (animations.Length() > 0 && animations.HasKey(currentAnimation));
 }
 
-void Animation2D::SetTimePerFrame(Time time)
-{
-    msPerFrame = time.ToMiliseconds();
-}
-
-void Animation2D::SetTimePerFrame(float ms)
-{
-    msPerFrame = ms;
-}
-
-void Animation2D::Pause(bool flag)
-{
-    paused = flag;
-}
-
-bool Animation2D::IsPlaying()
-{
-    return isPlaying;
-}
-
-Dictionary<String, Vector2Ptr> Animation2D::GetCardinals()
-{
-    return cardinals;
-}
-
-
 #pragma region inherited
 
-void Animation2D::Render()
+void Animation::Render()
 {
     if(!enabled) return;
     if(!IsDrawable()) return;
@@ -222,7 +216,7 @@ void Animation2D::Render()
     Alce.GetWindow().draw(*spritesheets[currentAnimation]);
 }
 
-void Animation2D::Update()
+void Animation::Update()
 {
     if(!enabled) return;
     if(!IsDrawable()) return;
@@ -235,27 +229,18 @@ void Animation2D::Update()
         SetTextureRectForFrame();
         msSinceLastFrame = 0;
     }
+    
+    Vector2 finalPos = transform.position + padding;
+    spritesheets[currentAnimation]->setPosition(finalPos.ToVector2f());
 
-    spritesheets[currentAnimation]->setPosition((transform->position.ToPixels() + offset).ToVector2f());
-    spritesheets[currentAnimation]->setScale((transform->scale + scale).ToVector2f());
-    spritesheets[currentAnimation]->setRotation(transform->rotation);
+    spritesheets[currentAnimation]->setScale(size.ToVector2f());
+    spritesheets[currentAnimation]->setRotation(transform.rotation);
 
     if(!animations.HasKey(currentAnimation)) return;
 
     RectShape bounds = *animations[currentAnimation].Get(currentFrameNum);
-    Vector2 pixelpos = transform->position.ToPixels();
+    Vector2 pixelpos = transform.position;
 
-    cardinals["top-left"]->x = pixelpos.x - (bounds.width / 2.0f);
-    cardinals["top-left"]->y = pixelpos.y - (bounds.height / 2.0f);
-
-    cardinals["top-right"]->x = pixelpos.x + (bounds.width / 2.0f);
-    cardinals["top-right"]->y = pixelpos.y - (bounds.height / 2.0f);
-
-    cardinals["bottom-left"]->x = pixelpos.x - (bounds.width / 2.0f);
-    cardinals["bottom-left"]->y = pixelpos.y + (bounds.height / 2.0f);
-
-    cardinals["bottom-right"]->x = pixelpos.x + (bounds.width / 2.0f);
-    cardinals["bottom-right"]->y = pixelpos.y + (bounds.height / 2.0f);
 }
 
 #pragma endregion

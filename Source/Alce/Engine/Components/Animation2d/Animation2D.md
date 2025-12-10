@@ -2,11 +2,11 @@
 
 The ```Animation2D``` component handles 2D sprite animations for a ```GameObject```. It supports multiple animations from spritesheets, various playback modes, and adjustable origin points. Animations can loop, play once, or show only the first frame.
 
-It is useful for character animations, particle effects, UI elements, and any 2D sprite-based motion.
+It is useful for character animations or any 2D sprite-based motion.
 
-## Behaviour
+# Behaviour
 
-The ```Animation2D``` component updates the current frame of the animation based on elapsed time (```TimePerFrame```) and the selected AnimationMode. It automatically updates the sprite’s position, scale, and rotation to match the GameObject’s transform. The origin point of the sprite can be set to any corner or the center to control rotation and positioning behavior. The component also tracks the corners of the animation frame in world coordinates via the cardinals dictionary.
+The ```Animation2D``` component updates the current frame of the animation based on elapsed time (```TimePerFrame```) and the selected ```AnimationMode```. It automatically updates the sprite’s position, scale, and rotation to match the ```GameObject```’s transform. The origin point of the sprite can be set to any corner or the center to control rotation and positioning behavior. The component also tracks the corners of the animation frame in world coordinates via the cardinals dictionary.
 
 # Fields
 
@@ -30,7 +30,7 @@ The ```Animation2D``` component updates the current frame of the animation based
 
 * ```Vector2 offset```: positional adjustment that shifts an element (or group of elements) by a specified distance from its original location without altering its alignment.
 
-## Animation Modes
+# Animation Modes
 ```cpp
 enum AnimationMode
 {
@@ -52,7 +52,7 @@ enum AnimationMode
 
 * ```FirstFrameOnly```: Displays only the first frame.
 
-### Origin Modes
+# Origin Modes
 ```cpp
 enum OriginMode
 {

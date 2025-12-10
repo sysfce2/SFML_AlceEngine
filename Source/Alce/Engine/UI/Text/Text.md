@@ -72,17 +72,17 @@ void AddText(String str)
 
 Appends str to the existing text.
 
-## SetBackgroundImage
+## SetBackgroundTexture
 ```cpp
-void SetBackgroundImage(String path, bool keepAspect = true)
+void SetBackgroundTexture(String path, bool keepAspect = true)
 ```
 
 Sets a background texture from a file (relative to ./Assets/).
 keepAspect controls whether the texture preserves its original aspect ratio.
 
-## RemoveBackgroundImage
+## RemoveBackgroundTexture
 ```cpp
-void RemoveBackgroundImage()
+void RemoveBackgroundTexture()
 ```
 
 Removes any assigned background texture.

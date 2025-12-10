@@ -38,6 +38,7 @@ namespace SharedScene
 		SpriteRendererPtr backgroundRenderer;
 
 		Light2DPtr light;
+		AnimationPtr anima;
 
 		void AnimationManager();
 

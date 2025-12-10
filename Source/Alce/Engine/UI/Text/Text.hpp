@@ -80,9 +80,9 @@ namespace alce
 
         void AddText(String str);
 
-        void SetBackgroundImage(String path, bool keepAspect = true);
+        void SetBackgroundTexture(String path, bool keepAspect = true);
 
-        void RemoveBackgroundImage();
+        void RemoveBackgroundTexture();
 
         void EnableFixedBox(Vector2 boxSize);
 

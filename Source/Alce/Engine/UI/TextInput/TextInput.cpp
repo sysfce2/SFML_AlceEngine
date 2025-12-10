@@ -37,6 +37,13 @@ bool TextInput::HasFocus()
     return focused;
 }
 
+void TextInput::Clear()
+{
+    inputText = "";
+    cursorPosition = 0;
+    updateCursor();
+}
+
 void TextInput::Update()
 {
     box.setPosition(transform.position.x, transform.position.y);
@@ -265,7 +272,7 @@ void TextInput::updateCursor()
         tempRichText << sf::String("A");
 
         float charHeight = tempRichText.getLocalBounds().height;
-        cursor.setPosition(textPos.x - textOffset, textPos.y - (charHeight / 2));
+        cursor.setPosition(textPos.x - textOffset, textPos.y - (inputText.Length() == 0 ? (charHeight / 2) : 0));
     }
     else if (cursorPosition <= inputText.Length())
     {

@@ -345,7 +345,6 @@ def handleArguments(argument_stack):
                     prints(": generates a new object named \"Player\" in \"MyScene\"\n\n")      
                     prints("  ./Build/alce generate implementation=MyScene@Player", "grey")
                     prints(": implements all methods with \"//@impl\" decorator in the \"Player\" object class of scene \"MyScene\"\n\n")  
-                # TODO: Init command help
                 elif last == "init" or last == "i":
                     prints("\nCommand usage:\n\n", "underline")
                     prints("  [init, i]", "green")
@@ -360,9 +359,6 @@ def handleArguments(argument_stack):
                     prints(": the name of the current project.\n")
                     prints("    -> icon", "blue")
                     prints(": the .ico file for the executable.\n\n")
-                    prints("Examples:\n\n", "underline")
-                    #TODO:
-
                 else:
                     prints("\nUndefined help display for this command, use ")
                     prints("./Build/alce --help", "green")

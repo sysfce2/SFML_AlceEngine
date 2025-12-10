@@ -262,12 +262,10 @@ void Scene::Render()
 
                 if(gameObject->cardinals.Empty())
                 {
-                    // Sin cardinales → usar solo la posición
                     visible = camera->GetBounds().InArea(gameObject->transform.position.ToPixels());
                 }
                 else
                 {
-                    // Con cardinales → usar intersección de rectángulos
                     float minX = std::min({ gameObject->cardinals["top-left"]->x,
                                             gameObject->cardinals["bottom-left"]->x,
                                             gameObject->cardinals["top-right"]->x,
@@ -394,17 +392,8 @@ void Scene::Update()
     gameObjectList.RemoveIf([](GameObjectPtr gameObject) {
         return gameObject->destroyed;
     });
-    
 
     ls.Cast();
-
-    for(auto& canvas: canvasList)
-    {
-        if(canvas->enabled)
-        {
-            canvas->Update();
-        }
-    }
 }
 
 void Scene::SetCardinals(GameObjectPtr gameObject, Dictionary<String, Vector2Ptr> cardinals)

@@ -1,4 +1,0 @@
-~ Lista de tareas pendientes ~
-
-#TD1: Aplicar cambios de TextRenderer al UIElement Text
-#TD2: Agregar elementos de Candle a las particulas de ParticleSystem

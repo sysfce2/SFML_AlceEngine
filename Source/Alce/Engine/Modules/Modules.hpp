@@ -1,5 +1,9 @@
 #pragma once
 
+//---------------------------------------------------------------
+// Include all engine modules
+//---------------------------------------------------------------
+
 #include "Audio/Audio.hpp"
 #include "B2World/B2World.hpp"
 #include "Collections/Collections.hpp"
@@ -26,3 +30,33 @@
 #include "String/String.hpp"
 #include "Transform/Transform.hpp"
 #include "Utils/Utils.hpp"
+
+//---------------------------------------------------------------
+// Shared enums used across the engine
+//---------------------------------------------------------------
+
+#pragma region enums
+
+enum AnimationMode
+{
+    LoopForwards,
+    LoopBackwards,
+    OnceForwards,
+    OnceBackwards,
+    FirstFrameOnly
+};
+
+enum OriginMode
+{
+    TopLeft,
+    TopMiddle,
+    TopRight,
+    MiddleLeft,
+    Center,
+    MiddleRight,
+    BottomLeft,
+    BottomMiddle,
+    BottomRight
+};
+
+#pragma endregion

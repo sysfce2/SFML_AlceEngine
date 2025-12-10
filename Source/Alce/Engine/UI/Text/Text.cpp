@@ -27,7 +27,7 @@ void Text::AddText(String s)
     this->str += s.ToSFMLString();
 }
 
-void Text::SetBackgroundImage(String path, bool keepAspect)
+void Text::SetBackgroundTexture(String path, bool keepAspect)
 {
     path = String("./Assets/" + path.ToAnsiString());
 
@@ -43,7 +43,7 @@ void Text::SetBackgroundImage(String path, bool keepAspect)
     backgroundSprite.setTexture(backgroundTexture);
 }
 
-void Text::RemoveBackgroundImage()
+void Text::RemoveBackgroundTexture()
 {
     hasBackgroundTexture = false;
 }
@@ -491,6 +491,5 @@ void Text::Update()
     size = Vector2(richText.getGlobalBounds().width, richText.getGlobalBounds().height);
     size += (padding * 2);
 
-    // boxPos para Text (esquina superior izquierda)
     boxPos = transform.position;
 }

@@ -56,7 +56,8 @@ void Canvas::Update()
         el.first->transform.scale.x = *scale;
         el.first->transform.scale.y = *scale;
 
-        el.first->Update();  
+        // I really don't know why this line was duplicated 
+        // el.first->Update();  
 
         unsigned int currentValue = *el.second;
         if (previousValues[el.second] != currentValue)

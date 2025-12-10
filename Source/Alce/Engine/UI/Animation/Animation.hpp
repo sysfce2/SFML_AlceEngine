@@ -4,11 +4,14 @@
 
 namespace alce
 {
-    class Animation2D : public Component
+    class Animation : public UIElement
     {
     public:
 
-        Animation2D();
+        Animation() : UIElement("Animation")
+        {
+            
+        }
 
         void AddAnimation(String spritesheetFile, String name, int rows, int cols, int frameWidth, int frameHeight, int numFrames = -1);
 
@@ -28,23 +31,20 @@ namespace alce
 
         bool IsPlaying();
 
-        Dictionary<String, Vector2Ptr> GetCardinals();
-
         String GetCurrentAnimation();
+
+        void Init();
+
+        void Start();
 
         void Render();
 
         void Update();
 
-        Vector2 scale = Vector2(1, 1);
-
-        Vector2 offset = Vector2(0, 0);
-
     private:
-
+        
         Dictionary<String, List<RectShape*>> animations;
         Dictionary<String, sf::Sprite*> spritesheets;
-        Dictionary<String, Vector2Ptr> cardinals;
 
         String currentAnimation;
         AnimationMode currentMode;
@@ -59,7 +59,7 @@ namespace alce
         bool paused = false;
         bool flipHorizontal = false;
         bool flipVertical = false;
-
+        
         void DetermineNumFrames();
         void DetermineFirstFrameNum();
         void DetermineNextFrameNum();
@@ -67,5 +67,5 @@ namespace alce
         bool IsDrawable();
     };
 
-    typedef std::shared_ptr<Animation2D> Animation2dPtr;
+    typedef std::shared_ptr<Animation> AnimationPtr;
 }

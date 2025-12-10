@@ -28,6 +28,8 @@ namespace alce
 
         bool HasFocus();
 
+        void Clear();
+
         void Init();
 
         void Start();

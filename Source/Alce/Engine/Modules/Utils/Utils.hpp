@@ -51,5 +51,4 @@ namespace alce
 
         return result;
     }
-
 }

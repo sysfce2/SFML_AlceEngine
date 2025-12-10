@@ -12,7 +12,7 @@ It is useful for 2D lighting systems, dynamic illumination, and visual effects i
 The ```Light2D``` automatically updates its internal light source based on the ```GameObject```’s transform, including position and rotation. Radial lights use the beam angle property, while directed lights use beam width. Changes to range, intensity, fade, and color are immediately reflected in the visual output. The light follows the ```GameObject``` in real time, providing dynamic and adjustable 2D illumination.
 
 
-## Light Types
+# Light Types
 ```cpp
 enum class Type { Radial, Directed };
 ```
