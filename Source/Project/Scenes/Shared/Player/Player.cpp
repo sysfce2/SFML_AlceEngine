@@ -167,19 +167,28 @@ void SharedScene::Player::Init()
         ti->Clear();
     };
 
-    anima = std::make_shared<Animation>();
-    canvas->AddElement(anima);
-	anima->AddAnimation("dudegame/player/idle.png", "idle", 2, 2, 192, 116, 4);
-    anima->position = Vector2(200, 200);
+    // anima = std::make_shared<Animation>();
+    // canvas->AddElement(anima);
+	// anima->AddAnimation("dudegame/player/idle.png", "idle", 2, 2, 192, 116, 4);
+    // anima->position = Vector2(200, 200);
+    // anima->SetTimePerFrame(125);
+    // anima->enabled = true;
 
-	// anim->offset = Vector2(0, 14);
-	// anim->scale = Vector2(0.075f, 0.075f);
-    anima->SetTimePerFrame(125);
+    // ImagePtr img = std::make_shared<Image>();   
+    // img->AddTexture("meteor.png", "meteor");
+    // img->SetTexture("meteor");
+    // canvas->AddElement(img);
+    // img->position = Vector2(400, 200);
+    // img->borderWidth = 2;
+    // img->borderColor = Colors::Green;
+    // img->borderRadius = 3;
+    // img->backgroundColor = Colors::Red;
+
 }
 
 void SharedScene::Player::Start()
 {   
-    anima->PlayAnimation("idle");
+    // anima->PlayAnimation("idle");
 }
 
 void SharedScene::Player::OnImpact(GameObject* other)
@@ -255,6 +264,7 @@ void SharedScene::Player::SetterManager(String name, String value)
     if(name == "beam") light->SetBeamAngle(value.ParseFloat());
     if(name == "sortingLayer") sortingLayer = value.ParseInt();
 	if(name == "animation_offset") animation->offset = Vector2(value.Split(",").First().ParseFloat(), value.Split(",").Last().ParseFloat());
+    // if(name == "animation_padding") anima->padding = Vector2(value.Split(",").First().ParseFloat(), value.Split(",").Last().ParseFloat());
 }
 
 String SharedScene::Player::GetterManager(String name)

@@ -31,8 +31,6 @@ By default, Text ignores transform scaling (font size controls text size) and pl
 
 * ```String font```: Path or key of the font resource.
 
-* ```Vector2 padding```: Horizontal and vertical padding inside the background box.
-
 * ```float borderWidth```: Thickness of the box outline (0 = no outline).
 
 * ```Color borderColor```: Color of the box outline.
@@ -40,8 +38,6 @@ By default, Text ignores transform scaling (font size controls text size) and pl
 * ```Color backgroundColor```: Fill color of the box.
 
 * ```float borderRadius```: Corner roundness; if > 0 the box is drawn with rounded corners.
-
-* ```Vector2 size```: Final computed size of the text box (auto-updated each frame, unless  fixed box is enabled).
 
 * ```bool wordWrap```: Enables word wrapping when a fixed box is active. Defaults to true.
 

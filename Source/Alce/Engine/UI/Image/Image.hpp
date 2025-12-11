@@ -33,7 +33,16 @@ namespace alce
 
         Vector2 originOffset = Vector2(0.0f, 0.0f);
 
+        Color borderColor = Colors::Transparent;
+        float borderWidth = 0.0f;
+
+		float borderRadius = 0.0f;
+        Color backgroundColor = Colors::Transparent;
+
     private:
+
+        Vector2 boxPos;
+        Vector2 boxSize;
 
         Dictionary<String, TexturePtr> textures;
         std::unique_ptr<sf::Sprite> sprite;

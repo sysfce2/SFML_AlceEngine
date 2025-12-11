@@ -21,6 +21,14 @@ Because the component inherits all transform-related fields from ```UIElement```
 
 * ```Vector2 originOffset```: Optional position offset added to the sprite’s origin. Useful for fine-tuning alignment.
 
+* ```float borderWidth```: Thickness of the box outline (0 = no outline).
+
+* ```Color borderColor```: Color of the box outline.
+
+* ```Color backgroundColor```: Fill color of the box.
+
+* ```float borderRadius```: Corner roundness; if > 0 the box is drawn with rounded corners.
+
 # Constructors
 ```cpp
 Image()
