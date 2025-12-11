@@ -106,9 +106,9 @@ Alce Engine is completely open to new contributors. We welcome fresh ideas, feat
 
 * [Animation](Source/Alce/Engine/UI/Animation/Animation.md): component handles 2D spritesheet-based animations for a UI or game element. Animations can loop, play only once, or remain on the first frame.
 
-* [Button](Source/Alce/Engine/UI/Button/): represents an interactive UI element that can display text, respond to mouse events, and trigger custom callbacks on click, mouse enter, or mouse exit.
+* [Button](Source/Alce/Engine/UI/Button/Button.md): represents an interactive UI element that can display text, respond to mouse events, and trigger custom callbacks on click, mouse enter, or mouse exit.
 
-* [Image](Source/Alce/Engine/UI/Image/): represents a UI element that can display and manage multiple textures, allowing dynamic switching and rendering of images with adjustable origin offsets.
+* [Image](Source/Alce/Engine/UI/Image/Image.md): represents a UI element that can display and manage multiple textures, allowing dynamic switching and rendering of images with adjustable origin offsets.
 
 * [Text](Source/Alce/Engine/UI/Text/Text.md): represents a UI element that displays customizable text, allowing you to set color, font, size, style, borders, and background, with support for initialization from various data types.
 
