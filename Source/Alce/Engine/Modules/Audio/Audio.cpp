@@ -12,7 +12,7 @@ void AudioChannel::Add(String name, String file)
 {
     if(sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel already contain a sound named {}", {name});
+        Debug.Warning("AudioChannel::Add -> Audio Channel already contain a sound named {}", {name});
         return;
     }
 
@@ -20,7 +20,7 @@ void AudioChannel::Add(String name, String file)
 
     if(soundBuffer == nullptr)
     {
-        Debug.Warning("Error loading file {}", {file});
+        Debug.Warning("AudioChannel::Add -> Error loading file {}", {file});
         return;
     }
 
@@ -34,7 +34,7 @@ void AudioChannel::Delete(String name)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::Delete -> Audio Channel does not contain sound {}", {name});
         return;
     }
 
@@ -45,11 +45,11 @@ void AudioChannel::Play(String name)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::Play -> Audio Channel does not contain sound {}", {name});
         return;
     }
 
-    Debug.Log("playing {}", {name});
+    Debug.Log("AudioChannel::Play -> Playing {}", {name});
     sounds[name]->play();
 }
 
@@ -57,7 +57,7 @@ void AudioChannel::Pause(String name)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::Pause -> Audio Channel does not contain sound {}", {name});
         return;
     }
 
@@ -68,7 +68,7 @@ void AudioChannel::Stop(String name)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::Stop -> Audio Channel does not contain sound {}", {name});
         return;
     }
 
@@ -79,7 +79,7 @@ void AudioChannel::SetAttenuation(String name, float attenuation)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::SetAttenuation -> Audio Channel does not contain sound {}", {name});
         return;
     }
 
@@ -90,7 +90,7 @@ void AudioChannel::SetLoop(String name, bool flag)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::SetLoop -> Audio Channel does not contain sound {}", {name});
         return;
     }
 
@@ -101,7 +101,7 @@ void AudioChannel::SetPitch(String name, float pitch)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::SetPitch -> Audio Channel does not contain sound {}", {name});
         return;
     }
 
@@ -112,7 +112,7 @@ void AudioChannel::SetRelativeToListener(String name, bool flag)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::SetRelativeToListener -> Audio Channel does not contain sound {}", {name});
         return;
     }
 
@@ -121,14 +121,22 @@ void AudioChannel::SetRelativeToListener(String name, bool flag)
 
 SoundPtr AudioChannel::GetSound(String name)
 {
-    return sounds.HasKey(name) ? sounds[name] : nullptr;
+    if(!sounds.HasKey(name))
+    {
+        Debug.Warning("AudioChannel::GetSound -> Audio Channel does not contain sound {}", {name});
+        return nullptr;
+    }
+    else
+    {
+        return sounds[name];
+    }
 }
 
 bool AudioChannel::IsPlaying(String name)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::IsPlaying -> Audio Channel does not contain sound {}", {name});
         return false;
     }
 
@@ -139,7 +147,7 @@ bool AudioChannel::IsPaused(String name)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::IsPaused -> Audio Channel does not contain sound {}", {name});
         return false;
     }
 
@@ -150,7 +158,7 @@ bool AudioChannel::IsStopped(String name)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::IsStopped -> Audio Channel does not contain sound {}", {name});
         return false;
     }
 
@@ -161,7 +169,7 @@ float AudioChannel::GetAttenuation(String name)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::GetAttenuation -> Audio Channel does not contain sound {}", {name});
         return 0.0f;
     }
 
@@ -172,7 +180,7 @@ bool AudioChannel::IsLooping(String name)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::IsLooping -> Audio Channel does not contain sound {}", {name});
         return false;
     }
 
@@ -183,7 +191,7 @@ float AudioChannel::GetPitch(String name)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::GetPitch -> Audio Channel does not contain sound {}", {name});
         return 0.0f;
     }
 
@@ -194,7 +202,7 @@ bool AudioChannel::IsRelativeToListener(String name)
 {
     if(!sounds.HasKey(name))
     {
-        Debug.Warning("Audio Channel does not contain sound {}", {name});
+        Debug.Warning("AudioChannel::IsRelativeToListener -> Audio Channel does not contain sound {}", {name});
         return false;
     }
 
@@ -210,7 +218,7 @@ void AudioChannel::SetVolume(float volume)
 {
     if(volume < 0.0f)
     {
-        Debug.Warning("Volume cannot be less than 0");
+        Debug.Warning("AudioChannel::SetVolume -> Volume cannot be less than 0");
         return;
     }
 
@@ -240,7 +248,7 @@ void AUDIO::AddChannel(String name)
 {
     if(channels.HasKey(name))
     {
-        Debug.Warning("Audio Pipeline already contains channel {}", {name});
+        Debug.Warning("Audio::AddChannel -> Pipeline already contains channel {}", {name});
         return;
     }
 
@@ -251,7 +259,7 @@ void AUDIO::DeleteChannel(String name)
 {
     if(!channels.HasKey(name))
     {
-        Debug.Warning("Audio Pipeline does not contain channel {}", {name});
+        Debug.Warning("Audio::DeleteChannel -> Pipeline does not contain channel {}", {name});
         return;
     }
 
@@ -262,7 +270,7 @@ AudioChannelPtr AUDIO::GetChannel(String name)
 {
     if(!channels.HasKey(name))
     {
-        Debug.Warning("Audio Pipeline does not contain channel {}", {name});
+        Debug.Warning("Audio::GetChannel -> Pipeline does not contain channel {}", {name});
         return nullptr;
     }
 

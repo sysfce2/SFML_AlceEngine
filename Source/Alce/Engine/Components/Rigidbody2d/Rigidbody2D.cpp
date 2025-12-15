@@ -18,19 +18,19 @@ void Rigidbody2D::CreateBody(ShapePtr shape, BodyType bodyType, bool fixedRotati
 {
     if(shape == nullptr)
     {
-        Debug.Warning("Null shape for Component Rigidbody2D");
+        Debug.Warning("Rigidbody2D::CreateBody -> Null shape for Component Rigidbody2D");
         return;
     }
 
     if(world == nullptr)
     {
-        Debug.Warning("Null B2World for Component Rigidbody2D");
+        Debug.Warning("Rigidbody2D::CreateBody -> Null B2World for Component Rigidbody2D");
         return;
     }
 
     if(body != nullptr)
     {
-        Debug.Warning("Rigidbody2D already has a body");
+        Debug.Warning("Rigidbody2D::CreateBody -> Rigidbody2D already has a body");
         return;
     }
 
@@ -52,7 +52,7 @@ void Rigidbody2D::CreateBody(ShapePtr shape, BodyType bodyType, bool fixedRotati
         bdef.type = b2_kinematicBody;
         break;
     default:
-        Debug.Warning("Invalid shape type");
+        Debug.Warning("Rigidbody2D::CreateBody -> Invalid shape type");
         return;
     }
 
@@ -71,7 +71,7 @@ void Rigidbody2D::CreateBody(ShapePtr shape, BodyType bodyType, bool fixedRotati
     fixDef.filter.categoryBits = mask.GetCategory();
     fixDef.filter.maskBits = mask.GetMask();
 
-    body = world->__world->CreateBody(&bdef); // Crear el body en la posición especificada
+    body = world->__world->CreateBody(&bdef); // Create the body at the specified position
 
     if(shape->GetType() == ShapeType::rect)
     {
@@ -119,7 +119,7 @@ void Rigidbody2D::CreateBody(ShapePtr shape, BodyType bodyType, bool fixedRotati
     }
     else
     {
-        Debug.Warning("Undefined shape");
+        Debug.Warning("Rigidbody2D::CreateBody -> Undefined shape");
         return;
     }
 
@@ -144,7 +144,7 @@ void Rigidbody2D::SetDensity(float density)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetDensity -> Component Rigidbody2D is not enabled");
         return;
     }
 
@@ -165,7 +165,7 @@ void Rigidbody2D::SetFriction(float friction)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetFriction -> Component Rigidbody2D is not enabled");
         return;
     }
 
@@ -186,7 +186,7 @@ void Rigidbody2D::SetRestitution(float restitution)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetRestitution -> Component Rigidbody2D is not enabled");
         return;
     }
 
@@ -206,7 +206,7 @@ void Rigidbody2D::SetRestitutionThreshold(float restitutionThreshold)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetRestitutionThreshold -> Component Rigidbody2D is not enabled");
         return;
     }
 
@@ -221,13 +221,13 @@ void Rigidbody2D::ApplyForce(Vector2 force, bool wake)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::ApplyForce -> Component Rigidbody2D is not enabled");
         return;
     }
 
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::ApplyForce -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -238,13 +238,13 @@ void Rigidbody2D::ApplyLinearForce(Vector2 force, bool wake)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::ApplyLinearForce -> Component Rigidbody2D is not enabled");
         return;
     }
 
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::ApplyLinearForce -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -255,7 +255,7 @@ Vector2 Rigidbody2D::GetLinearVelocity()
 {
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::GetLinearVelocity -> Component Rigidbody2D has no body created");
         return Vector2(0.0f, 0.0f);
     }
 
@@ -266,13 +266,13 @@ void Rigidbody2D::SetLinearVelocity(Vector2 linearVelocity)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetLinearVelocity -> Component Rigidbody2D is not enabled");
         return;
     }
 
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::SetLinearVelocity -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -283,13 +283,13 @@ void Rigidbody2D::SetVerticalVelocity(float vy)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetVerticalVelocity -> Component Rigidbody2D is not enabled");
         return;
     }
 
 	if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::SetVerticalVelocity -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -301,13 +301,13 @@ void Rigidbody2D::SetHorizontalVelocity(float vx)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetHorizontalVelocity -> Component Rigidbody2D is not enabled");
         return;
     }
 
 	if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::SetHorizontalVelocity -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -319,13 +319,13 @@ void Rigidbody2D::SetAngularVelocity(float va)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetAngularVelocity -> Component Rigidbody2D is not enabled");
         return;
     }
 
 	if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::SetAngularVelocity -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -336,13 +336,13 @@ void Rigidbody2D::SetAngularDamping(float ad)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetAngularDamping -> Component Rigidbody2D is not enabled");
         return;
     }
 
 	if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::SetAngularDamping -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -353,13 +353,13 @@ void Rigidbody2D::SetLinearDamping(float ld)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetLinearDamping -> Component Rigidbody2D is not enabled");
         return;
     }
 
 	if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::SetLinearDamping -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -370,13 +370,13 @@ void Rigidbody2D::ApplyAngularImpulse(float impulse)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::ApplyAngularImpulse -> Component Rigidbody2D is not enabled");
         return;
     }
 
 	if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::ApplyAngularImpulse -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -387,13 +387,13 @@ void Rigidbody2D::ApplyTorque(float torque, bool wake)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::ApplyTorque -> Component Rigidbody2D is not enabled");
         return;
     }
 
 	if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::ApplyTorque -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -404,7 +404,7 @@ float Rigidbody2D::GetAngle()
 {
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::GetAngle -> Component Rigidbody2D has no body created");
         return 0.0f;
     }
 
@@ -415,13 +415,13 @@ void Rigidbody2D::SetAngle(float angle)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetAngle -> Component Rigidbody2D is not enabled");
         return;
     }
 
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::SetAngle -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -432,7 +432,7 @@ float Rigidbody2D::GetInertia()
 {
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::GetInertia -> Component Rigidbody2D has no body created");
         return 0.0f;
     }
 
@@ -443,7 +443,7 @@ float Rigidbody2D::GetGravityScale()
 {
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::GetGravityScale -> Component Rigidbody2D has no body created");
         return 0.0f;
     }
 
@@ -454,7 +454,7 @@ BodyType Rigidbody2D::GetBodyType()
 {
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::GetBodyType -> Component Rigidbody2D has no body created");
         return BodyType::none_body;
     }
 
@@ -465,13 +465,13 @@ void Rigidbody2D::SetBodyType(BodyType bodyType)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetBodyType -> Component Rigidbody2D is not enabled");
         return;
     }
 
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::SetBodyType -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -495,7 +495,7 @@ ShapeType Rigidbody2D::GetShapeType()
 {
     if(shape == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no shape defined");
+        Debug.Warning("Rigidbody2D::GetShapeType -> Component Rigidbody2D has no shape defined");
         return ShapeType::none;
     }
 
@@ -506,7 +506,7 @@ Vector2 Rigidbody2D::GetPosition()
 {
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::GetPosition -> Component Rigidbody2D has no body created");
         return Vector2(0.0f, 0.0f);
     }
 
@@ -521,6 +521,10 @@ void Rigidbody2D::SetPosition(Vector2 position, bool awake)
         transform->position = position;
         body->SetAwake(awake);
     }
+    else
+    {
+        Debug.Warning("Rigidbody2D::SetPosition -> Component Rigidbody2D has no body created");
+    }
 }
 
 void Rigidbody2D::SetPosition(float x, float y, bool awake)
@@ -530,6 +534,10 @@ void Rigidbody2D::SetPosition(float x, float y, bool awake)
         body->SetTransform(b2Vec2(x, y), body->GetAngle());
         transform->position = Vector2(x, y);
         body->SetAwake(awake);
+    }
+    else
+    {
+        Debug.Warning("Rigidbody2D::SetPosition -> Component Rigidbody2D has no body created");
     }
 }
 
@@ -541,19 +549,23 @@ void Rigidbody2D::SetRotation(float angle, bool awake)
         transform->rotation = -1.0f * body->GetAngle() * DEG_PER_RAD;
         body->SetAwake(awake);
     }
+    else
+    {
+        Debug.Warning("Rigidbody2D::SetRotation -> Component Rigidbody2D has no body created");
+    }
 }
 
 void Rigidbody2D::SetFixedRotation(bool flag)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetFixedRotation -> Component Rigidbody2D is not enabled");
         return;
     }
 
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::SetFixedRotation -> Component Rigidbody2D has no body created");
         return;
     }
 
@@ -564,13 +576,13 @@ void Rigidbody2D::SetTag(String tag)
 {
     if(!enabled)
     {
-        Debug.Warning("Component Rigidbody2D is not enabled");
+        Debug.Warning("Rigidbody2D::SetTag -> Component Rigidbody2D is not enabled");
         return;
     }
 
     if(body == nullptr)
     {
-        Debug.Warning("Component Rigidbody2D has no body created");
+        Debug.Warning("Rigidbody2D::SetTag -> Component Rigidbody2D has no body created");
         return;
     }
 

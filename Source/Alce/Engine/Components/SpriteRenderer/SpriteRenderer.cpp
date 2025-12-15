@@ -18,7 +18,7 @@ void SpriteRenderer::AddTexture(String file, String name)
 {
     if(textures.HasKey(name))
     {
-        Debug.Warning("SpriteRenderer already contains a texture named \"{}\"", {file});
+        Debug.Warning("SpriteRenderer::AddTexture -> SpriteRenderer already contains a texture named \"{}\"", {file});
         return;
     }
     
@@ -34,7 +34,7 @@ void SpriteRenderer::SetTexture(String name)
 {
     if(!textures.HasKey(name))
     {
-        Debug.Warning("SpriteRenderer does not contain a texture named \"{}\"", {name});
+        Debug.Warning("SpriteRenderer::SetTexture -> SpriteRenderer does not contain a texture named \"{}\"", {name});
         return;
     }
 
@@ -45,7 +45,7 @@ void SpriteRenderer::SetAlpha(int alpha)
 {
     if(alpha < 0 || alpha > 255)
     {
-        Debug.Warning("Alpha value must be between 0 and 255, received: {}", {alpha});
+        Debug.Warning("SpriteRenderer::SetAlpha -> Alpha value must be between 0 and 255, received: {}", {alpha});
         return;
     }
 
@@ -61,7 +61,7 @@ void SpriteRenderer::RemoveTexture(String name)
 {
     if(!textures.GetKeyList().Contains(name))
     {
-        Debug.Warning("SpriteRenderer does not contain a texture named \"{}\"", {name});
+        Debug.Warning("SpriteRenderer::RemoveTexture -> SpriteRenderer does not contain a texture named \"{}\"", {name});
         return;
     }
 
@@ -72,7 +72,7 @@ void SpriteRenderer::SetTextureSmooth(String name, bool flag)
 {
     if(!textures.GetKeyList().Contains(name))
     {
-        Debug.Warning("SpriteRenderer does not contain a texture named \"{name}\"", {name});
+        Debug.Warning("SpriteRenderer::SetTextureSmooth -> SpriteRenderer does not contain a texture named \"{name}\"", {name});
         return;
     }
 

@@ -104,7 +104,6 @@ void Button::EventManager(sf::Event& event)
 
     if (isMouseOver)
     {
-
         if (!wasMouseOver && onMouseEnter)
         {
             onMouseEnter();

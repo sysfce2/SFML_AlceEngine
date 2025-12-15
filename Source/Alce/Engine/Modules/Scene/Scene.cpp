@@ -79,7 +79,7 @@ void Scene::AddGameObject(GameObjectPtr gameObject, String alias)
             {
                 if(go->alias == alias) 
                 {
-                    Debug.Warning("Scene already contains alias name \"{}\"", {alias});
+                    Debug.Warning("Scene::AddGameObject -> Scene already contains alias name \"{}\"", {alias});
                     return;
                 }
             }
@@ -117,7 +117,7 @@ void Scene::AddGameObject(GameObjectPtr gameObject, String alias)
 
         if(gameObjectList.Contains(gameObject))
         {
-            Debug.Warning("Scene already contains gameObject \"{}\"", {gameObject->id});
+            Debug.Warning("Scene::AddGameObject -> Scene already contains gameObject \"{}\"", {gameObject->id});
             return;
         }
 
@@ -142,7 +142,7 @@ void Scene::AddGameObject(GameObjectPtr gameObject, String alias)
     }
     catch(const std::exception& e)
     {
-        Debug.Warning("Internal error: {}", {std::string(e.what())});
+        Debug.Warning("Scene::AddGameObject -> Internal error: {}", {std::string(e.what())});
     }
 }
 
@@ -155,7 +155,7 @@ void Scene::AddCanvas(CanvasPtr canvas, ComponentPtr camera)
 {
     if(canvasList.Contains(canvas))
     {
-        Debug.Warning("Scene already contains Canvas \"{}\"", {canvas->id});
+        Debug.Warning("Scene::AddCanvas -> Scene already contains Canvas \"{}\"", {canvas->id});
         return;
     }
 

@@ -1006,7 +1006,7 @@ def build():
 
 def createIcon():
 
-    if not os.path.exists(project_icon):
+    if not os.path.exists(str(project_icon)):
         error(f"Project icon path \"{project_icon}\" is invalid")
         return False
 

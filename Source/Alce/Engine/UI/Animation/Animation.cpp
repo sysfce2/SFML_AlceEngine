@@ -56,7 +56,7 @@ void Animation::PlayAnimation(String name, AnimationMode mode)
 
     if(!animations.HasKey(name))
     {
-        Debug.Warning("There is not animation named \"{}\" in the stack", {name});
+        Debug.Warning("[UI] Animation::PlayAnimation -> There is not animation named \"{}\" in the stack", {name});
         return;
     }
 

@@ -18,7 +18,7 @@ bool TileMap::Load(String jsonFile, String tilesetFile, int _tilesPerRow)
     Json mapJson;
     if (!mapJson.FromFile(jsonFile))
     {
-        Debug.Warning("TileMap: cannot load JSON file {}", { jsonFile });
+        Debug.Warning("TileMap::Load -> cannot load JSON file {}", { jsonFile });
         return false;
     }
 
@@ -29,7 +29,7 @@ bool TileMap::Load(String jsonFile, String tilesetFile, int _tilesPerRow)
 
     if (!tileset.loadFromFile(tilesetFile.ToAnsiString()))
     {
-        Debug.Warning("TileMap: cannot load tileset {}", {tilesetFile});
+        Debug.Warning("TileMap::Load -> cannot load tileset {}", {tilesetFile});
         return false;
     }
 

@@ -19,6 +19,7 @@ void TextRenderer::SetBackgroundTexture(String path, bool keepAspect)
     if (!backgroundTexture.loadFromFile(path.ToAnsiString())) 
     {
         hasBackgroundTexture = false;
+        Debug.Warning("TextRenderer::SetBackgroundTexture -> Could not load texture from path: {}", {path});
         return;
     }
     

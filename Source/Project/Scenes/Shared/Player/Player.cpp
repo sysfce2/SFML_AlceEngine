@@ -184,6 +184,13 @@ void SharedScene::Player::Init()
     // img->borderRadius = 3;
     // img->backgroundColor = Colors::Red;
 
+    ps = std::make_shared<ParticleSystem>();
+    AddComponent(ps);
+
+    ps->Behavior([](Particle& particle) {
+        
+    }); 
+
 }
 
 void SharedScene::Player::Start()
@@ -213,6 +220,11 @@ void SharedScene::Player::OnImpactEnd(GameObject* other)
 
 void SharedScene::Player::Update()
 {
+    if(Input.IsKeyDown(Keyboard::Y))
+    {
+        ps->Emit(); 
+    }
+
 	velocity = running ? runSpeed : walkSpeed;
 
 	if(Input.IsKeyPressed(Keyboard::LShift))

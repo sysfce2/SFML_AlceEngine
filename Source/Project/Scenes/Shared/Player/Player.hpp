@@ -37,6 +37,8 @@ namespace SharedScene
 		CanvasPtr canvas;
 		SpriteRendererPtr backgroundRenderer;
 
+		ParticleSystemPtr ps;
+
 		Light2DPtr light;
 		AnimationPtr anima;
 

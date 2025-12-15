@@ -24,7 +24,7 @@ void GameObject::AddTag(String tag)
     if(!tags.Contains(tag)) tags.Add(tag);
     else
     {
-        Debug.Warning("GameObject already contains tag \"{}\"", {tag});
+        Debug.Warning("GameObject::AddTag -> GameObject already contains tag \"{}\"", {tag});
     }
 }
 
@@ -32,7 +32,7 @@ void GameObject::RemoveTag(String tag)
 {
     if(!tags.Contains(tag))
     {
-        Debug.Warning("GameObject does not contains tag \"{}\"", {tag});
+        Debug.Warning("GameObject::RemoveTag -> GameObject does not contains tag \"{}\"", {tag});
         return;
     }
 
@@ -50,7 +50,7 @@ void GameObject::Destroy()
 {
     if(destroyed)
     {
-        Debug.Warning("GameObject is already destroyed");
+        Debug.Warning("GameObject::Destroy -> GameObject is already destroyed");
         return;
     }
 
@@ -64,7 +64,7 @@ void GameObject::AddComponent(ComponentPtr component)
     {
         if(forbiddenComponents.Contains(component->GetId()))
         {
-            Debug.Warning("Component \"{}\" is forbidden for this gameObject", {component->GetId()});
+            Debug.Warning("GameObject::AddComponent -> Component \"{}\" is forbidden for this gameObject", {component->GetId()});
             return;
         }
 
@@ -125,7 +125,7 @@ void GameObject::AddComponent(ComponentPtr component)
     }
     catch(const std::exception& e)
     {
-        Debug.Warning("Internal error: {}", {std::string(e.what())});
+        Debug.Warning("GameObject::AddComponent -> Internal error: {}", {std::string(e.what())});
     }
 }
 
@@ -150,7 +150,7 @@ void GameObject::DetachParent()
 {
     if(parent == nullptr)
     {
-        Debug.Warning("GameObject doesn't have any parent attached");
+        Debug.Warning("GameObject::DetachParent -> GameObject doesn't have any parent attached");
         return;
     }
 
