@@ -50,6 +50,7 @@ void Particle::Create(Vector2 position, bool enableCollision)
 Particle::Particle()
 {
     forbiddenComponents = {"Rigidbody2D"};
+    AddTag("particle");
 }
 
 Particle::~Particle()
@@ -296,7 +297,7 @@ void ParticleSystem::SetEmitArea(ShapePtr emitArea)
     }
 }
 
-void ParticleSystem::Emit()
+void ParticleSystem::Emit(bool flag)
 {
     if(!behaviorLambda)
     {
@@ -304,19 +305,18 @@ void ParticleSystem::Emit()
         return;
     }
 
-    emit = true;
-}
-
-void ParticleSystem::Stop()
-{
-    if(!emit)
+    if(!flag) 
     {
-        Debug.Warning("ParticleSystem::Stop -> ParticleSystem is not emitting");
-        return;
-    }
+        if(!emit)
+        {
+            Debug.Warning("ParticleSystem::Stop -> ParticleSystem is not emitting");
+            return;
+        }
 
-    emit = false;
-    elapsed.Reset();
+        emit = false;
+        elapsed.Reset();
+    }
+    else emit = true;
 }
 
 #pragma endregion
@@ -392,7 +392,7 @@ void ParticleSystem::Update()
         particle->body->SetTransform(summonPosition.Tob2Vec2(), particle->body->GetAngle());
         particle->Config(behaviorLambda);
         particles.Add(particle);
-        Alce.GetCurrentScene()->AddGameObject(particle);
+        Alce.GetCurrentScene()->pendingAdd.Add(particle);
         elapsed.Reset();
     }
 
@@ -471,7 +471,5 @@ void ParticleSystem::DebugRender()
         Alce.GetWindow().draw(polygonShape);
     }
 }
-
-#pragma endregion
 
 #pragma endregion

@@ -86,7 +86,7 @@ void SharedScene::Player::Init()
     text->font = "fonts/Merriweather/Merriweather-Regular.ttf";
     text->fontSize = 17;
     *text += "<bold>Alce Engine Sample Project</bold>";
-    *text += "\n<bold>by <underlined>@Ekrol34</underlined></bold>";
+    *text += "\n<bold>by <underlined>@ekrol34</underlined></bold>";
     text->borderRadius = 5;
     text->borderWidth = 3;
     text->borderColor = Colors::Yellow;
@@ -184,12 +184,45 @@ void SharedScene::Player::Init()
     // img->borderRadius = 3;
     // img->backgroundColor = Colors::Red;
 
-    ps = std::make_shared<ParticleSystem>();
-    AddComponent(ps);
+    // Light2DPtr light = std::make_shared<Light2D>();
+    // AddComponent(light);
 
+    ps = std::make_shared<ParticleSystem>();
+    ps->EnableCollision(false);
     ps->Behavior([](Particle& particle) {
-        
-    }); 
+
+        SpriteRendererPtr p_sr = std::make_shared<SpriteRenderer>();
+        particle.AddComponent(p_sr);
+
+        p_sr->enabled = true;
+        p_sr->AddTexture("meteor.png", "p_meteor");
+        p_sr->SetTexture("p_meteor");
+
+        Light2DPtr light;
+        light = std::make_shared<Light2D>();
+        particle.AddComponent(light);
+
+        particle.SetLifetime(Time({
+            {"seconds", 1.0f}
+        }));
+        particle.ApplyForce(Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * 0.3f);
+        particle.sortingLayer = 1;
+        particle.SetDensity(0.5f);
+        particle.SetFixedRotation();
+    });
+
+    List<Vector2> vertexarr = {
+        Vector2(0.0f, 0.0f), 
+        Vector2(2.0f, 0.0f),
+        Vector2(1.0f, 2.0f) 
+    };
+
+    ps->SetEmitArea(std::make_shared<PolygonShape>(vertexarr));
+    ps->SetDelay(Time({
+        {"seconds", 0.5f}
+    }));
+
+    AddComponent(ps);
 
 }
 
@@ -218,12 +251,17 @@ void SharedScene::Player::OnImpactEnd(GameObject* other)
     }
 }
 
+bool toggle = true;
+
 void SharedScene::Player::Update()
 {
     if(Input.IsKeyDown(Keyboard::Y))
     {
-        ps->Emit(); 
+        ps->Emit(toggle); 
+        toggle = !toggle;
     }
+
+    status = "idle";
 
 	velocity = running ? runSpeed : walkSpeed;
 
@@ -254,15 +292,15 @@ void SharedScene::Player::Update()
         if(grounded) status = "idle";
     }
 
-    if (Input.IsKeyDown(Keyboard::Space) && grounded)
-    {
-        rigidbody2d->ApplyLinearForce(Vector2(0.0f, 90.0f));
+    // if (Input.IsKeyDown(Keyboard::Space) && grounded)
+    // {
+    //     rigidbody2d->ApplyLinearForce(Vector2(0.0f, 90.0f));
 
-        if(status == "walk-forward") status = "jump-forward";
-        if(status == "walk-backward") status = "jump-backward";
-        if(status == "idle") status = "jump-forward";
-        grounded = false; 
-    }
+    //     if(status == "walk-forward") status = "jump-forward";
+    //     if(status == "walk-backward") status = "jump-backward";
+    //     if(status == "idle") status = "jump-forward";
+    //     grounded = false; 
+    // }
 
     AnimationManager();
 }

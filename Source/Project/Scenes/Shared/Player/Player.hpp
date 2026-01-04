@@ -16,6 +16,14 @@ namespace SharedScene
 
 		void Start();
 
+		void OnCollisionEnter(GameObject* other)
+		{
+			if(other->HasTag("particle"))
+			{
+				Debug.Log("Contacto con particula");
+			}
+		}
+
 		void OnImpact(GameObject* other);
 
 		void OnImpactEnd(GameObject* other);

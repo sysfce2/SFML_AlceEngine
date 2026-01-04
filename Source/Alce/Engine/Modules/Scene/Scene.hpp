@@ -85,6 +85,7 @@ namespace alce
         friend class GameObject;
         friend class ARL_PROCESSOR;
         friend class Rigidbody2D;
+        friend class ParticleSystem;
         
         B2WorldPtr world = nullptr;
 
@@ -92,6 +93,7 @@ namespace alce
 
         String name;
         List<GameObjectPtr> gameObjectList;
+        List<GameObjectPtr> pendingAdd;
         unsigned int maxLayer;
 
         List<CanvasPtr> canvasList;

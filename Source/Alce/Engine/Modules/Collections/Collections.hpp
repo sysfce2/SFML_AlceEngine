@@ -238,7 +238,7 @@ namespace alce
 			this->vector = vector;
 		}
 
-		T operator[](size_t index)
+		T& operator[](size_t index)
 		{
 			if (index > this->Length() - 1) 
 				throw exception::collections::EmptyListException("<?> Here -> alce::List::operator[](size_t index)\n<!> Reason -> Index out of bounds");
@@ -258,38 +258,41 @@ namespace alce
 
 		//Iteration stuff
 
-		typedef T* iterator;
-        typedef const T* const_iterator;
+		// typedef T* iterator;
+        // typedef const T* const_iterator;
 
-		iterator begin()
-        {
-            return vector.data();
-        }
+		// iterator begin()
+        // {
+        //     return vector.data();
+        // }
 
-        iterator end()
-        {
-            return vector.data() + vector.size();
-        }
+        // iterator end()
+        // {
+        //     return vector.data() + vector.size();
+        // }
 
-        const_iterator begin() const
-        {
-            return vector.data();
-        }
+		auto begin() { return vector.begin(); }
+		auto end() { return vector.end(); }
 
-        const_iterator end() const
-        {
-            return vector.data() + vector.size();
-        }
+        // const_iterator begin() const
+        // {
+        //     return vector.data();
+        // }
 
-        const_iterator cbegin() const
-        {
-            return vector.data();
-        }
+        // const_iterator end() const
+        // {
+        //     return vector.data() + vector.size();
+        // }
 
-        const_iterator cend() const
-        {
-            return vector.data() + vector.size();
-        }
+        // const_iterator cbegin() const
+        // {
+        //     return vector.data();
+        // }
+
+        // const_iterator cend() const
+        // {
+        //     return vector.data() + vector.size();
+        // }
 
 	protected:
 
@@ -510,38 +513,41 @@ namespace alce
 
 		//Iteration stuff
 
-		typedef typename List<Pair<K, V>>::iterator iterator;
-        typedef typename List<Pair<K, V>>::const_iterator const_iterator;
+		// typedef typename List<Pair<K, V>>::iterator iterator;
+        // typedef typename List<Pair<K, V>>::const_iterator const_iterator;
 
-        iterator begin()
-        {
-            return list.begin();
-        }
+        // iterator begin()
+        // {
+        //     return list.begin();
+        // }
 
-        iterator end()
-        {
-            return list.end();
-        }
+        // iterator end()
+        // {
+        //     return list.end();
+        // }
 
-        const_iterator begin() const
-        {
-            return list.begin();
-        }
+		auto begin() { return list.begin(); }
+		auto end() { return list.end(); }
 
-        const_iterator end() const
-        {
-            return list.end();
-        }
+        // const_iterator begin() const
+        // {
+        //     return list.begin();
+        // }
 
-        const_iterator cbegin() const
-        {
-            return list.cbegin();
-        }
+        // const_iterator end() const
+        // {
+        //     return list.end();
+        // }
 
-        const_iterator cend() const
-        {
-            return list.cend();
-        }
+        // const_iterator cbegin() const
+        // {
+        //     return list.cbegin();
+        // }
+
+        // const_iterator cend() const
+        // {
+        //     return list.cend();
+        // }
 
 	private:
 

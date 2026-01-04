@@ -39,7 +39,7 @@ void Test1Scene::Body::Init()
     AddComponent(camera);    
 
     ps = std::make_shared<ParticleSystem>();
-    ps->enableCollision = false;
+    ps->EnableCollision(false);
     ps->Behavior([](Particle& particle) {
 
         SpriteRendererPtr p_sr = std::make_shared<SpriteRenderer>();

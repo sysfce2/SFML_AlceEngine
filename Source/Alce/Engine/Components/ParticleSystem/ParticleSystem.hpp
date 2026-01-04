@@ -96,23 +96,26 @@ namespace alce
 
         void SetEmitArea(ShapePtr emitArea);
 
-        void Emit();
-
-        void Stop();
+        void Emit(bool flag = true);
 
         void Behavior(std::function<void(Particle&)> behaviorLambda)
         {
             this->behaviorLambda = behaviorLambda;
         }
 
-        Vector2 offset = Vector2(0.0f, 0.0f);
+        void EnableCollision(bool flag = true)
+        {
+            enableCollision = flag;
+        }
 
-        bool enableCollision = false;
+        Vector2 offset = Vector2(0.0f, 0.0f);
 
     private:
 
         Dictionary<float, TexturePtr> textures;
         List<ParticlePtr> particles;
+
+        bool enableCollision = false;
 
         std::function<void(Particle&)> behaviorLambda = [](Particle& particle) {
             particle.ApplyForce(Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * 0.1f);
