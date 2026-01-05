@@ -116,6 +116,10 @@ void LightingArea2D::Update()
     lightingArea->setPosition(position.ToPixels().ToVector2f());
     lightingArea->setAreaOpacity(opacity);
 	lightingArea->setAreaColor(color.ToSFMLColor());
+
+    lights.RemoveIf([](std::shared_ptr<candle::LightSource> light) {
+        return light->destroy;
+    });
 }
 
 #pragma endregion

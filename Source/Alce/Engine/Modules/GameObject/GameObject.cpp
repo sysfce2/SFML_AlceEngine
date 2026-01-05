@@ -81,7 +81,11 @@ void GameObject::AddComponent(ComponentPtr component)
             return a < b;
         });
 
-        if(scene == nullptr) return;
+        if(scene == nullptr) 
+        {
+            Debug.Warning("GameObject::AddComponent -> GameObject \"{}\" is not attached to a scene. Components may not function correctly.", {id});
+            return;
+        }
 
         Light2D* light = dynamic_cast<Light2D*>(component.get());
         if(light) ((Scene*) scene)->ls.AddLight(light->light);

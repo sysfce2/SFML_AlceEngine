@@ -1,4 +1,5 @@
 #include "ParticleSystem.hpp"
+#include "../Light2D/Light2D.hpp"
 
 using namespace alce;
 
@@ -250,6 +251,11 @@ void Particle::SetLifetime(Time lifetime)
     this->lifetime = lifetime;
 }
 
+Time Particle::GetLifeTime()
+{
+    return lifetime;
+}
+
 void Particle::Update()
 {
     lifetime -= Chrono.deltaTime;
@@ -267,6 +273,8 @@ void Particle::Update()
 
     transform.position = body->GetPosition();
     transform.rotation = -1.0f * body->GetAngle() * DEG_PER_RAD;
+
+    updateLambda(*this);
 }
 
 #pragma endregion
@@ -299,7 +307,7 @@ void ParticleSystem::SetEmitArea(ShapePtr emitArea)
 
 void ParticleSystem::Emit(bool flag)
 {
-    if(!behaviorLambda)
+    if(!startLambda)
     {
         Debug.Warning("ParticleSystem::Emit -> There is no particle behavior defined");
         return;
@@ -390,14 +398,21 @@ void ParticleSystem::Update()
 
         particle->Create(summonPosition, enableCollision);
         particle->body->SetTransform(summonPosition.Tob2Vec2(), particle->body->GetAngle());
-        particle->Config(behaviorLambda);
+        particle->scene = ((GameObject*) owner)->scene;
+        particle->Config(startLambda);
+        if(updateLambda) particle->updateLambda = updateLambda;
+
         particles.Add(particle);
         Alce.GetCurrentScene()->pendingAdd.Add(particle);
         elapsed.Reset();
     }
 
     particles.RemoveIf([](ParticlePtr particle) {
-        if(particle->lifetime <= 0.0f) particle->Destroy();
+        if(particle->lifetime <= 0.0f) {
+            auto light_c = particle->GetComponent<Light2D>();
+            if(light_c != nullptr) light_c->light->destroy = true;
+            particle->Destroy();            
+        }
         return particle->lifetime <= 0.0f;
     });
 

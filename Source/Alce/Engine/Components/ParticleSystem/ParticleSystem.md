@@ -47,17 +47,58 @@ Sets the spawn area for new particles.
 
 ## Emit
 ```cpp
-void Emit()
+void Emit(bool flag = true)
 ```
 
-Starts emitting particles.
+If flag is true, starts emitting particles. If its false, stops emission and resets timer.
 
-## Stop
+## SetStart
 ```cpp
-void Stop()
+void SetStart(std::function<void(Particle&)> startLambda)
 ```
 
-Stops emission and resets timer.
+Defines a function that is executed once for each particle immediately after it is created.
+
+This lambda is intended for one-time initialization logic, such as:
+
+* Setting initial velocity or impulse
+
+* Applying initial forces
+
+* Configuring physical properties (density, restitution, damping)
+
+* Assigning lifetime values
+
+The function is called exactly once per particle, before it starts updating.
+
+## SetUpdate
+```cpp
+void SetUpdate(std::function<void(Particle&)> updateLambda)
+```
+
+Defines a per-frame update function for each particle.
+
+This lambda is executed every frame after the particle updates its physics state.
+It allows custom behavior such as:
+
+* Modifying velocity or forces over time
+
+* Applying additional logic based on lifetime
+
+* Implementing custom motion or visual effects
+
+## EnableCollision
+```cpp
+void EnableCollision(bool flag = true)
+```
+
+Enables or disables collision handling for newly emitted particles.
+
+* If enabled, particles will interact with the physics world according to their collision settings.
+
+* If disabled, particles will be created without collision response and will pass through other objects.
+
+This setting only affects particles created after the call.
 
 
 # ✳️ Particle
@@ -216,4 +257,13 @@ void SetLifetime(Time lifetime)
 ```
 
 Defines how long the particle will live.
+
+## GetLifetime
+```cpp
+Time GetLifetime()
+```
+
+Returs the particle's remaining lifetime.
+
+
 

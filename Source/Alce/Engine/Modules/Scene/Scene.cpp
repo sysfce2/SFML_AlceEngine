@@ -94,36 +94,6 @@ void Scene::AddGameObject(GameObjectPtr gameObject, String alias)
             }
         }
 
-        // if(!sortingLayers.GetKeyList().Contains(gameObject->sortingLayer))
-        // {
-        //     GameObjectListPtr list = std::make_shared<List<GameObjectPtr>>();
-        //     list.get()->Add(gameObject);
-
-        //     sortingLayers.Set(gameObject->sortingLayer, list);
-        //     gameObject->scene = this;
-
-        //     gameObject->alias = alias;
-
-        //     gameObject->Init();
-
-        //     for(auto& c: gameObject->GetComponents())
-        //     {
-        //         c->Init();
-        //     }
-            
-        //     if(persist)
-        //     {
-        //         UpdateJson();
-        //     }
-        //     return;
-        // }
-
-        // if(sortingLayers[gameObject->sortingLayer].get()->Contains(gameObject))
-        // {
-        //     Debug.Warning("Scene already contains gameObject \"{}\"", {gameObject->id});
-        //     return;
-        // }
-
         if(gameObjectList.Contains(gameObject))
         {
             Debug.Warning("Scene::AddGameObject -> Scene already contains gameObject \"{}\"", {gameObject->id});

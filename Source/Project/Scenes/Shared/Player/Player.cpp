@@ -184,12 +184,9 @@ void SharedScene::Player::Init()
     // img->borderRadius = 3;
     // img->backgroundColor = Colors::Red;
 
-    // Light2DPtr light = std::make_shared<Light2D>();
-    // AddComponent(light);
-
     ps = std::make_shared<ParticleSystem>();
-    ps->EnableCollision(false);
-    ps->Behavior([](Particle& particle) {
+    ps->EnableCollision(true);
+    ps->SetStart([](Particle& particle) {
 
         SpriteRendererPtr p_sr = std::make_shared<SpriteRenderer>();
         particle.AddComponent(p_sr);
@@ -200,15 +197,27 @@ void SharedScene::Player::Init()
 
         Light2DPtr light;
         light = std::make_shared<Light2D>();
+        light->SetRange(200.0f);
         particle.AddComponent(light);
 
         particle.SetLifetime(Time({
-            {"seconds", 1.0f}
+            {"seconds", 2.0f}
         }));
         particle.ApplyForce(Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * 0.3f);
         particle.sortingLayer = 1;
-        particle.SetDensity(0.5f);
+        particle.SetDensity(1.0f);
         particle.SetFixedRotation();
+
+        particle.SetRestitution(0.5f);    
+        particle.SetRestitutionThreshold(0.0f);
+        particle.SetFriction(0.0f);            
+    });
+
+    ps->SetUpdate([](Particle& particle) {
+        if(particle.GetLifeTime() < 1000) {
+            auto l2d = particle.GetComponent<Light2D>();
+            if(l2d) l2d->color = Colors::Green;
+        }
     });
 
     List<Vector2> vertexarr = {
@@ -219,7 +228,7 @@ void SharedScene::Player::Init()
 
     ps->SetEmitArea(std::make_shared<PolygonShape>(vertexarr));
     ps->SetDelay(Time({
-        {"seconds", 0.5f}
+        {"seconds", 0.25f}
     }));
 
     AddComponent(ps);
@@ -261,7 +270,7 @@ void SharedScene::Player::Update()
         toggle = !toggle;
     }
 
-    status = "idle";
+    if(grounded) status = "idle";
 
 	velocity = running ? runSpeed : walkSpeed;
 
@@ -292,15 +301,15 @@ void SharedScene::Player::Update()
         if(grounded) status = "idle";
     }
 
-    // if (Input.IsKeyDown(Keyboard::Space) && grounded)
-    // {
-    //     rigidbody2d->ApplyLinearForce(Vector2(0.0f, 90.0f));
+    if (Input.IsKeyDown(Keyboard::Space) && grounded)
+    {
+        rigidbody2d->ApplyLinearForce(Vector2(0.0f, 90.0f));
 
-    //     if(status == "walk-forward") status = "jump-forward";
-    //     if(status == "walk-backward") status = "jump-backward";
-    //     if(status == "idle") status = "jump-forward";
-    //     grounded = false; 
-    // }
+        if(status == "walk-forward") status = "jump-forward";
+        if(status == "walk-backward") status = "jump-backward";
+        if(status == "idle") status = "jump-forward";
+        grounded = false; 
+    }
 
     AnimationManager();
 }

@@ -46,6 +46,8 @@ namespace alce
 
         void SetLifetime(Time lifetime);
 
+        Time GetLifeTime();
+
         void Update();
 
     private:
@@ -58,6 +60,8 @@ namespace alce
         {
             if(configLambda) configLambda(*this);
         }
+
+        std::function<void(Particle&)> updateLambda;
 
         Time lifetime = Time({
             {"seconds", 1.0f}
@@ -98,9 +102,14 @@ namespace alce
 
         void Emit(bool flag = true);
 
-        void Behavior(std::function<void(Particle&)> behaviorLambda)
+        void SetStart(std::function<void(Particle&)> startLambda)
         {
-            this->behaviorLambda = behaviorLambda;
+            this->startLambda = startLambda;
+        }
+
+        void SetUpdate(std::function<void(Particle&)> updateLambda)
+        {
+            this->updateLambda = updateLambda;
         }
 
         void EnableCollision(bool flag = true)
@@ -117,7 +126,7 @@ namespace alce
 
         bool enableCollision = false;
 
-        std::function<void(Particle&)> behaviorLambda = [](Particle& particle) {
+        std::function<void(Particle&)> startLambda = [](Particle& particle) {
             particle.ApplyForce(Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * 0.1f);
             particle.SetLifetime(Time({
                 {"seconds", 2.0f}
@@ -126,6 +135,8 @@ namespace alce
             particle.SetDensity(1.0f);
             particle.SetFixedRotation();
         };
+
+        std::function<void(Particle&)> updateLambda = [](Particle& particle) { };
 
         ShapePtr emitArea = std::make_shared<alce::RectShape>(30.0f, 30.0f);
 

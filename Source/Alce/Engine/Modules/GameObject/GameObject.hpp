@@ -127,8 +127,8 @@ namespace alce
 
         List<unsigned int> layers;
         List<String> tags;
-        List<ComponentPtr> components;
         Dictionary<String, Vector2Ptr> cardinals;
+        List<ComponentPtr> components;
 
         GameObjectPtr parent = nullptr;
         String alias = false;
