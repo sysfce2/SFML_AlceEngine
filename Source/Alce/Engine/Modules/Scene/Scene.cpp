@@ -69,55 +69,34 @@ void Scene::UpdateJson()
     
 }
 
+void partDebug(GameObjectPtr g, String ms) {
+    if(g->HasTag("particle")) {
+        Debug.Log(ms);
+    }
+}
+
 void Scene::AddGameObject(GameObjectPtr gameObject, String alias)
 {
     try
     {
         if(alias != false)
         {   
-            for(auto& go: GetAllGameObjects())
+            if(gameObject->alias != "false")
             {
-                if(go->alias == alias) 
+                for(auto& go: GetAllGameObjects())
                 {
-                    Debug.Warning("Scene already contains alias name \"{}\"", {alias});
-                    return;
+                    if(go->alias == alias) 
+                    {
+                        Debug.Warning(String("Scene::AddGameObject -> Scene already contains alias name \"" + alias.ToAnsiString() + "\""));
+                        return;
+                    }
                 }
             }
         }
 
-        // if(!sortingLayers.GetKeyList().Contains(gameObject->sortingLayer))
-        // {
-        //     GameObjectListPtr list = std::make_shared<List<GameObjectPtr>>();
-        //     list.get()->Add(gameObject);
-
-        //     sortingLayers.Set(gameObject->sortingLayer, list);
-        //     gameObject->scene = this;
-
-        //     gameObject->alias = alias;
-
-        //     gameObject->Init();
-
-        //     for(auto& c: gameObject->GetComponents())
-        //     {
-        //         c->Init();
-        //     }
-            
-        //     if(persist)
-        //     {
-        //         UpdateJson();
-        //     }
-        //     return;
-        // }
-
-        // if(sortingLayers[gameObject->sortingLayer].get()->Contains(gameObject))
-        // {
-        //     Debug.Warning("Scene already contains gameObject \"{}\"", {gameObject->id});
-        //     return;
-        // }
-
         if(gameObjectList.Contains(gameObject))
         {
-            Debug.Warning("Scene already contains gameObject \"{}\"", {gameObject->id});
+            Debug.Warning("Scene::AddGameObject -> Scene already contains gameObject \"{}\"", {gameObject->id});
             return;
         }
 
@@ -127,7 +106,7 @@ void Scene::AddGameObject(GameObjectPtr gameObject, String alias)
         gameObject->alias = alias;
 
         gameObject->Init();
-            
+
         for(auto& c: gameObject->GetComponents())
         {
             c->Init();
@@ -142,7 +121,7 @@ void Scene::AddGameObject(GameObjectPtr gameObject, String alias)
     }
     catch(const std::exception& e)
     {
-        Debug.Warning("Internal error: {}", {std::string(e.what())});
+        Debug.Warning("Scene::AddGameObject -> Internal error: {}", {std::string(e.what())});
     }
 }
 
@@ -155,7 +134,7 @@ void Scene::AddCanvas(CanvasPtr canvas, ComponentPtr camera)
 {
     if(canvasList.Contains(canvas))
     {
-        Debug.Warning("Scene already contains Canvas \"{}\"", {canvas->id});
+        Debug.Warning("Scene::AddCanvas -> Scene already contains Canvas \"{}\"", {canvas->id});
         return;
     }
 
@@ -357,7 +336,6 @@ void Scene::Render()
     }
 }
 
-
 void Scene::Update()
 {
     if(paused) return;
@@ -367,12 +345,13 @@ void Scene::Update()
     for(auto& gameObject: gameObjectList)
     {
         if(!gameObject->enabled) continue;
-        
+
         gameObject->Update();
 
         for(auto& component: gameObject->GetComponents())
         {
             if(!component->enabled) continue;
+
             component->Update();
 
             if(component->id == "SpriteRenderer")
@@ -386,6 +365,7 @@ void Scene::Update()
 
             if(component->id == "TextRenderer")
                 SetCardinals(gameObject, gameObject->GetComponent<TextRenderer>()->GetCardinals());
+
         }
     }
 
@@ -394,6 +374,13 @@ void Scene::Update()
     });
 
     ls.Cast();
+
+    for(auto& go: pendingAdd)
+    {
+        AddGameObject(go);
+    }
+
+    pendingAdd.Clear();
 }
 
 void Scene::SetCardinals(GameObjectPtr gameObject, Dictionary<String, Vector2Ptr> cardinals)

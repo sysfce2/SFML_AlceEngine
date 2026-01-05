@@ -65,7 +65,7 @@ namespace alce
 
                 if(!SetHex(hexValue))
                 {
-                    Debug.Warning("Unable to parse Hex {}", {str});
+                    Debug.Warning("Color::FromString -> Unable to parse Hex {}", {str});
                 }
             } 
             else 
@@ -76,7 +76,7 @@ namespace alce
 
                 if(values.Length() < 3) 
                 {
-                    Debug.Warning("Unable to parse RGB \"{}\" due to missing channels", {str});
+                    Debug.Warning("Color::FromString -> Unable to parse RGB \"{}\" due to missing channels", {str});
                     return;
                 }
 
@@ -114,7 +114,7 @@ namespace alce
             }
             catch(const std::exception& e)
             {
-                Debug.Warning("{}", {e.what()});
+                Debug.Warning("Color::SetHex -> {}", {e.what()});
                 return false;
             }
 

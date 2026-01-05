@@ -101,11 +101,6 @@ void LightingSystem::AddLight(std::shared_ptr<candle::LightSource> light)
 
 void LightingSystem::Cast()
 {
-    // for(auto& light: lights)
-    // {
-    //     light->castLight(edgePool.begin(), edgePool.end());
-    // }
-
     edgePool.clear();
 
     for(auto& shape: lightMeshes)
@@ -120,29 +115,12 @@ void LightingSystem::Cast()
         }
     }
 
+    lights.RemoveIf([](std::shared_ptr<candle::LightSource> light) {
+        return light->destroy;
+    });
+
     for(auto& light: lights)
     {
         light->castLight(edgePool.begin(), edgePool.end());
     }
-
-    // for(auto& la: lightingAreas)
-    // {
-    //     if(!la->enabled) continue;
-
-    //     if(((LightingArea2D*) la)->cast || ((LightingArea2D*) la)->lightingArea == nullptr)
-    //     {
-    //         ((LightingArea2D*) la)->lightingArea = std::make_shared<candle::LightingArea>(candle::LightingArea::FOG, sf::Vector2f(0, 0), sf::Vector2f(300, 300));
-    //         ((LightingArea2D*) la)->lightingArea->setPolygonShape(ConvertShapeToPolygonPoints(((LightingArea2D*) la)->shape));
-    //         ((LightingArea2D*) la)->cast = false;
-    //     }
-
-    //     ((LightingArea2D*) la)->lightingArea->clear();
-
-    //     for(auto& light: lights)
-    //     {
-    //         ((LightingArea2D*) la)->lightingArea->draw(*light.get());
-    //     }
-
-    //     ((LightingArea2D*) la)->lightingArea->display();
-    // }
 }

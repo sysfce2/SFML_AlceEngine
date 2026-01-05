@@ -16,6 +16,14 @@ namespace SharedScene
 
 		void Start();
 
+		void OnCollisionEnter(GameObject* other)
+		{
+			if(other->HasTag("particle"))
+			{
+				Debug.Log("Contacto con particula");
+			}
+		}
+
 		void OnImpact(GameObject* other);
 
 		void OnImpactEnd(GameObject* other);
@@ -36,6 +44,8 @@ namespace SharedScene
 		Raycast2DPtr rightRaycast2d;
 		CanvasPtr canvas;
 		SpriteRendererPtr backgroundRenderer;
+
+		ParticleSystemPtr ps;
 
 		Light2DPtr light;
 		AnimationPtr anima;

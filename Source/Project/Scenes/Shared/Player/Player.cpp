@@ -86,7 +86,7 @@ void SharedScene::Player::Init()
     text->font = "fonts/Merriweather/Merriweather-Regular.ttf";
     text->fontSize = 17;
     *text += "<bold>Alce Engine Sample Project</bold>";
-    *text += "\n<bold>by <underlined>@Ekrol34</underlined></bold>";
+    *text += "\n<bold>by <underlined>@ekrol34</underlined></bold>";
     text->borderRadius = 5;
     text->borderWidth = 3;
     text->borderColor = Colors::Yellow;
@@ -184,6 +184,55 @@ void SharedScene::Player::Init()
     // img->borderRadius = 3;
     // img->backgroundColor = Colors::Red;
 
+    ps = std::make_shared<ParticleSystem>();
+    ps->EnableCollision(true);
+    ps->SetStart([](Particle& particle) {
+
+        SpriteRendererPtr p_sr = std::make_shared<SpriteRenderer>();
+        particle.AddComponent(p_sr);
+
+        p_sr->enabled = true;
+        p_sr->AddTexture("meteor.png", "p_meteor");
+        p_sr->SetTexture("p_meteor");
+
+        Light2DPtr light;
+        light = std::make_shared<Light2D>();
+        light->SetRange(200.0f);
+        particle.AddComponent(light);
+
+        particle.SetLifetime(Time({
+            {"seconds", 2.0f}
+        }));
+        particle.ApplyForce(Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * 0.3f);
+        particle.sortingLayer = 1;
+        particle.SetDensity(1.0f);
+        particle.SetFixedRotation();
+
+        particle.SetRestitution(0.5f);    
+        particle.SetRestitutionThreshold(0.0f);
+        particle.SetFriction(0.0f);            
+    });
+
+    ps->SetUpdate([](Particle& particle) {
+        if(particle.GetLifeTime() < 1000) {
+            auto l2d = particle.GetComponent<Light2D>();
+            if(l2d) l2d->color = Colors::Green;
+        }
+    });
+
+    List<Vector2> vertexarr = {
+        Vector2(0.0f, 0.0f), 
+        Vector2(2.0f, 0.0f),
+        Vector2(1.0f, 2.0f) 
+    };
+
+    ps->SetEmitArea(std::make_shared<PolygonShape>(vertexarr));
+    ps->SetDelay(Time({
+        {"seconds", 0.25f}
+    }));
+
+    AddComponent(ps);
+
 }
 
 void SharedScene::Player::Start()
@@ -211,8 +260,18 @@ void SharedScene::Player::OnImpactEnd(GameObject* other)
     }
 }
 
+bool toggle = true;
+
 void SharedScene::Player::Update()
 {
+    if(Input.IsKeyDown(Keyboard::Y))
+    {
+        ps->Emit(toggle); 
+        toggle = !toggle;
+    }
+
+    if(grounded) status = "idle";
+
 	velocity = running ? runSpeed : walkSpeed;
 
 	if(Input.IsKeyPressed(Keyboard::LShift))

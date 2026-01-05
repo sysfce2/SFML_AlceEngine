@@ -13,6 +13,7 @@ int main()
     Alce.AddScene<IntroScene::Intro>();
     Alce.AddScene<SharedScene::Shared>();
     Alce.AddScene<SampleScene::Sample>();
+    Alce.AddScene<Test1Scene::Test1>();
 
     Alce.SetCurrentScene("Sample");
     

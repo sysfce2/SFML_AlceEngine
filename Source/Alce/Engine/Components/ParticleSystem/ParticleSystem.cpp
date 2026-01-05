@@ -1,4 +1,5 @@
 #include "ParticleSystem.hpp"
+#include "../Light2D/Light2D.hpp"
 
 using namespace alce;
 
@@ -50,6 +51,7 @@ void Particle::Create(Vector2 position, bool enableCollision)
 Particle::Particle()
 {
     forbiddenComponents = {"Rigidbody2D"};
+    AddTag("particle");
 }
 
 Particle::~Particle()
@@ -64,7 +66,11 @@ void Particle::SetDensity(float density)
 {
     this->density = density;
 
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::SetDensity -> Body not created yet");
+        return;
+    }
 
     fixture->SetDensity(density);
     body->ResetMassData();
@@ -84,7 +90,11 @@ void Particle::SetRestitution(float restitution)
 {
     this->restitution = restitution;
 
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::SetRestitution -> Body not created yet");
+        return;
+    }
 
     fixture->SetRestitution(restitution);
 }
@@ -93,35 +103,55 @@ void Particle::SetRestitutionThreshold(float restitutionThreshold)
 {
     this->restitutionThreshold = restitutionThreshold;
 
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::SetRestitutionThreshold -> Body not created yet");
+        return;
+    }
 
 	fixture->SetRestitutionThreshold(restitutionThreshold);
 }
 
 void Particle::ApplyForce(Vector2 force, bool wake)
 {
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::ApplyForce -> Body not created yet");
+        return;
+    }
 
     body->ApplyForceToCenter(force.Tob2Vec2(), wake);
 }
 
 void Particle::ApplyLinearForce(Vector2 force, bool wake)
 {
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::ApplyLinearForce -> Body not created yet");
+        return;
+    }
 
     body->ApplyLinearImpulseToCenter(force.Tob2Vec2(), wake);
 }
 
 void Particle::SetLinearVelocity(Vector2 linearVelocity)
 {
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::SetLinearVelocity -> Body not created yet");
+        return;
+    }
 
     body->SetLinearVelocity(linearVelocity.Tob2Vec2());
 }
 
 void Particle::SetHorizontalVelocity(float vy)
 {
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::SetHorizontalVelocity -> Body not created yet");
+        return;
+    }
 
 	float vx = body->GetLinearVelocity().x;
 	body->SetLinearVelocity(b2Vec2(vx, vy));
@@ -129,7 +159,11 @@ void Particle::SetHorizontalVelocity(float vy)
 
 void Particle::SetVerticalVelocity(float vx)
 {
-    if(!body) return;
+    if(!body) 
+    {
+        Debug.Warning("Particle::SetVerticalVelocity -> Body not created yet");
+        return;
+    }
 
 	float vy = body->GetLinearVelocity().y;
 	body->SetLinearVelocity(b2Vec2(vx, vy));
@@ -137,49 +171,77 @@ void Particle::SetVerticalVelocity(float vx)
 
 void Particle::SetAngularVelocity(float va)
 {
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::SetAngularVelocity -> Body not created yet");
+        return;
+    }
 
     body->SetAngularVelocity(va);
 }
 
 void Particle::SetAngularDamping(float ad)
 {
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::SetAngularDamping -> Body not created yet");
+        return;
+    }
 
 	body->SetAngularDamping(ad);
 }
 
 void Particle::SetLinearDamping(float ld)
 {
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::SetLinearDamping -> Body not created yet");
+        return;
+    }
 
 	body->SetLinearDamping(ld);
 }
 
 void Particle::ApplyAngularImpulse(float impulse)
 {
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::ApplyAngularImpulse -> Body not created yet");
+        return;
+    }
 
     body->ApplyAngularImpulse(impulse, true);
 }
 
 void Particle::ApplyTorque(float torque, bool wake)
 {
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::ApplyTorque -> Body not created yet");
+        return;
+    }
 
 	body->ApplyTorque(torque, wake);
 }
 
 void Particle::SetAngle(float angle)
 {
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::SetAngle -> Body not created yet");
+        return;
+    }
 
 	body->SetTransform(body->GetPosition(), angle);
 }
 
 void Particle::SetFixedRotation(bool flag)
 {
-    if(!body) return;
+    if(!body)
+    {
+        Debug.Warning("Particle::SetFixedRotation -> Body not created yet");
+        return;
+    }
 
     body->SetFixedRotation(flag);
 }
@@ -189,11 +251,20 @@ void Particle::SetLifetime(Time lifetime)
     this->lifetime = lifetime;
 }
 
+Time Particle::GetLifeTime()
+{
+    return lifetime;
+}
+
 void Particle::Update()
 {
     lifetime -= Chrono.deltaTime;
 
-    if(!body) return;
+    if(!body) 
+    {
+        Debug.Warning("Particle::Update -> Body not created yet");
+        return;
+    }
 
     shapePos = Vector2(
         body->GetPosition().x * PPM,
@@ -202,6 +273,8 @@ void Particle::Update()
 
     transform.position = body->GetPosition();
     transform.rotation = -1.0f * body->GetAngle() * DEG_PER_RAD;
+
+    updateLambda(*this);
 }
 
 #pragma endregion
@@ -232,27 +305,26 @@ void ParticleSystem::SetEmitArea(ShapePtr emitArea)
     }
 }
 
-void ParticleSystem::Emit()
+void ParticleSystem::Emit(bool flag)
 {
-    if(!behaviorLambda)
+    if(!startLambda)
     {
-        Debug.Warning("There is no particle behavior defined");
+        Debug.Warning("ParticleSystem::Emit -> There is no particle behavior defined");
         return;
     }
 
-    emit = true;
-}
-
-void ParticleSystem::Stop()
-{
-    if(!emit)
+    if(!flag) 
     {
-        Debug.Warning("ParticleSystem is not emitting");
-        return;
-    }
+        if(!emit)
+        {
+            Debug.Warning("ParticleSystem::Stop -> ParticleSystem is not emitting");
+            return;
+        }
 
-    emit = false;
-    elapsed.Reset();
+        emit = false;
+        elapsed.Reset();
+    }
+    else emit = true;
 }
 
 #pragma endregion
@@ -261,6 +333,12 @@ void ParticleSystem::Stop()
 
 void ParticleSystem::Update()
 {
+    if(!emitArea) 
+    {
+        Debug.Warning("ParticleSystem has no emit area");
+        return;
+    }
+
     if(emit && elapsed >= delay)
     {
         ParticlePtr particle = std::make_shared<Particle>();
@@ -320,14 +398,21 @@ void ParticleSystem::Update()
 
         particle->Create(summonPosition, enableCollision);
         particle->body->SetTransform(summonPosition.Tob2Vec2(), particle->body->GetAngle());
-        particle->Config(behaviorLambda);
+        particle->scene = ((GameObject*) owner)->scene;
+        particle->Config(startLambda);
+        if(updateLambda) particle->updateLambda = updateLambda;
+
         particles.Add(particle);
-        Alce.GetCurrentScene()->AddGameObject(particle);
+        Alce.GetCurrentScene()->pendingAdd.Add(particle);
         elapsed.Reset();
     }
 
     particles.RemoveIf([](ParticlePtr particle) {
-        if(particle->lifetime <= 0.0f) particle->Destroy();
+        if(particle->lifetime <= 0.0f) {
+            auto light_c = particle->GetComponent<Light2D>();
+            if(light_c != nullptr) light_c->light->destroy = true;
+            particle->Destroy();            
+        }
         return particle->lifetime <= 0.0f;
     });
 
@@ -401,7 +486,5 @@ void ParticleSystem::DebugRender()
         Alce.GetWindow().draw(polygonShape);
     }
 }
-
-#pragma endregion
 
 #pragma endregion

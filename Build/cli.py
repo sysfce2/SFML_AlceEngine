@@ -89,7 +89,7 @@ def printHelp():
     prints(" file.\n\n")
 
 def printVersion():    
-    prints("Alce CLI 1.0.5 (2025)\n", "magenta")
+    prints("Alce CLI 1.0.6 (2026)\n", "magenta")
 
 #endregion
 
@@ -1006,7 +1006,7 @@ def build():
 
 def createIcon():
 
-    if not os.path.exists(project_icon):
+    if not os.path.exists(str(project_icon)):
         error(f"Project icon path \"{project_icon}\" is invalid")
         return False
 
@@ -1154,7 +1154,6 @@ def readSettings():
 
             if compiler_bin_path == "" or compiler_bin_path is None:
                 warning(" Compiler bin path is missing at [Build/settings.json -> compiler::bin-path].")
-                return
             else:
                 if not isDir(compiler_bin_path):
                     error(f" Invalid path {compiler_bin_path} at [Build/settings.json -> compiler::bin-path]")

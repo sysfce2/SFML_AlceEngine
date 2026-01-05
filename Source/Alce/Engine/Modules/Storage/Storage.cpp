@@ -1,4 +1,5 @@
 #include "Storage.hpp"
+#include "../Debug/Debug.hpp"
 
 using namespace alce;
 
@@ -130,7 +131,11 @@ void STORAGE::Delete(String name)
         RestoreIndexFile();
     }
 
-    if(!fileMap.HasKey(name)) return;
+    if(!fileMap.HasKey(name))
+    {
+        Debug.Warning("Storage::Delete -> No data found with name {}", {name});
+        return;
+    }
 
     String fileId = fileMap.Get(name);
 

@@ -6,7 +6,7 @@ void Image::AddTexture(String file, String name)
 {
     if(textures.HasKey(name))
     {
-        Debug.Warning("UI Image already contains a texture named \"{}\"", {file});
+        Debug.Warning("[UI] Image::AddTexture -> Image already contains a texture named \"{}\"", {file});
         return;
     }
     
@@ -22,7 +22,7 @@ void Image::SetTexture(String name)
 {
     if(!textures.HasKey(name))
     {
-        Debug.Warning("UI Image does not contain a texture named \"{}\"", {name});
+        Debug.Warning("[UI] Image::SetTexture -> Image does not contain a texture named \"{}\"", {name});
         return;
     }
 
@@ -33,7 +33,7 @@ void Image::RemoveTexture(String name)
 {
     if(!textures.GetKeyList().Contains(name))
     {
-        Debug.Warning("UI Image does not contain a texture named \"{}\"", {name});
+        Debug.Warning("[UI] Image::RemoveTexture -> Image does not contain a texture named \"{}\"", {name});
         return;
     }
 
@@ -44,7 +44,7 @@ void Image::SetTextureSmooth(String name, bool flag)
 {
     if(!textures.GetKeyList().Contains(name))
     {
-        Debug.Warning("UI Image does not contain a texture named \"{name}\"", {name});
+        Debug.Warning("[UI] Image::SetTextureSmooth -> Image does not contain a texture named \"{name}\"", {name});
         return;
     }
 

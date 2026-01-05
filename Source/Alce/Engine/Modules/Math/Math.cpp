@@ -227,9 +227,11 @@ void Vector2::FromString(String _str)
 
     size_t start = str.find('(');
     size_t end = str.find(')');
+
     if (start == std::string::npos || end == std::string::npos || start >= end)
     {
-        throw std::invalid_argument("Formato inválido");
+        Debug.Warning("Vector2::FromString -> Invalid Format");
+		return;
     }
 
     std::string coordinates = str.substr(start + 1, end - start - 1);
@@ -238,7 +240,7 @@ void Vector2::FromString(String _str)
 
     if (comma == std::string::npos)
     {
-        Debug.Warning("Invalid Format");
+        Debug.Warning("Vector2::FromString -> Invalid Format");
 		return;
     }
 

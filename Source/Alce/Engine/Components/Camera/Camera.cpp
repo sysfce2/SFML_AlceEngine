@@ -13,7 +13,7 @@ void Camera::Zoom(float zoom)
 {
     if(zoom < 0)
     {
-        Debug.Warning("Zoom value cannot be less than 0");
+        Debug.Warning("Camera::Zoom -> value cannot be less than 0");
         return;
     }
 
@@ -59,7 +59,7 @@ void Camera::Init()
 {
     if (transform == nullptr)
     {
-        Debug.Warning("Component Camera has no association with any GameObject");
+        Debug.Warning("Camera::Init -> Component Camera has no association with any GameObject");
         return;
     }
 

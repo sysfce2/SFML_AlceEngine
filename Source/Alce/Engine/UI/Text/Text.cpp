@@ -66,7 +66,7 @@ bool Text::IsUsingFixedBox()
 
 void Text::Render()
 {
-    // Dibujo del fondo (imagen o rectángulo con/borde o radio) usando boxPos y size
+    // Background drawing (image or rectangle with/without border or radius) using boxPos and size
     if (hasBackgroundTexture)
     {
         sf::FloatRect target(boxPos.x, boxPos.y, size.x, size.y);

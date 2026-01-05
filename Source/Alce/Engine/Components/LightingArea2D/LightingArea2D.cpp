@@ -15,7 +15,7 @@ void LightingArea2D::SetOpacity(float opacity)
 {
     if(opacity > 1.0f || opacity < 0)
     {
-        Debug.Warning("LightingArea2D opacity should be between 0.0f and 1.0f");
+        Debug.Warning("LightingArea2D::SetOpacity -> LightingArea2D opacity should be between 0.0f and 1.0f");
         return;
     }
     
@@ -116,6 +116,10 @@ void LightingArea2D::Update()
     lightingArea->setPosition(position.ToPixels().ToVector2f());
     lightingArea->setAreaOpacity(opacity);
 	lightingArea->setAreaColor(color.ToSFMLColor());
+
+    lights.RemoveIf([](std::shared_ptr<candle::LightSource> light) {
+        return light->destroy;
+    });
 }
 
 #pragma endregion

@@ -28,7 +28,7 @@ namespace alce
         {
             if (creators.HasKey(key)) 
             {
-                Debug.Warning("Creator with key '" + key.ToAnsiString() + "' already exists.");
+                Debug.Warning("Factory::RegisterCreator -> Creator with key '" + key.ToAnsiString() + "' already exists.");
                 return;
             }
             creators.Set(key, std::move(creator));
@@ -39,7 +39,7 @@ namespace alce
         {
             if (!creators.HasKey(key)) 
             {
-                Debug.Warning("No creator registered for key '" + key.ToAnsiString() + "'.");
+                Debug.Warning("Factory::Create -> No creator registered for key '" + key.ToAnsiString() + "'.");
                 return nullptr;
             }
             return std::static_pointer_cast<T>(creators.Get(key)());

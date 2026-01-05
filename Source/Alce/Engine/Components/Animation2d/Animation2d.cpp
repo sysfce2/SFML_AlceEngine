@@ -50,11 +50,15 @@ void Animation2D::SetOriginMode(OriginMode originMode)
 
 void Animation2D::PlayAnimation(String name, AnimationMode mode)
 {
-    if(!enabled) return;
+    if(!enabled)
+    {
+        Debug.Warning("Animation2D::PlayAnimation -> Component is disabled");
+        return;
+    }
 
     if(!animations.HasKey(name))
     {
-        Debug.Warning("There is not animation named \"{}\" in the stack", {name});
+        Debug.Warning("Animation2D::PlayAnimation -> There is not animation named \"{}\" in the stack", {name});
         return;
     }
 

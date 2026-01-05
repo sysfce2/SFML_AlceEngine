@@ -82,14 +82,14 @@ void CORE::SetWindowIcon(String file)
 		window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 		iconFile = ~(file.Replace("./Assets/", ""));
 	}
-	else Debug.Warning("Error loading file \"{}\"", {file});
+	else Debug.Warning("Alce::SetWindowIcon -> Error loading file \"{}\"", {file});
 }
 
 void CORE::AddScene(ScenePtr scene)
 {
 	if(scenes.GetKeyList().Contains(scene->GetName()))
 	{
-		Debug.Warning("A scene named \"{}\" already exists", {scene->GetName()});
+		Debug.Warning("Alce::AddScene -> A scene named \"{}\" already exists", {scene->GetName()});
 		return;
 	}
 
@@ -117,7 +117,7 @@ void CORE::RemoveScene(String name)
 {
 	if(!scenes.GetKeyList().Contains(name))
 	{
-		Debug.Warning("There is no scene named \"{}\"", {name});
+		Debug.Warning("Alce::RemoveScene -> There is no scene named \"{}\"", {name});
 		return;
 	}
 
@@ -133,7 +133,7 @@ ScenePtr CORE::GetScene(String name)
 	}
 	catch (const std::exception& e)
 	{
-		Debug.Warning("Internal error: {}", {std::string(e.what())});
+		Debug.Warning("Alce::GetScene -> Internal error: {}", {std::string(e.what())});
 		return nullptr;
 	}
 }
@@ -142,7 +142,7 @@ void CORE::SetCurrentScene(String name)
 {
 	if(!scenes.HasKey(name))
 	{
-		Debug.Warning("There is no scene named \"{}\"", {name});
+		Debug.Warning("Alce::SetCurrentScene -> There is no scene named \"{}\"", {name});
 		return;
 	}
 
@@ -173,7 +173,7 @@ void CORE::SetCurrentScene(String name)
 	}
 	catch (const std::exception& e)
 	{
-		Debug.Warning("Internal error: {}", {std::string(e.what())});
+		Debug.Warning("Alce::SetCurrentScene -> Internal error: {}", {std::string(e.what())});
 	}
 }
 
@@ -191,7 +191,7 @@ TexturePtr CORE::GetTexture(String file)
 	TexturePtr texture = std::make_shared<sf::Texture>();
 	if(!texture->loadFromFile(file.ToAnsiString()))
 	{
-		Debug.Warning("Unable to load texture from file \"{}\"", {file});
+		Debug.Warning("Alce::GetTexture -> Unable to load texture from file \"{}\"", {file});
 		return nullptr;
 	}
 	textures.Set(file, texture);
@@ -209,7 +209,7 @@ SoundBufferPtr CORE::GetSoundBuffer(String file)
 
 	if(!sound->loadFromFile(file.ToAnsiString()))
 	{
-		Debug.Warning("Unable to load sound buffer from file \"{}\"", {file});
+		Debug.Warning("Alce::GetSoundBuffer -> Unable to load sound buffer from file \"{}\"", {file});
 		return nullptr;
 	}
 	sounds.Set(file, sound);
@@ -227,7 +227,7 @@ FontPtr CORE::GetFont(String file)
 
 	if(!font->loadFromFile(file.ToAnsiString()))
 	{
-		Debug.Warning("Unable to load font from file \"{}\"", {file});
+		Debug.Warning("Alce::GetFont -> Unable to load font from file \"{}\"", {file});
 		return nullptr;
 	}
 

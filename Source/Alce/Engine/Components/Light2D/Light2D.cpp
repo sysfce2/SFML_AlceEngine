@@ -26,6 +26,10 @@ Light2D::Light2D(Type type) : Component("Light2D")
 void Light2D::SetFade(bool fade)
 {
     if(light != nullptr) light->setFade(fade);
+    else
+    {
+        Debug.Warning("Light2D::SetFade -> Light not initialized");
+    }
 }
 
 bool Light2D::IsFading()
@@ -67,7 +71,7 @@ void Light2D::SetIntensity(float intensity)
 {
     if(intensity > 1.0f || intensity < 0.0f) 
     {
-        Debug.Warning("Light intensity should be between 0.0f and 1.0f");
+        Debug.Warning("Light2D::SetIntensity -> Light intensity should be between 0.0f and 1.0f");
         return;
     }
 
@@ -92,7 +96,7 @@ void Light2D::Init()
 {
     if(transform == nullptr)
     {
-        Debug.Warning("Component Light2D has no association with any GameObject");
+        Debug.Warning("Light2D::Init -> Component Light2D has no association with any GameObject");
     }
 }
 
@@ -100,7 +104,7 @@ void Light2D::Start()
 {
 	if(transform == nullptr)
     {
-        Debug.Warning("Component Light2D has no association with any GameObject");
+        Debug.Warning("Light2D::Start -> Component Light2D has no association with any GameObject");
     }
 }
 

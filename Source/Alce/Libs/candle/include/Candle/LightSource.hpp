@@ -170,6 +170,8 @@ namespace candle{
          * @see setRange, [EdgeVector](@ref LightSource.hpp)
          */
         virtual void castLight(const EdgeVector::iterator& begin, const EdgeVector::iterator& end) = 0;
+
+        bool destroy = false;
     };
 }
 

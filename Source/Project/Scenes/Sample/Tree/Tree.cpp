@@ -26,10 +26,10 @@ void SampleScene::Tree::Init()
     // lightMesh->SetOffset(0, 2);
     // AddComponent(lightMesh);
 
-    // lightingArea = std::make_shared<alce::LightingArea2D>();
-    // lightingArea->SetSize(200, 200);
-    // lightingArea->SetOffset(-3.5f, 3.5f);
-    // AddComponent(lightingArea);
+    lightingArea = std::make_shared<alce::LightingArea2D>();
+    lightingArea->SetSize(200, 200);
+    lightingArea->SetOffset(-3.5f, 3.5f);
+    AddComponent(lightingArea);
     
     spriteRenderer->AddTexture("tree/sprite.png", "sprite");
     spriteRenderer->SetTexture("sprite");

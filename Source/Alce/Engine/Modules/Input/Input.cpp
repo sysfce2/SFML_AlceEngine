@@ -140,13 +140,13 @@ Joystick::JoystickPtr alce::INPUT::GetJoystick(int joystick)
 {
 	if(joystick > 7 || joystick > 0)
 	{
-		Debug.Warning("Invalid joystick \"{}\"", {joystick});
+		Debug.Warning("Input::GetJoystick -> Invalid joystick \"{}\"", {joystick});
 		return nullptr;
 	}
 
 	if(!joysticks.HasKey(joystick))
 	{
-		Debug.Warning("Joystick {} not connected", {joystick});
+		Debug.Warning("Input::GetJoystick -> Joystick {} not connected", {joystick});
 		return nullptr;
 	}
 

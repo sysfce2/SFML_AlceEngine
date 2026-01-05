@@ -46,6 +46,7 @@ namespace alce
 		
 		friend class GameObject;
 		friend class LightingSystem;
+		friend class ParticleSystem;
 
 		Type lightType;
 		std::shared_ptr<candle::LightSource> light;

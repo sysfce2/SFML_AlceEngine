@@ -35,8 +35,13 @@ namespace alce
             GameObject* currentImpact = nullptr;
 
             float ReportFixture(b2Fixture* f, const b2Vec2& p, const b2Vec2& n, float fraction) override 
-            {
+            {    
                 GameObject* other = static_cast<GameObject*>(f->GetBody()->attachedObject);
+
+                if(other->HasTag("particle"))
+                {
+                   return -1.0f;;
+                }
 
                 owner->OnImpact(other);
                 other->OnImpact(owner);
