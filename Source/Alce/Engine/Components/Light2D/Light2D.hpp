@@ -12,6 +12,8 @@ namespace alce
 
 		Light2D(Type type = Type::Radial);
 
+		~Light2D();
+
 		void SetFade(bool fade = true);
 
 		bool IsFading();

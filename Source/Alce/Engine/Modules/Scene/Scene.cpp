@@ -239,7 +239,7 @@ void Scene::Render()
 
                 bool visible = true;
 
-                if(gameObject->cardinals.Empty())
+                if(gameObject->cardinals.IsEmpty())
                 {
                     visible = camera->GetBounds().InArea(gameObject->transform.position.ToPixels());
                 }
@@ -287,7 +287,7 @@ void Scene::Render()
 
                 bool visible = true;
 
-                if(gameObject->cardinals.Empty())
+                if(gameObject->cardinals.IsEmpty())
                 {
                     visible = camera->GetBounds().InArea(gameObject->transform.position.ToPixels());
                 }

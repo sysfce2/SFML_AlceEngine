@@ -408,11 +408,7 @@ void ParticleSystem::Update()
     }
 
     particles.RemoveIf([](ParticlePtr particle) {
-        if(particle->lifetime <= 0.0f) {
-            auto light_c = particle->GetComponent<Light2D>();
-            if(light_c != nullptr) light_c->light->destroy = true;
-            particle->Destroy();            
-        }
+        if(particle->lifetime <= 0.0f) particle->Destroy();           
         return particle->lifetime <= 0.0f;
     });
 

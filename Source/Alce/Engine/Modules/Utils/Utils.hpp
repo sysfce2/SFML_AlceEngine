@@ -40,7 +40,7 @@ namespace alce
     template<typename T>
     List<T> MergeLists(List<List<T>> lists)
     {
-        if(lists.Empty()) return {};
+        if(lists.IsEmpty()) return {};
 
         List<T> result = lists.First();
 

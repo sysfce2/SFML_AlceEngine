@@ -23,6 +23,11 @@ Light2D::Light2D(Type type) : Component("Light2D")
     light->setIntensity(1.0f);
 }
 
+Light2D::~Light2D()
+{
+    light->destroy = true;
+}
+
 void Light2D::SetFade(bool fade)
 {
     if(light != nullptr) light->setFade(fade);

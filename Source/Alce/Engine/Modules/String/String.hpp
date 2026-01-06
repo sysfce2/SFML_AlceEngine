@@ -249,7 +249,7 @@ namespace alce
 
 		bool operator==(std::wstring& str);
 
-		bool operator==(String str);
+		bool operator==(const String& str) const;
 
 		bool operator==(size_t size);
 

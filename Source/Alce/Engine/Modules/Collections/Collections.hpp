@@ -40,8 +40,16 @@ namespace alce
 
 		List<T>& AddFirst(const T& element)
 		{
-			vector.insert(vector.begin(), element);
+			if (front_offset == 0)
+			{
+				size_t oldSize = vector.size();
+				size_t grow = std::max<size_t>(1, oldSize / 2);
 
+				vector.insert(vector.begin(), grow, T{});
+				front_offset = grow;
+			}
+
+			vector[--front_offset] = element;
 			return *this;
 		}
 
@@ -52,9 +60,11 @@ namespace alce
             	throw exception::collections::OutOfBoundsException("<?> Here -> alce::List::MoveToFront(size_t index)\n<!> Reason -> Index out of bounds");
 			}
 
-        	T element = vector[index];
-        	vector.erase(vector.begin() + index);
-        	vector.insert(vector.begin(), element);
+        	size_t real = front_offset + index;
+			T element = std::move(vector[real]);
+
+			vector.erase(vector.begin() + real);
+			vector.insert(vector.begin() + front_offset, std::move(element));
 
 			return *this;
 		}
@@ -64,9 +74,8 @@ namespace alce
 			if (this->Length() == 0) 
 				throw exception::collections::EmptyListException("<?> Here -> alce::List::PopFirst()\n<!> Reason -> Empty list");
 
-			this->vector.erase(this->vector.begin());
-
-			return *this;
+			++front_offset;
+    		return *this;
 		}
 
 		List<T>& PopLast()
@@ -92,7 +101,7 @@ namespace alce
 			if (this->Length() == 0) 
 				throw exception::collections::EmptyListException("<?> Here -> alce::List::First()\n<!> Reason -> Empty list");
 
-			return vector[0];
+			return vector[front_offset];
 		}
 
 		List<T>& Clear()
@@ -107,7 +116,7 @@ namespace alce
 			if (index > this->Length() - 1) 
 				throw exception::collections::OutOfBoundsException("<?> Here -> alce::List::Get(size_t index)\n<!> Reason -> Index out of bounds");
 
-			return vector[index];
+			return vector[front_offset + index];
 		}
 
 		List<T>& Set(size_t index, const T& value)
@@ -115,14 +124,14 @@ namespace alce
 			if (index >= vector.size()) 
 				throw exception::collections::OutOfBoundsException("<?> Here -> alce::List::Set(size_t index, T value)\n<!> Reason -> Index out of bounds");
 
-			vector[index] = value;
+			vector[front_offset + index] = value;
 
 			return *this;
 		}
 
-		size_t Length()
+		size_t Length() const
 		{
-			return vector.size();
+			return vector.size() - front_offset;
 		}
 
 		template<typename Predicate>
@@ -130,12 +139,10 @@ namespace alce
 		{
 			List<T> result = {};
 
-			for (const T& element : vector)
+			for (auto it = begin(); it != end(); ++it)
 			{
-				if (condition(element))
-				{
-					result.Add(element);
-				}
+				if (condition(*it))
+					result.Add(*it);
 			}
 			
 			return result;
@@ -143,88 +150,103 @@ namespace alce
 
 		int FindIndex(const T& element)
 		{
-			for (size_t i = 0; i < this->vector.size(); i++)
+			for (size_t i = 0; i < Length(); i++)
 			{
-				if (vector[i] == element) return i;
+				if (vector[front_offset + i] == element)
+					return static_cast<int>(i);
 			}
-
 			return -1;
 		}
 
 		List<T>& FindAndRemove(const T& element)
 		{
-			auto it = std::find(vector.begin(), vector.end(), element);
-			if (it != vector.end())
+			auto it = std::find(begin(), end(), element);
+			if (it != end())
 			{
 				vector.erase(it);
 			}
-
 			return *this;
 		}
 
-		List<T>& RemoveIndex(unsigned int index)
+		List<T>& RemoveIndex(size_t index)
 		{
-			vector.erase(vector.begin() + index);
+			if (index >= Length())
+				throw exception::collections::OutOfBoundsException("<?> Here -> alce::List::RemoveIndex(size_t index)\n<!> Reason -> Index out of bounds");
 
+			vector.erase(vector.begin() + front_offset + index);
 			return *this;
 		}
 
 		template<typename Predicate>
 		List<T>& RemoveIf(Predicate condition)
 		{
-			vector.erase(std::remove_if(vector.begin(), vector.end(), condition), vector.end());
-			
+			auto first = begin();
+			auto last  = end();
+
+			vector.erase(
+				std::remove_if(first, last, condition),
+				last
+			);
+
 			return *this;
 		}
 
 		List<T>& Sort(CompareFunction compare)
 	    {
-        	std::sort(vector.begin(), vector.end(), compare);
+        	std::sort(begin(), end(), compare);
 			
 			return *this;
     	}
 
-		List<T>& Merge(List<T> other)
+		List<T>& Merge(const List<T>& other)
 		{
-			for (const T& element : other.vector)
+			for (auto it = other.begin(); it != other.end(); ++it)
 			{
-				if (!this->Contains(element))
-				{
-					this->Add(element);
-				}
+				if (!Contains(*it))
+					Add(*it);
 			}
-
 			return *this;
 		}
 
 		template<typename Func>
 		List<T>& ForEach(Func func)
 		{
-			for(auto& element : vector)
+			for (auto it = begin(); it != end(); ++it)
 			{
-				func(element);
+				func(*it);
 			}
 
 			return *this;
 		}
 
-		bool Contains(const T& element)
+		bool Contains(const T& element) const
 		{
-			return std::find(vector.begin(), vector.end(), element) != vector.end();
+			return std::find(begin(), end(), element) != end();
 		}
 
-		bool Empty()
+		bool IsEmpty() const
 		{
 			return this->Length() == 0;
 		}
 
+		void Normalize()
+		{
+			if (front_offset > 0)
+			{
+				vector.erase(vector.begin(), vector.begin() + front_offset);
+				front_offset = 0;
+			}
+		}
+
 		std::vector<T> ToStdVector()
 		{
-			return vector;
+			Normalize();
+    		return vector;
 		}
 
 		std::vector<T>* ToStdVectorPtr()
 		{
+			Normalize();
 			return &vector;
 		}
 
@@ -233,7 +255,7 @@ namespace alce
 			this->vector = in_list;
 		}
 
-		void operator=(std::vector<T> vector)
+		void operator=(const std::vector<T>& vector)
 		{
 			this->vector = vector;
 		}
@@ -241,9 +263,17 @@ namespace alce
 		T& operator[](size_t index)
 		{
 			if (index > this->Length() - 1) 
-				throw exception::collections::EmptyListException("<?> Here -> alce::List::operator[](size_t index)\n<!> Reason -> Index out of bounds");
+				throw exception::collections::OutOfBoundsException("<?> Here -> alce::List::operator[](size_t index)\n<!> Reason -> Index out of bounds");
 
-			return vector[index];
+			return vector[front_offset + index];
+		}
+
+		const T& operator[](size_t index) const
+		{
+			if (index > this->Length() - 1)
+				throw exception::collections::OutOfBoundsException("<?> Here -> alce::List::operator[](size_t index)\n<!> Reason -> Index out of bounds");
+
+			return vector[front_offset + index];
 		}
 
 		void operator<<(T element)
@@ -253,50 +283,22 @@ namespace alce
 
 		std::vector<T> operator~()
 		{
+			Normalize();
 			return vector;
 		}
 
 		//Iteration stuff
 
-		// typedef T* iterator;
-        // typedef const T* const_iterator;
-
-		// iterator begin()
-        // {
-        //     return vector.data();
-        // }
-
-        // iterator end()
-        // {
-        //     return vector.data() + vector.size();
-        // }
-
-		auto begin() { return vector.begin(); }
+		auto begin() { return vector.begin() + front_offset; }
 		auto end() { return vector.end(); }
 
-        // const_iterator begin() const
-        // {
-        //     return vector.data();
-        // }
-
-        // const_iterator end() const
-        // {
-        //     return vector.data() + vector.size();
-        // }
-
-        // const_iterator cbegin() const
-        // {
-        //     return vector.data();
-        // }
-
-        // const_iterator cend() const
-        // {
-        //     return vector.data() + vector.size();
-        // }
+		auto begin() const { return vector.begin() + front_offset; }
+		auto end() const { return vector.end(); }
 
 	protected:
 
 		std::vector<T> vector = {};
+		size_t front_offset = 0;
 	};
 
 	template<typename F, typename S>
@@ -330,60 +332,88 @@ namespace alce
 	{
 	public:
 
-		Dictionary()
-		{
-
-		}
+		Dictionary() = default;
 
 		Dictionary(std::initializer_list<std::pair<K, V>> map)
 		{
-			for (const std::pair<K, V>* it = map.begin(); it != map.end(); ++it)
-			{
-				list.Add(Pair<K, V>(it->first, it->second));
-			}
+			for (const auto& p : map)
+				list.Add(Pair<K, V>(p.first, p.second));
 		}
 
-		std::vector<Pair<K, V>> std_vector()
+		// Devuelve un std::vector de pares
+		std::vector<Pair<K, V>> std_vector() const
 		{
 			return ~list;
 		}
 
-		size_t Length()
+		// Métodos de consulta
+		size_t Length() const
 		{
 			return list.Length();
 		}
 
-		V Get(K key)
+		bool IsEmpty() const
 		{
-			for (int i = 0; i < list.Length(); i++)
-			{
-				if (list[i].first == key)
-				{
-					return list[i].second;
-				}
-			}
-
-			throw exception::collections::NotFoundKeyException("<?> Here -> alce::Dictionary::Get(K key)\n<!> Reason -> Key not found in the dictionary");
+			return list.IsEmpty();
 		}
 
-		void Set(K key, V value)
+		bool HasKey(const K& key) const
 		{
-			for (int i = 0; i < list.Length(); i++)
+			return GetKeyList().Contains(key);
+		}
+
+		V Get(const K& key) const
+		{
+			for (size_t i = 0; i < list.Length(); ++i)
+				if (list[i].first == key)
+					return list[i].second;
+
+			throw exception::collections::NotFoundKeyException(
+				"<?> Here -> alce::Dictionary::Get(K key)\n<!> Reason -> Key not found in the dictionary");
+		}
+
+		List<K> GetKeyList() const
+		{
+			List<K> keys;
+			for (size_t i = 0; i < list.Length(); ++i)
+				keys.Add(list[i].first);
+			return keys;
+		}
+
+		List<V> GetValueList() const
+		{
+			List<V> values;
+			for (size_t i = 0; i < list.Length(); ++i)
+				values.Add(list[i].second);
+			return values;
+		}
+
+		Dictionary<K, V> FilterByValue(const V& value) const
+		{
+			Dictionary<K, V> filtered;
+			for (size_t i = 0; i < list.Length(); ++i)
+				if (list[i].second == value)
+					filtered.Set(list[i].first, list[i].second);
+			return filtered;
+		}
+
+		// Métodos de modificación
+		void Set(const K& key, const V& value)
+		{
+			for (size_t i = 0; i < list.Length(); ++i)
 			{
 				if (list[i].first == key)
 				{
-					list.RemoveIndex(i);
-					list.Add(Pair<K, V>(key, value));
+					list[i].second = value;
 					return;
 				}
 			}
-
 			list.Add(Pair<K, V>(key, value));
 		}
 
-		void RemoveByKey(K key)
+		void RemoveByKey(const K& key)
 		{
-			for (int i = 0; i < list.Length(); i++)
+			for (size_t i = 0; i < list.Length(); ++i)
 			{
 				if (list[i].first == key)
 				{
@@ -393,14 +423,14 @@ namespace alce
 			}
 		}
 
-		void RemoveByValue(V value)
+		void RemoveByValue(const V& value)
 		{
-			for (int i = 0; i < list.Length(); i++)
+			for (size_t i = 0; i < list.Length(); )
 			{
 				if (list[i].second == value)
-				{
 					list.RemoveIndex(i);
-				}
+				else
+					++i;
 			}
 		}
 
@@ -409,145 +439,46 @@ namespace alce
 			list.Clear();
 		}
 
-		List<K> GetKeyList()
+		// Operadores
+		V operator[](const K& key) const
 		{
-			List<K> key_list;
+			return Get(key);
+		}
 
-			for(auto& i: list)
+		void operator+=(const std::pair<K, V>& pair)
+		{
+			Set(pair.first, pair.second);
+		}
+
+		bool operator==(const Dictionary<K, V>& d) const
+		{
+			if (Length() != d.Length())
+				return false;
+
+			for (size_t i = 0; i < list.Length(); ++i)
 			{
-				key_list.Add(i.first);
-			}
-
-			return key_list;
-		}
-
-		List<V> GetValueList()
-		{
-			List<V> value_list;
-
-			for (int i = 0; i < list.Length(); i++)
-			{
-				value_list.Add(list[i].second);
-			}
-
-			return value_list;
-		}
-
-		Dictionary<K, V> FilterByValue(const V& value)
-		{
-			Dictionary<K, V> filter_dic;
-
-			for (int i = 0; i < list.Length(); i++)
-			{
-				if(list[i].second == value)
-				{
-					filter_dic.Set(list[i].first, list[i].second);
-				}
-			}
-
-			return filter_dic;
-		}
-
-		bool HasKey(const K& key)
-		{
-			return GetKeyList().Contains(key);
-		}
-
-		bool Empty()
-		{
-			return this->Length() == 0;
-		}
-
-		void operator=(std::initializer_list<std::pair<K, V>> map)
-		{
-			for (const std::pair<K, V>* it = map.begin(); it != map.end(); ++it)
-			{
-				list.Add(Pair<K, V>(it->first, it->second));
-			}
-		}
-
-		bool operator==(Dictionary& d)
-		{
-			if (this->Length() != d.Length()) return false;
-
-			for (int i = 0; i < list.Length(); i++)
-			{
-				if ((list[i].first != d.list[i].first) || (list[i].second != d.list[i].second))
-				{
+				if (list[i].first != d.list[i].first || list[i].second != d.list[i].second)
 					return false;
-				}
 			}
 
 			return true;
 		}
 
-		bool operator!=(Dictionary& d)
+		bool operator!=(const Dictionary<K, V>& d) const
 		{
-			if (this->Length() != d.Length()) return true;
-
-			for (int i = 0; i < list.Length(); i++)
-			{
-				if ((list[i].first != d.list[i].first) || (list[i].second != d.list[i].second))
-				{
-					return true;
-				}
-			}
-
-			return false;
+			return !(*this == d);
 		}
 
-		std::vector<Pair<K, V>> operator~()
+		std::vector<Pair<K, V>> operator~() const
 		{
 			return ~list;
 		}
 
-		V operator[](K key)
-		{
-			return this->Get(key);
-		}
-
-		void operator+=(std::pair<K, V> pair)
-		{
-			this->Set(pair.first, pair.second);
-		}
-
-		//Iteration stuff
-
-		// typedef typename List<Pair<K, V>>::iterator iterator;
-        // typedef typename List<Pair<K, V>>::const_iterator const_iterator;
-
-        // iterator begin()
-        // {
-        //     return list.begin();
-        // }
-
-        // iterator end()
-        // {
-        //     return list.end();
-        // }
-
+		// Iteradores
 		auto begin() { return list.begin(); }
 		auto end() { return list.end(); }
-
-        // const_iterator begin() const
-        // {
-        //     return list.begin();
-        // }
-
-        // const_iterator end() const
-        // {
-        //     return list.end();
-        // }
-
-        // const_iterator cbegin() const
-        // {
-        //     return list.cbegin();
-        // }
-
-        // const_iterator cend() const
-        // {
-        //     return list.cend();
-        // }
+		auto begin() const { return list.begin(); }
+		auto end() const { return list.end(); }
 
 	private:
 

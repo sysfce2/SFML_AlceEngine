@@ -72,7 +72,7 @@ void GameObject::AddComponent(ComponentPtr component)
         components.Add(component);
         component->owner = this;
 
-        if(layers.Empty() || !layers.Contains(component->sortingLayer))
+        if(layers.IsEmpty() || !layers.Contains(component->sortingLayer))
         {
             layers.Add(component->sortingLayer);
         }

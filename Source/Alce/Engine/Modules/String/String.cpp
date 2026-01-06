@@ -660,7 +660,7 @@ bool alce::String::operator==(std::wstring& str)
 	return str == str;
 }
 
-bool alce::String::operator==(alce::String str)
+bool alce::String::operator==(const alce::String& str) const
 {
 	return this->str == str.str;
 }
@@ -675,6 +675,7 @@ bool alce::String::operator==(size_t size)
 bool alce::String::operator==(bool boolean)
 {
 	if(boolean && (str == "true" || str == "\"true\"")) return true;
+	if(!boolean && (str == "false" || str == "\"false\"")) return false;
 
 	return false;
 }
