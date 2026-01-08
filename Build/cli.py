@@ -89,7 +89,7 @@ def printHelp():
     prints(" file.\n\n")
 
 def printVersion():    
-    prints("Alce CLI 1.0.6 (2026)\n", "magenta")
+    prints("Alce CLI 1.0.7 (2026)\n", "magenta")
 
 #endregion
 
@@ -843,7 +843,7 @@ def initProject():
     settings_json.write(json.dumps(settings, indent=4))
     settings_json.close()
     prints("\nCreated -> Build/settings.json", "green")
-    warning("The compiler bin path was set undefined by default.")
+    warning("\n\nCompiler bin path was set undefined by default.")
 
 #endregion
 
