@@ -1,4 +1,4 @@
-# 📰 News and Updates
+# News and Updates
 
 ### > (6/9/2025) TileMap Component Released
 

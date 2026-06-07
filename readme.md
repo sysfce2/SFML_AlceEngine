@@ -18,14 +18,14 @@ Alce is a 2D game engine built on top of SFML and Box2D. It provides a component
 
 > [Full changelog](Documentation/News/News.md)
 
-**TileMap component** *(6/9/2025)*
+__**TileMap component** *(6/9/2025)*:__
 Renders tile-based maps exported from PyxelEdit directly on a GameObject. Handles tilesets, layers, flips, and rotations automatically, and updates bounding corners for scene culling. [Docs](Source/Alce/Engine/Components/TileMap/TileMap.md)
 
-**TextRenderer component** *(24/8/2025)*
+__**TextRenderer component** *(24/8/2025)*:__
 Renders styled text in world space with support for formatting, colors, backgrounds, and borders. [Docs](Source/Alce/Engine/Components/TextRenderer/TextRenderer.md)
 
-**Candle lighting integration** *(3/8/2025)*
-Adds 2D dynamic lighting via [Candle](https://github.com/MiguelMJ/Candle): radial and directional lights, fog areas, and custom light meshes (rectangular, circular, polygonal). Integrates with the engine's component system and includes debug visualization.
+__**Candle lighting integration** *(3/8/2025)*:__
+Adds 2D dynamic lighting via [Candle](https://github.com/MiguelMJ/Candle) (radial and directional lights, fog areas, and custom light meshes). Integrates with the engine's component system and includes debug visualization.
 
 ---
 
